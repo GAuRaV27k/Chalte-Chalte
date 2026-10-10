@@ -10,7 +10,7 @@ export interface HistoricalEra {
   yearLabel: string;
   numericYear: number;
   yearSuffix: 'BCE' | 'CE';
-  category: 'PALEOZOIC' | 'MESOZOIC' | 'QUATERNARY' | 'MEDIEVAL CLIMATIC' | 'EARLY ANTHROPOCENE' | 'CUSTOM';
+  category: 'PALEOZOIC' | 'MESOZOIC' | 'QUATERNARY' | 'HOLOCENE' | 'MEDIEVAL CLIMATIC' | 'EARLY ANTHROPOCENE' | 'CUSTOM';
   filterTag: 'Deep Paleozoic' | 'Mesozoic Fauna' | 'Quaternary Ice' | 'Holocene Biomes';
   description: string;
   avgTemp: string;

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { SAMPLE_MODERN_IMAGE, SAMPLE_RECONSTRUCTION_IMAGE } from '../../data/eras';
 import type { ScreenId, UserJourneyState } from '../../types';
+const isTestEnv = import.meta.env.MODE === "test";
 
 interface ResultsScreenProps {
   journeyState: UserJourneyState;
@@ -46,7 +47,6 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
         generationProgress: 20,
       });
 
-      const isTestEnv = import.meta.env.MODE === 'test';
       const delay1 = isTestEnv ? 30 : 700;
       const delay2 = isTestEnv ? 60 : 1500;
 
@@ -201,69 +201,85 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
           </div>
         </div>
 
-        {/* LOADING STATE */}
-        {journeyState.generationStatus === 'processing' && (
-          <div
-            role="status"
-            className="w-full frost-glass-card rounded-3xl p-12 text-center flex flex-col items-center justify-center my-8 shadow-lg"
-          >
-            <div className="w-16 h-16 rounded-full border-4 border-sky-200 border-t-glacial-cyan animate-spin mb-4" />
-            <h3 className="text-xl font-headline font-bold text-polar-navy mb-2">
-              Synthesizing Geological Stratigraphy...
-            </h3>
-            <p className="text-sm text-frost-slate max-w-md mb-6 leading-relaxed">
-              Applying latent diffusion with quaternary botanical priors, permafrost cryosol mappings, and glacial silt dispersal.
-            </p>
-            <div className="w-full max-w-md bg-slate-200 rounded-full h-2.5 overflow-hidden mb-2">
-              <div
-                className="bg-gradient-to-r from-glacial-cyan to-sky-400 h-2.5 rounded-full transition-all duration-300"
-                style={{ width: `${journeyState.generationProgress}%` }}
-              />
-            </div>
-            <span className="text-xs font-mono text-glacial-cyan font-semibold">
-              PROGRESS: {journeyState.generationProgress}% • SVD INFERENCE
-            </span>
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {/* LOADING STATE */}
+          {journeyState.generationStatus === 'processing' && (
+            <motion.div
+              key="loading"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={isTestEnv ? undefined : { opacity: 0, y: -20, filter: 'blur(10px)' }}
+              transition={{ duration: 0.5 }}
+              role="status"
+              className="w-full frost-glass-card rounded-3xl p-12 text-center flex flex-col items-center justify-center my-8 shadow-lg"
+            >
+              <div className="w-16 h-16 rounded-full border-4 border-sky-200 border-t-glacial-cyan animate-spin mb-4" />
+              <h3 className="text-xl font-headline font-bold text-polar-navy mb-2">
+                Synthesizing Geological Stratigraphy...
+              </h3>
+              <p className="text-sm text-frost-slate max-w-md mb-6 leading-relaxed">
+                Applying latent diffusion with quaternary botanical priors, permafrost cryosol mappings, and glacial silt dispersal.
+              </p>
+              <div className="w-full max-w-md bg-slate-200 rounded-full h-2.5 overflow-hidden mb-2">
+                <div
+                  className="bg-gradient-to-r from-glacial-cyan to-sky-400 h-2.5 rounded-full transition-all duration-300"
+                  style={{ width: `${journeyState.generationProgress}%` }}
+                />
+              </div>
+              <span className="text-xs font-mono text-glacial-cyan font-semibold">
+                PROGRESS: {journeyState.generationProgress}% • SVD INFERENCE
+              </span>
+            </motion.div>
+          )}
 
-        {/* FAILED STATE */}
-        {journeyState.generationStatus === 'failed' && (
-          <div
-            role="alert"
-            className="w-full bg-rose-50/80 border border-rose-200 rounded-3xl p-10 text-center flex flex-col items-center justify-center my-6 shadow-sm"
-          >
-            <div className="w-14 h-14 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 mb-4">
-              <span className="material-symbols-outlined text-3xl">error_outline</span>
-            </div>
-            <h3 className="text-xl font-headline font-bold text-rose-950 mb-2">
-              Synthesis Interrupted
-            </h3>
-            <p className="text-sm text-rose-700 max-w-md mb-6 leading-relaxed">
-              {journeyState.generationError ||
-                'The latent diffusion pipeline encountered a memory constraint. You can retry synthesis or calibrate input parameters.'}
-            </p>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleRetry}
-                className="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-full font-headline font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
-                type="button"
-              >
-                Retry Synthesis
-              </button>
-              <button
-                onClick={() => onNavigate('era')}
-                className="px-6 py-2.5 bg-white border border-rose-300 text-rose-900 rounded-full font-headline font-semibold text-xs uppercase tracking-wider hover:bg-rose-50 cursor-pointer"
-                type="button"
-              >
-                Tweak Era Parameters
-              </button>
-            </div>
-          </div>
-        )}
+          {/* FAILED STATE */}
+          {journeyState.generationStatus === 'failed' && (
+            <motion.div
+              key="failed"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={isTestEnv ? undefined : { opacity: 0, scale: 0.95 }}
+              role="alert"
+              className="w-full bg-rose-50/80 border border-rose-200 rounded-3xl p-10 text-center flex flex-col items-center justify-center my-6 shadow-sm"
+            >
+              <div className="w-14 h-14 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 mb-4">
+                <span className="material-symbols-outlined text-3xl">error_outline</span>
+              </div>
+              <h3 className="text-xl font-headline font-bold text-rose-950 mb-2">
+                Synthesis Interrupted
+              </h3>
+              <p className="text-sm text-rose-700 max-w-md mb-6 leading-relaxed">
+                {journeyState.generationError ||
+                  'The latent diffusion pipeline encountered a memory constraint. You can retry synthesis or calibrate input parameters.'}
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleRetry}
+                  className="px-6 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-full font-headline font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+                  type="button"
+                >
+                  Retry Synthesis
+                </button>
+                <button
+                  onClick={() => onNavigate('era')}
+                  className="px-6 py-2.5 bg-white border border-rose-300 text-rose-900 rounded-full font-headline font-semibold text-xs uppercase tracking-wider hover:bg-rose-50 cursor-pointer"
+                  type="button"
+                >
+                  Tweak Era Parameters
+                </button>
+              </div>
+            </motion.div>
+          )}
 
-        {/* COMPLETED STATE / MAIN BENTO LAYOUT */}
-        {journeyState.generationStatus !== 'processing' && journeyState.generationStatus !== 'failed' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* COMPLETED STATE / MAIN BENTO LAYOUT */}
+          {journeyState.generationStatus === 'completed' && (
+            <motion.div 
+              key="completed"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"
+            >
             {/* LEFT / TOP (8-col): Primary Cinematic Stage & Viewport Controls */}
             <div className="lg:col-span-8 flex flex-col gap-4">
               {/* Stage Header: Viewport Mode Switcher & Telemetry Pill */}
@@ -785,8 +801,9 @@ export const ResultsScreen: React.FC<ResultsScreenProps> = ({
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </main>
     </div>
   );

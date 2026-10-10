@@ -9,7 +9,7 @@ describe('Creation Studio File Upload & Validation', () => {
     // Go to Studio
     fireEvent.click(screen.getByRole('button', { name: /Launch Studio/i }));
     await waitFor(() => {
-      expect(screen.getByText('Plate Registration & Context')).toBeInTheDocument();
+      expect(screen.getByText('Capture Your Landscape')).toBeInTheDocument();
     });
 
     const fileInput = screen.getByTestId('landscape-file-input') as HTMLInputElement;
@@ -20,18 +20,18 @@ describe('Creation Studio File Upload & Validation', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/Invalid file format\. Please upload a TIFF, RAW, PNG, or JPEG image\./i)
+        screen.getByText(/This file type is not supported/i)
       ).toBeInTheDocument();
     });
 
-    // 2. Upload an oversized file (>64MB)
+    // 2. Upload an oversized file (>25MB)
     const largeFile = new File([new ArrayBuffer(1024)], 'large.png', { type: 'image/png' });
-    Object.defineProperty(largeFile, 'size', { value: 70 * 1024 * 1024 });
+    Object.defineProperty(largeFile, 'size', { value: 30 * 1024 * 1024 });
     fireEvent.change(fileInput, { target: { files: [largeFile] } });
 
     await waitFor(() => {
       expect(
-        screen.getByText(/File size exceeds the 64MB threshold/i)
+        screen.getByText(/File size exceeds 25MB limit/i)
       ).toBeInTheDocument();
     });
   });
@@ -42,7 +42,7 @@ describe('Creation Studio File Upload & Validation', () => {
     // Go to Studio
     fireEvent.click(screen.getByRole('button', { name: /Launch Studio/i }));
     await waitFor(() => {
-      expect(screen.getByText('Plate Registration & Context')).toBeInTheDocument();
+      expect(screen.getByText('Capture Your Landscape')).toBeInTheDocument();
     });
 
     // Reset first
@@ -55,13 +55,13 @@ describe('Creation Studio File Upload & Validation', () => {
     expect(screen.getByDisplayValue(/Olympic National Park, Hoh Rain Forest, WA/i)).toBeInTheDocument();
 
     // Toggle Traveler Inclusion
-    const travelerToggle = screen.getByLabelText(/Include Traveler in Scene/i) || screen.getByRole('checkbox');
+    const travelerToggle = screen.getByTestId('traveler-toggle');
     expect(travelerToggle).not.toBeChecked();
     fireEvent.click(travelerToggle);
     expect(travelerToggle).toBeChecked();
 
     // Verify attire mode radio options
-    const silhouetteRadio = screen.getByLabelText(/Silhouetted Naturalist/i);
+    const silhouetteRadio = screen.getByLabelText(/Silhouetted Observer/i);
     fireEvent.click(silhouetteRadio);
     expect(silhouetteRadio).toBeChecked();
 

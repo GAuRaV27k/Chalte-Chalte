@@ -34,6 +34,7 @@ describe('Results Screen Comparison, Video Playback & Error Retry', () => {
     expect(playButtons.length).toBeGreaterThan(0);
 
     // Switch back to Comparison mode
+    screen.debug();
     const compareTab = screen.getByRole('button', { name: /Interactive Comparison/i });
     fireEvent.click(compareTab);
     expect(screen.getByText(/Modern 2025 Baseline/i)).toBeInTheDocument();

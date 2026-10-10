@@ -14,7 +14,7 @@ describe('TimeLens AI Journey Navigation & State Preservation', () => {
 
     // Should navigate to Creation Studio
     await waitFor(() => {
-      expect(screen.getByText('Plate Registration & Context')).toBeInTheDocument();
+      expect(screen.getByText('Capture Your Landscape')).toBeInTheDocument();
     });
   });
 
@@ -26,7 +26,7 @@ describe('TimeLens AI Journey Navigation & State Preservation', () => {
     fireEvent.click(studioNavBtn);
 
     await waitFor(() => {
-      expect(screen.getByText('Plate Registration & Context')).toBeInTheDocument();
+      expect(screen.getByText('Capture Your Landscape')).toBeInTheDocument();
     });
 
     // Change location field
@@ -73,7 +73,7 @@ describe('TimeLens AI Journey Navigation & State Preservation', () => {
     fireEvent.click(screen.getByRole('button', { name: /Launch Studio/i }));
 
     await waitFor(() => {
-      expect(screen.getByText('Plate Registration & Context')).toBeInTheDocument();
+      expect(screen.getByText('Capture Your Landscape')).toBeInTheDocument();
     });
 
     // Click Clear & Reset
@@ -88,6 +88,6 @@ describe('TimeLens AI Journey Navigation & State Preservation', () => {
     const eraNavBtn = screen.getByRole('button', { name: /^Epochs$/i });
     fireEvent.click(eraNavBtn);
 
-    expect(screen.getByText('Plate Registration & Context')).toBeInTheDocument();
+    expect(screen.getByText('Capture Your Landscape')).toBeInTheDocument();
   });
 });

@@ -9,6 +9,7 @@ import { ResultsScreen } from './components/screens/ResultsScreen';
 import { StudioScreen } from './components/screens/StudioScreen';
 import { SAMPLE_LANDSCAPE_IMAGE } from './data/eras';
 import type { ScreenId, UserJourneyState } from './types';
+import { pageTransition as defaultPageTransition } from './utils/motion';
 
 const INITIAL_JOURNEY_STATE: UserJourneyState = {
   currentScreen: 'landing',
@@ -104,8 +105,15 @@ export const App: React.FC = () => {
   const canNavigateToResults = Boolean(journeyState.landscapePreviewUrl && journeyState.selectedEraId);
 
   const isTest = import.meta.env.MODE === 'test';
-  const screenTransition = isTest ? { duration: 0 } : { duration: 0.35, ease: 'easeInOut' as const };
-  const exitAnimation = isTest ? undefined : { opacity: 0, y: -10 };
+  
+  // Override for test environment to avoid unmounting delays in Vitest
+  const pageTransition = isTest
+    ? {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0 } },
+        exit: { opacity: 0, transition: { duration: 0 } },
+      }
+    : defaultPageTransition;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -130,14 +138,14 @@ export const App: React.FC = () => {
 
       {/* Screen Transition Area */}
       <div className="flex-1 flex flex-col">
-        <AnimatePresence initial={false}>
+        <AnimatePresence mode="wait">
           {journeyState.currentScreen === 'landing' && (
             <motion.div
               key="landing"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={exitAnimation}
-              transition={screenTransition}
+              variants={pageTransition}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
               className="flex-1 flex flex-col"
             >
               <LandingScreen onNavigate={navigateTo} />
@@ -147,10 +155,10 @@ export const App: React.FC = () => {
           {journeyState.currentScreen === 'studio' && (
             <motion.div
               key="studio"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={exitAnimation}
-              transition={screenTransition}
+              variants={pageTransition}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
               className="flex-1 flex flex-col"
             >
               <StudioScreen
@@ -165,10 +173,10 @@ export const App: React.FC = () => {
           {journeyState.currentScreen === 'era' && (
             <motion.div
               key="era"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={exitAnimation}
-              transition={screenTransition}
+              variants={pageTransition}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
               className="flex-1 flex flex-col"
             >
               <EraSelectionScreen
@@ -182,10 +190,10 @@ export const App: React.FC = () => {
           {journeyState.currentScreen === 'results' && (
             <motion.div
               key="results"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={exitAnimation}
-              transition={screenTransition}
+              variants={pageTransition}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
               className="flex-1 flex flex-col"
             >
               <ResultsScreen

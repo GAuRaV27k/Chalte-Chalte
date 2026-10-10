@@ -8,6 +8,20 @@ if (typeof window !== 'undefined') {
   window.scrollTo = () => {};
 }
 
+// Mock IntersectionObserver
+if (typeof window !== 'undefined' && !window.IntersectionObserver) {
+  window.IntersectionObserver = class IntersectionObserver {
+    root: Element | Document | null = null;
+    rootMargin: string = '';
+    thresholds: ReadonlyArray<number> = [];
+    constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {}
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+    takeRecords() { return []; }
+  } as any;
+}
+
 // Mock URL.createObjectURL and URL.revokeObjectURL
 if (typeof URL !== 'undefined') {
   if (!URL.createObjectURL) {

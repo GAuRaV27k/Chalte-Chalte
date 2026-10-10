@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import type { ScreenId } from '../../types';
+import { staggerContainer, fadeInUp, fadeIn } from '../../utils/motion';
 
 interface LandingScreenProps {
   onNavigate: (screen: ScreenId) => void;
@@ -21,73 +22,105 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
     <div className="relative overflow-x-hidden min-h-screen">
       {/* Atmospheric Glacial Ambient Radiance */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute -top-[20%] left-1/4 w-[700px] h-[700px] bg-gradient-to-br from-sky-200/40 to-cyan-100/30 rounded-full blur-[130px]" />
-        <div className="absolute top-[40%] -right-[15%] w-[800px] h-[800px] bg-gradient-to-bl from-blue-200/30 to-teal-100/25 rounded-full blur-[140px]" />
-        <div className="absolute -bottom-[10%] left-[10%] w-[600px] h-[600px] bg-gradient-to-tr from-sky-200/35 to-indigo-100/20 rounded-full blur-[120px]" />
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+          className="absolute -top-[20%] left-1/4 w-[700px] h-[700px] bg-gradient-to-br from-sky-200/40 to-cyan-100/30 rounded-full blur-[130px]" 
+        />
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, delay: 0.2 }}
+          className="absolute top-[40%] -right-[15%] w-[800px] h-[800px] bg-gradient-to-bl from-blue-200/30 to-teal-100/25 rounded-full blur-[140px]" 
+        />
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, delay: 0.4 }}
+          className="absolute -bottom-[10%] left-[10%] w-[600px] h-[600px] bg-gradient-to-tr from-sky-200/35 to-indigo-100/20 rounded-full blur-[120px]" 
+        />
       </div>
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative min-h-[850px] md:min-h-[900px] flex items-center justify-center overflow-hidden border-b border-sky-100/70">
         {/* Landscape Plate with Glacial Veil Overlay */}
-        <div className="absolute inset-0 z-0">
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1.05, opacity: 1 }}
+          transition={{ duration: 1.5, ease: 'easeOut' }}
+          className="absolute inset-0 z-0"
+        >
           <img
-            className="w-full h-full object-cover object-center opacity-30 scale-105 filter saturate-75 brightness-110"
+            className="w-full h-full object-cover object-center opacity-30 filter saturate-75 brightness-110"
             alt="Deep cinematic ancient primeval conifer forest shrouded in primordial morning mist"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0a60grqM5HjKjMm20CYMecEsNdVzp8hQvD0rbuV008oz8byotCBHO3I4im_0Aeh6R3SD9xUqmnaKkxDA3fVB_7YKeqluqspMKC0QAfh5axjpx1UGb9AQGNLfD3_ofkqCmkUpQbUlwVBuizgQ_UPOQnwO6y2s2chgDWp9hFOJhwRlqm0RgrHsUmMsV4sC0-zHYndL8AcaaFowWKmXa9-lBbryliGm4b3NX7hPSFBSWStsFwMYQY-6f_Q"
           />
           {/* Glacial gradient light veil overlays */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#edf5fa] via-[#edf5fa]/85 to-[#f6fafc]/90" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#edf5fa]/90 via-transparent to-[#edf5fa]/90" />
-        </div>
+        </motion.div>
 
         {/* Telemetry Frame Viewfinder HUD Elements */}
-        <div className="absolute top-10 left-10 hidden lg:flex items-center gap-2 text-frost-slate font-code-telemetry text-xs pointer-events-none frost-glass px-4 py-2 rounded-full border border-white/80">
+        <motion.div 
+          variants={fadeIn} initial="hidden" animate="visible" transition={{ delay: 0.5 }}
+          className="absolute top-10 left-10 hidden lg:flex items-center gap-2 text-frost-slate font-code-telemetry text-xs pointer-events-none frost-glass px-4 py-2 rounded-full border border-white/80"
+        >
           <span className="w-2 h-2 rounded-full bg-glacial-cyan" />
           <span>LAT: 46.2044° N / LON: 06.1432° E</span>
           <span className="text-glacial-cyan ml-2 font-medium">● REC // FROST-SYNTH</span>
-        </div>
+        </motion.div>
 
-        <div className="absolute top-10 right-10 hidden lg:flex items-center gap-2 text-frost-slate font-code-telemetry text-xs pointer-events-none frost-glass px-4 py-2 rounded-full border border-white/80">
+        <motion.div 
+          variants={fadeIn} initial="hidden" animate="visible" transition={{ delay: 0.6 }}
+          className="absolute top-10 right-10 hidden lg:flex items-center gap-2 text-frost-slate font-code-telemetry text-xs pointer-events-none frost-glass px-4 py-2 rounded-full border border-white/80"
+        >
           <span>OPTICAL RETICLE: 65MM ANA-WIDE</span>
           <span className="material-symbols-outlined text-sm text-glacial-cyan">lens_blur</span>
-        </div>
+        </motion.div>
 
-        <div className="absolute bottom-10 left-10 hidden lg:flex items-center gap-2 text-frost-slate font-code-telemetry text-xs pointer-events-none frost-glass px-4 py-2 rounded-full border border-white/80">
+        <motion.div 
+          variants={fadeIn} initial="hidden" animate="visible" transition={{ delay: 0.7 }}
+          className="absolute bottom-10 left-10 hidden lg:flex items-center gap-2 text-frost-slate font-code-telemetry text-xs pointer-events-none frost-glass px-4 py-2 rounded-full border border-white/80"
+        >
           <span>FIDELITY TOLERANCE: ±0.04% STRATIGRAPHIC</span>
-        </div>
+        </motion.div>
 
-        <div className="absolute bottom-10 right-10 hidden lg:flex items-center gap-2 text-frost-slate font-code-telemetry text-xs pointer-events-none frost-glass px-4 py-2 rounded-full border border-white/80">
+        <motion.div 
+          variants={fadeIn} initial="hidden" animate="visible" transition={{ delay: 0.8 }}
+          className="absolute bottom-10 right-10 hidden lg:flex items-center gap-2 text-frost-slate font-code-telemetry text-xs pointer-events-none frost-glass px-4 py-2 rounded-full border border-white/80"
+        >
           <span>DIFFUSION SEED: 0x9F33A_PLEISTOCENE</span>
           <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-        </div>
+        </motion.div>
 
         {/* Hero Main Glass Card Container */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
           className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 text-center py-20 flex flex-col items-center"
         >
           {/* Open Science Frost Pill */}
-          <div className="inline-flex items-center gap-2.5 px-5 py-2 frost-glass rounded-full mb-8 shadow-sm border border-white">
+          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2.5 px-5 py-2 frost-glass rounded-full mb-8 shadow-sm border border-white">
             <span className="w-2 h-2 rounded-full bg-glacial-cyan animate-pulse" />
             <span className="text-polar-navy font-label-caps text-xs tracking-widest uppercase font-semibold">
               Open Science Initiative • Zero Persistent Telemetry
             </span>
-          </div>
+          </motion.div>
 
           {/* Hero Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-display-hero text-polar-navy tracking-tight mb-6 max-w-4xl drop-shadow-sm leading-tight">
+          <motion.h1 variants={fadeInUp} className="text-4xl sm:text-6xl md:text-7xl font-display-hero text-polar-navy tracking-tight mb-6 max-w-4xl drop-shadow-sm leading-tight">
             Every Place Has a Past
-          </h1>
+          </motion.h1>
 
           {/* Evocative Subheadline */}
-          <p className="text-base sm:text-lg md:text-xl font-body-lead text-frost-slate max-w-2xl mb-10 leading-relaxed font-normal">
+          <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl font-body-lead text-frost-slate max-w-2xl mb-10 leading-relaxed font-normal">
             Photograph any landscape today. Reconstruct how the earth breathed centuries, millennia, or millions of years ago using open-weight diffusion and cinematic video synthesis.
-          </p>
+          </motion.p>
 
           {/* CTA Cluster */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
+          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
@@ -104,19 +137,25 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
               <span className="material-symbols-outlined text-base text-glacial-cyan">play_arrow</span>
               <span className="font-medium">Explore Sample Reconstructions</span>
             </a>
-          </div>
+          </motion.div>
 
           {/* Micro Telemetry Scroll Cue */}
-          <div className="mt-16 flex flex-col items-center gap-2 text-frost-slate">
+          <motion.div variants={fadeInUp} className="mt-16 flex flex-col items-center gap-2 text-frost-slate">
             <span className="text-xs font-code-telemetry tracking-widest uppercase">Epoch Continuum</span>
             <div className="w-px h-10 bg-gradient-to-b from-glacial-cyan to-transparent" />
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
       {/* ================= INTERACTIVE TEMPORAL COMPARISON VISUALIZER ================= */}
       <section className="py-20 md:py-24 px-4 sm:px-6 md:px-12 relative" id="visualizer">
-        <div className="max-w-6xl mx-auto">
+        <motion.div 
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="max-w-6xl mx-auto"
+        >
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
@@ -236,13 +275,19 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
               })}
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ================= ARCHIVAL FEATURE PILLARS SECTION ================= */}
       <section className="py-20 md:py-24 px-4 sm:px-6 md:px-12 relative border-b border-sky-100/70">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-14 max-w-2xl">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="max-w-6xl mx-auto"
+        >
+          <motion.div variants={fadeInUp} className="mb-14 max-w-2xl">
             <div className="text-xs font-label-caps text-glacial-cyan uppercase tracking-widest font-semibold mb-2">
               Methodology & Foundations
             </div>
@@ -252,12 +297,12 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
             <p className="text-frost-slate font-body-muted text-sm sm:text-base mt-3 leading-relaxed">
               Trained on millions of historical botanical records, satellite terrain heights, and paleoclimatology models rather than commercial marketing feeds.
             </p>
-          </div>
+          </motion.div>
 
           {/* 3 Frozen Glass Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Column 01 */}
-            <div className="frost-glass-card rounded-3xl p-8 flex flex-col justify-between group hover:shadow-[0_20px_40px_rgba(2,132,199,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <motion.div variants={fadeInUp} className="frost-glass-card rounded-3xl p-8 flex flex-col justify-between group hover:shadow-[0_20px_40px_rgba(2,132,199,0.15)] hover:-translate-y-1 transition-all duration-300">
               <div>
                 <div className="text-xs font-code-telemetry text-glacial-cyan font-semibold tracking-widest mb-4 flex items-center justify-between">
                   <span>01 // WEIGHT ARCHITECTURE</span>
@@ -278,10 +323,10 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   APACHE 2.0
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Column 02 */}
-            <div className="frost-glass-card rounded-3xl p-8 flex flex-col justify-between group hover:shadow-[0_20px_40px_rgba(2,132,199,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <motion.div variants={fadeInUp} className="frost-glass-card rounded-3xl p-8 flex flex-col justify-between group hover:shadow-[0_20px_40px_rgba(2,132,199,0.15)] hover:-translate-y-1 transition-all duration-300">
               <div>
                 <div className="text-xs font-code-telemetry text-glacial-cyan font-semibold tracking-widest mb-4 flex items-center justify-between">
                   <span>02 // DOMAIN FIDELITY</span>
@@ -302,10 +347,10 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   QUATERNARY
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Column 03 */}
-            <div className="frost-glass-card rounded-3xl p-8 flex flex-col justify-between group hover:shadow-[0_20px_40px_rgba(2,132,199,0.15)] hover:-translate-y-1 transition-all duration-300">
+            <motion.div variants={fadeInUp} className="frost-glass-card rounded-3xl p-8 flex flex-col justify-between group hover:shadow-[0_20px_40px_rgba(2,132,199,0.15)] hover:-translate-y-1 transition-all duration-300">
               <div>
                 <div className="text-xs font-code-telemetry text-glacial-cyan font-semibold tracking-widest mb-4 flex items-center justify-between">
                   <span>03 // KINEMATICS & MOTION</span>
@@ -326,15 +371,21 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   DIFFUSION
                 </span>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ================= EXPEDITION PLATE LEDGER (BENTO) ================= */}
       <section className="py-20 md:py-24 px-4 sm:px-6 md:px-12 relative border-b border-sky-100/70" id="archives">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="max-w-6xl mx-auto"
+        >
+          <motion.div variants={fadeInUp} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
             <div>
               <div className="text-xs font-label-caps text-glacial-cyan uppercase tracking-widest font-semibold mb-2">
                 Expedition Plate Ledger
@@ -352,12 +403,12 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                 <span className="material-symbols-outlined text-xs">north_east</span>
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Archival Gallery Grid */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             {/* Plate 1: Large Featured Plate */}
-            <div className="md:col-span-8 frost-glass-card rounded-3xl overflow-hidden flex flex-col group border border-white/80 hover:shadow-[0_24px_50px_rgba(2,132,199,0.14)] transition-all duration-300">
+            <motion.div variants={fadeInUp} className="md:col-span-8 frost-glass-card rounded-3xl overflow-hidden flex flex-col group border border-white/80 hover:shadow-[0_24px_50px_rgba(2,132,199,0.14)] transition-all duration-300">
               <div className="relative aspect-[16/10] overflow-hidden rounded-t-3xl bg-slate-100">
                 <img
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -392,10 +443,10 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Plate 2: Vertical Telemetry Card */}
-            <div className="md:col-span-4 frost-glass-card rounded-3xl overflow-hidden flex flex-col group border border-white/80 hover:shadow-[0_24px_50px_rgba(2,132,199,0.14)] transition-all duration-300">
+            <motion.div variants={fadeInUp} className="md:col-span-4 frost-glass-card rounded-3xl overflow-hidden flex flex-col group border border-white/80 hover:shadow-[0_24px_50px_rgba(2,132,199,0.14)] transition-all duration-300">
               <div className="relative aspect-square overflow-hidden rounded-t-3xl bg-slate-100">
                 <img
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -428,16 +479,22 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ================= SOVEREIGN OPEN SCIENCE / CLI CONSOLE ================= */}
       <section className="py-20 md:py-24 px-4 sm:px-6 md:px-12 relative border-b border-sky-100/70">
-        <div className="max-w-6xl mx-auto">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="max-w-6xl mx-auto"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-5">
+            <motion.div variants={fadeInUp} className="lg:col-span-5">
               <div className="text-xs font-label-caps text-glacial-cyan uppercase tracking-widest font-semibold mb-2">
                 Sovereign Execution
               </div>
@@ -475,10 +532,10 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   Launch Web Studio
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Code / Telemetry Terminal Box */}
-            <div className="lg:col-span-7 frost-glass-card rounded-3xl overflow-hidden border border-white/90 shadow-[0_20px_50px_rgba(2,132,199,0.12)]">
+            <motion.div variants={fadeInUp} className="lg:col-span-7 frost-glass-card rounded-3xl overflow-hidden border border-white/90 shadow-[0_20px_50px_rgba(2,132,199,0.12)]">
               <div className="bg-white/70 border-b border-sky-100/80 px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-rose-400" />
@@ -508,14 +565,20 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
                   <span>[SYNTHESIS COMPLETE] Output stored to ./renders/dolomites_triassic_4k.mov</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ================= NATURALIST INVITATION CALLOUT ================= */}
       <section className="py-20 md:py-24 px-4 sm:px-6 md:px-12 relative text-center">
-        <div className="max-w-4xl mx-auto frost-glass-card rounded-3xl p-8 sm:p-10 md:p-16 border border-white/90 shadow-[0_20px_60px_rgba(2,132,199,0.12)]">
+        <motion.div 
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="max-w-4xl mx-auto frost-glass-card rounded-3xl p-8 sm:p-10 md:p-16 border border-white/90 shadow-[0_20px_60px_rgba(2,132,199,0.12)]"
+        >
           <div className="w-16 h-16 rounded-full frost-glass mx-auto flex items-center justify-center text-glacial-cyan mb-6 shadow-sm border border-white">
             <span className="material-symbols-outlined text-3xl">travel_explore</span>
           </div>
@@ -541,7 +604,7 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({ onNavigate }) => {
               Explore Geological Epochs
             </button>
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );

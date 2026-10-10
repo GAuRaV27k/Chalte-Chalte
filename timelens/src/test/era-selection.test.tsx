@@ -45,13 +45,13 @@ describe('Era Selection Timeline & Reconstruction Modes', () => {
     fireEvent.click(paleozoicFilter);
 
     expect(screen.getByText('Carboniferous Primeval Swamp')).toBeInTheDocument();
-    expect(screen.queryByText('Late Cretaceous Wilderness')).not.toBeInTheDocument();
+    expect(screen.queryByText(/Late Cretaceous/i)).not.toBeInTheDocument();
 
     // Filter by Mesozoic Fauna
     const mesozoicFilter = screen.getByRole('button', { name: /Mesozoic Fauna/i });
     fireEvent.click(mesozoicFilter);
 
-    expect(screen.getByText('Late Cretaceous Wilderness')).toBeInTheDocument();
+    expect(screen.getByText(/Late Cretaceous/i)).toBeInTheDocument();
     expect(screen.queryByText('Carboniferous Primeval Swamp')).not.toBeInTheDocument();
   });
 });
