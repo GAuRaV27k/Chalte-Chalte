@@ -1,29 +1,83 @@
-# Logs
-logs
+# JavaScript dependencies and generated builds
+node_modules/
+dist/
+dist-ssr/
+coverage/
+.vite/
+
+# TypeScript and frontend tool caches
+*.tsbuildinfo
+.eslintcache
+.oxlintcache
+
+# Python environments, bytecode, tests, and coverage
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local environment files; keep safe templates trackable
+.env
+.env.*
+!.env.example
+
+# Logs and temporary/editor files
+logs/
 *.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Operating system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
 
-# Editor directories and files
+# Local editor/IDE state (keep shareable VS Code extensions)
+.idea/
+.vs/
+.fleet/
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
 
-# Generated screenshots
+# Local databases and private user-generated content
+*.db
+*.sqlite
+*.sqlite3
+recordings/
+audio-recordings/
+transcripts/
+private-journals/
+user-data/
+local-data/
+*.webm
+*.wav
+*.m4a
+*.ogg
+
+# Local model weights and caches
+.ollama/
+ollama_models/
+model_cache/
+whisper-models/
+checkpoints/
+*.gguf
+*.safetensors
+*.ckpt
+*.pth
+
+# Generated UI captures used during local design verification
 screen_*.png
 stitch_*.png
-*.png

@@ -1,5 +1,5 @@
 import type { WalkSession, TranscriptFragment, JournalEntry } from '../types';
-import { isServerAiEnabled, getApiBaseUrl, requestJournalFromApi } from '../api/client';
+import { isServerAiEnabled, requestJournalFromApi } from '../api/client';
 
 export interface JournalSynthesizer {
   synthesize(
@@ -95,7 +95,7 @@ export class ApiJournalGenerator implements JournalSynthesizer {
     transcripts: TranscriptFragment[],
     signal?: AbortSignal
   ): Promise<JournalEntry> {
-    if (!isServerAiEnabled() || !getApiBaseUrl()) {
+    if (!isServerAiEnabled()) {
       return this.fallback.synthesize(session, transcripts, signal);
     }
 

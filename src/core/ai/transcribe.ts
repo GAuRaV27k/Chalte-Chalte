@@ -1,5 +1,5 @@
 import type { RecordedClip, TranscriptFragment } from '../types';
-import { isServerAiEnabled, getApiBaseUrl, requestTranscribeFromApi } from '../api/client';
+import { isServerAiEnabled, requestTranscribeFromApi } from '../api/client';
 
 export interface Transcriber {
   readonly name: string;
@@ -69,7 +69,7 @@ export class ApiTranscriber implements Transcriber {
  * Factory helper: chooses transcriber based on config and user settings
  */
 export function getDefaultTranscriber(): Transcriber {
-  if (isServerAiEnabled() && getApiBaseUrl()) {
+  if (isServerAiEnabled()) {
     return new ApiTranscriber();
   }
   const isDemoMode = typeof import.meta !== 'undefined' && import.meta.env?.VITE_DEMO_AI === 'true';

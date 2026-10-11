@@ -15,6 +15,7 @@ import {
 } from './api/client';
 import { ApiQuestionGenerator } from './ai/questions';
 import { ApiJournalGenerator } from './ai/journal';
+import { getDefaultTranscriber } from './ai/transcribe';
 import type { WalkSession, JournalEntry } from './types';
 
 // Mock localStorage for test environment
@@ -99,6 +100,26 @@ describe('Phase 4.5 Hardening & Verification Suite', () => {
     expect(entry.walkingSummary).not.toContain('gemma');
     expect(entry.walkingSummary).not.toContain('whisper');
     expect(entry.ideasWorthRevisiting).toBeUndefined();
+  });
+
+  it('does not silently fall back to a mock journal when server mode has no API URL', async () => {
+    setServerAiEnabled(true);
+    vi.stubEnv('VITE_API_BASE_URL', '');
+    const synth = new ApiJournalGenerator();
+    const session: WalkSession = {
+      id: 'sess-server-config-error', createdAt: Date.now(),
+      intention: { topic: 'Solitude', mood: 'reflective', context: 'park', durationMinutes: 20, language: 'en' },
+      status: 'ended_unsaved', elapsedSeconds: 1200, questionsDelivered: [], clipsCount: 1,
+    };
+    await expect(synth.synthesize(session, [
+      { id: 'tr-1', clipId: 'c1', text: 'A private thought.', isMock: false, timestamp: Date.now() },
+    ])).rejects.toThrow('Server URL is not configured');
+  });
+
+  it('keeps transcription server-backed when server mode is enabled without a URL', async () => {
+    setServerAiEnabled(true);
+    vi.stubEnv('VITE_API_BASE_URL', '');
+    expect(getDefaultTranscriber().name).toBe('Whisper (Server)');
   });
 
   // 4. Abort / Cancel on each API call
