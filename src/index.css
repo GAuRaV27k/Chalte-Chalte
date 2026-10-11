@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #10131B;
+  --color-canvas-secondary: #1B202A;
+  --color-primary: #A8E6E8;
+  --color-primary-focus: #BCEFF0;
+  --color-primary-on-dark: #10131B;
+  --color-accent-lavender: #B9B4E8;
+  --color-accent-cream: #F0E7D5;
+  --color-ink: #F4F3EF;
+  --color-ink-muted-80: #8E97A6;
+  --color-ink-muted-48: #5C6473;
+  --color-body-muted: #A0A9B8;
+  --color-destructive: #E27D7D;
+  --color-destructive-bg: rgba(226, 125, 125, 0.12);
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
+}
+
+:root {
+  --canvas: #10131B;
+  --canvas-secondary: #1B202A;
+  --primary: #A8E6E8;
+  --primary-focus: #BCEFF0;
+  --accent-lavender: #B9B4E8;
+  --accent-cream: #F0E7D5;
+  --ink: #F4F3EF;
+  --ink-muted: #A0A9B8;
+  --surface-glass: rgba(27, 32, 42, 0.65);
+  --surface-glass-active: rgba(35, 42, 56, 0.85);
+  --surface-glass-border: rgba(255, 255, 255, 0.12);
+  --divider-soft: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #10131B;
+  color: #F4F3EF;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(27, 32, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-panel-subtle {
+  background: rgba(27, 32, 42, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-active {
+  background: rgba(35, 42, 56, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(168, 230, 232, 0.4);
+}
+
+/* Typography helper utilities */
+.font-instrument {
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+
+.font-space {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', system-ui, sans-serif;
+}
