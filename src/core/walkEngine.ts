@@ -140,14 +140,10 @@ export class WalkEngine {
   }
 
   /**
-   * Skip: stop current TTS speech and advance the delivered index so the
-   * current question is marked done. Does NOT break spacing of future questions.
+   * Skip: stop current speech and move on without breaking future schedule.
    */
   public skip(): void {
-    if (this.lastDeliveredIndex < this.questions.length - 1) {
-      this.lastDeliveredIndex++;
-    }
-    // Reset quiet buffer so reflection continues normally
+    // Reset quiet buffer so quiet reflection continues normally
     this.quietBufferUntilMs = Date.now() + 10_000;
     this.setEngineState('reflecting');
   }
@@ -168,7 +164,8 @@ export class WalkEngine {
   public getElapsedSeconds(): number {
     if (this.startTimestampMs === 0) return 0;
     const now = Date.now();
-    const elapsed = now - this.startTimestampMs - this.pausedAccumulatedMs;
+    const currentPauseMs = this.engineState === 'paused' ? now - this.pauseStartedAt : 0;
+    const elapsed = now - this.startTimestampMs - this.pausedAccumulatedMs - currentPauseMs;
     return Math.max(0, Math.floor(elapsed / 1000));
   }
 
@@ -218,7 +215,9 @@ export class WalkEngine {
     }
 
     // Check question delivery
+    const isHidden = typeof document !== 'undefined' && document.visibilityState === 'hidden';
     if (
+      !isHidden &&
       !this.isUserRecordingActive &&
       now >= this.quietBufferUntilMs &&
       this.engineState !== 'speaking'
@@ -272,12 +271,14 @@ export class WalkEngine {
   // ------------------------------------------------------------------
 
   private attachVisibilityHandler(): void {
-    this.visibilityHandler = () => this.handleVisibilityChange();
-    document.addEventListener('visibilitychange', this.visibilityHandler);
+    if (typeof document !== 'undefined') {
+      this.visibilityHandler = () => this.handleVisibilityChange();
+      document.addEventListener('visibilitychange', this.visibilityHandler);
+    }
   }
 
   private detachVisibilityHandler(): void {
-    if (this.visibilityHandler) {
+    if (this.visibilityHandler && typeof document !== 'undefined') {
       document.removeEventListener('visibilitychange', this.visibilityHandler);
       this.visibilityHandler = null;
     }
@@ -289,7 +290,7 @@ export class WalkEngine {
    * most recent one — never a burst.
    */
   private handleVisibilityChange(): void {
-    if (document.visibilityState !== 'visible') return;
+    if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return;
     if (this.engineState === 'paused' || this.engineState === 'ended') return;
 
     const now = Date.now();

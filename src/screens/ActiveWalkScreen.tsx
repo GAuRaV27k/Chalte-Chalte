@@ -121,7 +121,7 @@ export interface ActiveWalkScreenProps {
   intention: WalkIntention;
   questions: QuestionPrompt[];
   onWalkEnd: (session: WalkSession, clipsCount: number) => void;
-  onCancel: () => void;
+  onCancel?: () => void;
 }
 
 // -----------------------------------------------------------------------
@@ -132,7 +132,7 @@ export const ActiveWalkScreen: React.FC<ActiveWalkScreenProps> = ({
   intention,
   questions,
   onWalkEnd,
-  onCancel,
+  onCancel: _onCancel,
 }) => {
   const totalSeconds = intention.durationMinutes * 60;
 
@@ -390,7 +390,6 @@ export const ActiveWalkScreen: React.FC<ActiveWalkScreenProps> = ({
 
   // ---- SVG ring radius ----
   const RING_R = 68;
-  const RING_CIRCUMFERENCE = 2 * Math.PI * RING_R;
 
   const isPaused = engineState === 'paused';
   const isSpeaking = engineState === 'speaking';

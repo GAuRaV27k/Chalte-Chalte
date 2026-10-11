@@ -173,20 +173,20 @@ export const WalkPreparationScreen: React.FC<WalkPreparationScreenProps> = ({
       </header>
 
       {/* Countdown */}
-      <div className="flex flex-col items-center justify-center py-10 gap-4">
-        <div className="relative w-40 h-40">
+      <div className="flex flex-col items-center justify-center py-8 gap-5">
+        <div className="relative w-44 h-44">
           {/* SVG ring — progress driven by countdown */}
-          <svg className="w-40 h-40 -rotate-90" viewBox="0 0 160 160">
+          <svg className="w-44 h-44 -rotate-90" viewBox="0 0 176 176">
             {/* Track */}
             <circle
-              cx="80" cy="80" r="68"
+              cx="88" cy="88" r="74"
               fill="none"
               stroke="rgba(255,255,255,0.06)"
               strokeWidth="8"
             />
             {/* Progress — animate strokeDashoffset, not blur or layout */}
             <motion.circle
-              cx="80" cy="80" r="68"
+              cx="88" cy="88" r="74"
               fill="none"
               stroke="#A8E6E8"
               strokeWidth="8"
@@ -198,12 +198,12 @@ export const WalkPreparationScreen: React.FC<WalkPreparationScreenProps> = ({
             />
           </svg>
           {/* Countdown digits */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="font-space text-[40px] font-bold text-[#F4F3EF] leading-none tabular-nums">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-2">
+            <span className="font-space text-[36px] font-bold text-[#F4F3EF] leading-none tabular-nums">
               {mm}:{ss}
             </span>
-            <span className="font-inter text-[11px] text-[#8E97A6] mt-1">
-              Head out and start walking
+            <span className="font-inter text-[10px] text-[#8E97A6] mt-2 tracking-wide uppercase">
+              Head out & walk
             </span>
           </div>
         </div>

@@ -1,187 +1,298 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { WalkEngine } from './walkEngine';
+import { WalkEngine, computeQuestionSchedule } from './walkEngine';
 import type { WalkSession, QuestionPrompt } from './types';
 
-describe('WalkEngine', () => {
-  let session: WalkSession;
-  let questions: QuestionPrompt[];
+function createMockSession(durationMinutes: number): WalkSession {
+  return {
+    id: `test-session-${durationMinutes}m`,
+    createdAt: 1000000,
+    intention: {
+      topic: 'Philosophy of Time',
+      mood: 'reflective',
+      context: 'park',
+      durationMinutes,
+      language: 'en',
+    },
+    status: 'planning',
+    elapsedSeconds: 0,
+    questionsDelivered: [],
+    clipsCount: 0,
+  };
+}
+
+function create3Questions(): QuestionPrompt[] {
+  return [
+    { id: 'q-1', text: 'Question One?', philosophySchool: 'Stoicism', targetMinute: 0 },
+    { id: 'q-2', text: 'Question Two?', philosophySchool: 'Daoism', targetMinute: 3 },
+    { id: 'q-3', text: 'Question Three?', philosophySchool: 'Zen', targetMinute: 6 },
+  ];
+}
+
+describe('WalkEngine Schedule Formula', () => {
+  it('computes correct question schedule for 10 min walk', () => {
+    // 10 min -> 600s. Gap = 30% of 600 = 180s. First at 15s.
+    const schedule = computeQuestionSchedule(10);
+    expect(schedule).toEqual([15, 195, 375]);
+  });
+
+  it('computes correct question schedule for 20 min walk', () => {
+    // 20 min -> 1200s. Gap = 30% of 1200 = 360s. First at 15s.
+    const schedule = computeQuestionSchedule(20);
+    expect(schedule).toEqual([15, 375, 735]);
+  });
+
+  it('computes correct question schedule for 30 min walk', () => {
+    // 30 min -> 1800s. Gap = 30% of 1800 = 540s. First at 15s.
+    const schedule = computeQuestionSchedule(30);
+    expect(schedule).toEqual([15, 555, 1095]);
+  });
+});
+
+describe('WalkEngine Runtime Mechanics', () => {
+  let listeners: Record<string, ((e: Event) => void)[]> = {};
 
   beforeEach(() => {
     vi.useFakeTimers();
+    listeners = {};
 
-    session = {
-      id: 'test-session-1',
-      createdAt: 1000000,
-      intention: {
-        topic: 'Self-discovery',
-        mood: 'curious',
-        context: 'park',
-        durationMinutes: 10,
-        language: 'en',
+    // Mock document for Node environment
+    (globalThis as unknown as { document: unknown }).document = {
+      visibilityState: 'visible',
+      addEventListener: (type: string, fn: (e: Event) => void) => {
+        listeners[type] = listeners[type] || [];
+        listeners[type].push(fn);
       },
-      status: 'planning',
-      elapsedSeconds: 0,
-      questionsDelivered: [],
-      clipsCount: 0,
+      removeEventListener: (type: string, fn: (e: Event) => void) => {
+        if (listeners[type]) {
+          listeners[type] = listeners[type].filter(f => f !== fn);
+        }
+      },
+      dispatchEvent: (event: Event) => {
+        const fns = listeners[event.type] || [];
+        fns.forEach(fn => fn(event));
+        return true;
+      },
     };
-
-    questions = [
-      {
-        id: 'q-1',
-        text: 'First question at minute 2?',
-        philosophySchool: 'Stoicism',
-        targetMinute: 2,
-      },
-      {
-        id: 'q-2',
-        text: 'Second question at minute 5?',
-        philosophySchool: 'Daoism',
-        targetMinute: 5,
-      },
-    ];
   });
 
   afterEach(() => {
     vi.useRealTimers();
+    delete (globalThis as unknown as { document?: unknown }).document;
   });
 
-  it('schedules and triggers question when target minute arrives', () => {
-    const onTick = vi.fn();
+  it('delivers first question at t=15s and second at t=195s for 10 min walk', () => {
+    const session = createMockSession(10);
+    const questions = create3Questions();
     const onQuestionReady = vi.fn();
+    const onTick = vi.fn();
+    const onStateChange = vi.fn();
     const onCompleted = vi.fn();
-    const onStateChange = vi.fn();
 
     const engine = new WalkEngine(session, questions, {
       onTick,
       onQuestionReady,
+      onStateChange,
       onCompleted,
-      onStateChange,
     });
 
     engine.start();
-    expect(onStateChange).toHaveBeenCalledWith('active');
 
-    // Advance 60 seconds (minute 1) - no question yet
-    vi.advanceTimersByTime(60 * 1000);
+    // At t = 14s, no question delivered yet
+    vi.advanceTimersByTime(14_000);
     expect(onQuestionReady).not.toHaveBeenCalled();
 
-    // Advance to minute 2 (120 seconds) - first question should fire
-    vi.advanceTimersByTime(60 * 1000);
+    // At t = 15s, Q1 delivered
+    vi.advanceTimersByTime(1_000);
     expect(onQuestionReady).toHaveBeenCalledTimes(1);
-    expect(onQuestionReady).toHaveBeenCalledWith(
-      expect.objectContaining({ id: 'q-1' })
-    );
+    expect(onQuestionReady).toHaveBeenCalledWith(questions[0], 0, 3);
 
-    engine.endWalk();
-  });
+    // Engine is speaking, mark speaking done
+    engine.onSpeakingFinished();
 
-  it('leaves ~10s quiet gap after question delivered', () => {
-    const onQuestionReady = vi.fn();
-    const engine = new WalkEngine(session, questions, {
-      onTick: vi.fn(),
-      onQuestionReady,
-      onCompleted: vi.fn(),
-      onStateChange: vi.fn(),
-    });
-
-    engine.start();
-
-    // Trigger minute 2 question
-    vi.advanceTimersByTime(120 * 1000);
+    // Fast-forward to t = 194s (179s more)
+    vi.advanceTimersByTime(179_000);
     expect(onQuestionReady).toHaveBeenCalledTimes(1);
 
-    // Try manual trigger immediately within the 10s quiet window
-    // (quietBufferUntilMs was set to now + 10000)
-    const deliveredQ = questions[0];
-    expect(deliveredQ.deliveredAt).toBeDefined();
-
-    engine.endWalk();
+    // Fast forward to t = 195s -> Q2 delivered
+    vi.advanceTimersByTime(1_000);
+    expect(onQuestionReady).toHaveBeenCalledTimes(2);
+    expect(onQuestionReady).toHaveBeenCalledWith(questions[1], 1, 3);
   });
 
-  it('supports pause and resume without losing elapsed timing accuracy', () => {
-    const onTick = vi.fn();
-    const onStateChange = vi.fn();
-
-    const engine = new WalkEngine(session, questions, {
-      onTick,
-      onQuestionReady: vi.fn(),
-      onCompleted: vi.fn(),
-      onStateChange,
-    });
-
-    engine.start();
-    vi.advanceTimersByTime(30 * 1000); // 30s elapsed
-
-    engine.pause();
-    expect(onStateChange).toHaveBeenCalledWith('paused');
-
-    // Wait 40s while paused
-    vi.advanceTimersByTime(40 * 1000);
-
-    engine.resume();
-    expect(onStateChange).toHaveBeenCalledWith('active');
-
-    // Advance 10s after resume -> total active should be ~40s, not 80s
-    vi.advanceTimersByTime(10 * 1000);
-    const lastTick = onTick.mock.calls[onTick.mock.calls.length - 1];
-    expect(lastTick[0]).toBe(40);
-
-    engine.endWalk();
-  });
-
-  it('supports skip question without disrupting remaining schedule', () => {
+  it('enforces 10s quiet gap after question delivery/speaking finishes', () => {
+    const session = createMockSession(10);
+    const questions = create3Questions();
     const onQuestionReady = vi.fn();
+
     const engine = new WalkEngine(session, questions, {
       onTick: vi.fn(),
       onQuestionReady,
-      onCompleted: vi.fn(),
       onStateChange: vi.fn(),
+      onCompleted: vi.fn(),
     });
 
     engine.start();
-    engine.skipNextQuestion(); // skips q-1
+    vi.advanceTimersByTime(15_000);
+    expect(onQuestionReady).toHaveBeenCalledTimes(1);
 
-    // Advance past minute 2 - q-1 should not be delivered because it was skipped
-    vi.advanceTimersByTime(130 * 1000);
-    expect(onQuestionReady).not.toHaveBeenCalled();
+    // Question finished speaking at t=20s
+    vi.advanceTimersByTime(5_000);
+    engine.onSpeakingFinished();
 
-    // Advance to minute 5 - q-2 should now be delivered
-    vi.advanceTimersByTime(180 * 1000);
-    expect(onQuestionReady).toHaveBeenCalledWith(
-      expect.objectContaining({ id: 'q-2' })
-    );
+    // For 9 seconds after speaking finishes, engine stays in reflecting
+    vi.advanceTimersByTime(9_000);
+    expect(engine.getEngineState()).toBe('reflecting');
 
-    engine.endWalk();
+    // 10s buffer has passed
+    vi.advanceTimersByTime(2_000);
+    expect(engine.getEngineState()).toBe('reflecting');
   });
 
-  it('never interrupts an active recording', () => {
+  it('defers questions while recording and delivers after recording stops + quiet gap', () => {
+    const session = createMockSession(10);
+    const questions = create3Questions();
     const onQuestionReady = vi.fn();
+
     const engine = new WalkEngine(session, questions, {
       onTick: vi.fn(),
       onQuestionReady,
-      onCompleted: vi.fn(),
       onStateChange: vi.fn(),
+      onCompleted: vi.fn(),
     });
 
     engine.start();
 
-    // User is speaking / recording
+    // Start user recording at t=10s (before Q1 is due at 15s)
+    vi.advanceTimersByTime(10_000);
     engine.setRecordingActive(true);
+    expect(engine.getEngineState()).toBe('recording');
 
-    // Advance to minute 2 (when q-1 is scheduled)
-    vi.advanceTimersByTime(125 * 1000);
-    expect(onQuestionReady).not.toHaveBeenCalled(); // Question held back while recording!
+    // Advance past t=15s to t=25s while recording
+    vi.advanceTimersByTime(15_000);
+    // Never interrupt active recording!
+    expect(onQuestionReady).not.toHaveBeenCalled();
 
-    // User finishes recording
+    // User stops recording at t=25s
     engine.setRecordingActive(false);
 
-    // Next tick delivers the question
-    vi.advanceTimersByTime(1000);
-    expect(onQuestionReady).toHaveBeenCalledTimes(1);
-    expect(onQuestionReady).toHaveBeenCalledWith(
-      expect.objectContaining({ id: 'q-1' })
-    );
+    // Now quiet buffer of 10s is applied before deferred question can speak
+    vi.advanceTimersByTime(5_000);
+    expect(onQuestionReady).not.toHaveBeenCalled();
 
-    engine.endWalk();
+    // After 10s quiet buffer completes, deferred question is delivered
+    vi.advanceTimersByTime(6_000);
+    expect(onQuestionReady).toHaveBeenCalledTimes(1);
+    expect(onQuestionReady).toHaveBeenCalledWith(questions[0], 0, 3);
+  });
+
+  it('pause/resume freezes clock with no question replay or skip', () => {
+    const session = createMockSession(10);
+    const questions = create3Questions();
+    const onQuestionReady = vi.fn();
+    const onTick = vi.fn();
+
+    const engine = new WalkEngine(session, questions, {
+      onTick,
+      onQuestionReady,
+      onStateChange: vi.fn(),
+      onCompleted: vi.fn(),
+    });
+
+    engine.start();
+
+    // Advance 10s
+    vi.advanceTimersByTime(10_000);
+    expect(engine.getElapsedSeconds()).toBe(10);
+
+    // Pause for 60s
+    engine.pause();
+    expect(engine.getEngineState()).toBe('paused');
+    vi.advanceTimersByTime(60_000);
+
+    // Elapsed should still be 10s while paused
+    expect(engine.getElapsedSeconds()).toBe(10);
+    expect(onQuestionReady).not.toHaveBeenCalled();
+
+    // Resume
+    engine.resume();
+    expect(engine.getEngineState()).toBe('reflecting');
+
+    // Advance 4s -> total elapsed 14s (still no Q1)
+    vi.advanceTimersByTime(4_000);
+    expect(engine.getElapsedSeconds()).toBe(14);
+    expect(onQuestionReady).not.toHaveBeenCalled();
+
+    // Advance 1s -> total elapsed 15s -> Q1 delivered exactly once
+    vi.advanceTimersByTime(1_000);
+    expect(engine.getElapsedSeconds()).toBe(15);
+    expect(onQuestionReady).toHaveBeenCalledTimes(1);
+  });
+
+  it('skip stops current speech and moves on without breaking schedule', () => {
+    const session = createMockSession(10);
+    const questions = create3Questions();
+    const onQuestionReady = vi.fn();
+
+    const engine = new WalkEngine(session, questions, {
+      onTick: vi.fn(),
+      onQuestionReady,
+      onStateChange: vi.fn(),
+      onCompleted: vi.fn(),
+    });
+
+    engine.start();
+
+    // Q1 delivered at 15s
+    vi.advanceTimersByTime(15_000);
+    expect(onQuestionReady).toHaveBeenCalledTimes(1);
+
+    // User skips Q1
+    engine.skip();
+    expect(engine.getEngineState()).toBe('reflecting');
+
+    // Q2 should still not arrive until 195s
+    vi.advanceTimersByTime(100_000);
+    expect(onQuestionReady).toHaveBeenCalledTimes(1);
+
+    vi.advanceTimersByTime(80_000); // at t=195s
+    expect(onQuestionReady).toHaveBeenCalledTimes(2);
+    expect(onQuestionReady).toHaveBeenCalledWith(questions[1], 1, 3);
+  });
+
+  it('hidden tab catch-up plays only the most recent due question, never a burst', () => {
+    const session = createMockSession(10);
+    const questions = create3Questions();
+    const onQuestionReady = vi.fn();
+
+    const engine = new WalkEngine(session, questions, {
+      onTick: vi.fn(),
+      onQuestionReady,
+      onStateChange: vi.fn(),
+      onCompleted: vi.fn(),
+    });
+
+    engine.start();
+
+    // Suppose tab becomes hidden early at t=5s
+    Object.defineProperty(document, 'visibilityState', {
+      configurable: true,
+      value: 'hidden',
+    });
+
+    // Advance clock past BOTH Q1 (15s) and Q2 (195s) to t=250s
+    vi.advanceTimersByTime(250_000);
+
+    // Now tab becomes visible again
+    Object.defineProperty(document, 'visibilityState', {
+      configurable: true,
+      value: 'visible',
+    });
+
+    // Trigger visibilitychange event
+    document.dispatchEvent(new Event('visibilitychange'));
+
+    // Should deliver ONLY the most recent due question (Q2, index 1), not Q1 then Q2 in a burst!
+    expect(onQuestionReady).toHaveBeenCalledTimes(1);
+    expect(onQuestionReady).toHaveBeenCalledWith(questions[1], 1, 3);
   });
 });

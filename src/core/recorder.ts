@@ -113,7 +113,7 @@ export class BrowserAudioRecorder implements AudioRecorderService {
    */
   getLevel(): number {
     if (!this.analyser || !this.levelData || !this.recording) return 0;
-    this.analyser.getByteFrequencyData(this.levelData);
+    this.analyser.getByteFrequencyData(this.levelData as unknown as Uint8Array<ArrayBuffer>);
     const sum = this.levelData.reduce((acc, v) => acc + v, 0);
     return sum / (this.levelData.length * 255);
   }

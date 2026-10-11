@@ -26,7 +26,7 @@ export class WebSpeechTTS implements TextToSpeechService {
   }
 
   isSpeaking(): boolean {
-    return this.speaking;
+    return this.speaking && this.activeUtterance !== null;
   }
 
   /**
