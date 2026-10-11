@@ -41,7 +41,12 @@ export interface JournalEntry {
   sessionId: string;
   createdAt: number;
   topic: string;
+  title: string;
   durationMinutes: number;
+  myReflections: string;
+  ideasWorthRevisiting?: string[];
+  questionToCarryForward?: string;
+  oneSmallNextStep?: string;
   walkingSummary: string;
   coreInsight: string;
   quote: {
@@ -53,12 +58,14 @@ export interface JournalEntry {
   isMock: boolean;
 }
 
+export type SessionStatus = 'in_progress' | 'ended_unsaved' | 'saved' | 'completed' | 'planning';
+
 export interface WalkSession {
   id: string;
   createdAt: number;
   completedAt?: number;
   intention: WalkIntention;
-  status: 'planning' | 'preparing' | 'active' | 'paused' | 'completed' | 'abandoned';
+  status: SessionStatus;
   elapsedSeconds: number;
   questionsDelivered: QuestionPrompt[];
   clipsCount: number;

@@ -40,6 +40,13 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,woff2,ttf,png}'],
+        importScripts: ['/sw-notifications.js'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.startsWith('/v1/'),
+            handler: 'NetworkOnly',
+          },
+        ],
       },
     }),
   ],

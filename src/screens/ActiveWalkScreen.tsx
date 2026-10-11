@@ -208,7 +208,7 @@ export const ActiveWalkScreen: React.FC<ActiveWalkScreenProps> = ({
       id: sessionId,
       createdAt: Date.now(),
       intention,
-      status: 'active',
+      status: 'in_progress',
       elapsedSeconds: 0,
       questionsDelivered: [],
       clipsCount: 0,
@@ -241,10 +241,34 @@ export const ActiveWalkScreen: React.FC<ActiveWalkScreenProps> = ({
         await releaseWakeLock();
         ttsRef.current.stop();
         const s = engine.getSession();
-        s.status = 'completed';
+        s.status = 'ended_unsaved';
         s.completedAt = Date.now();
         s.clipsCount = clipsCount;
         try { await saveSession(s); } catch {/* noop */}
+
+        // If app is hidden when the walk ends, show quiet completion notification via ServiceWorker
+        if (
+          document.visibilityState === 'hidden' &&
+          typeof Notification !== 'undefined' &&
+          Notification.permission === 'granted'
+        ) {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready
+              .then((reg) => {
+                reg.showNotification('Chalte-Chalte', {
+                  body: 'Your walk is complete. Your reflections are ready whenever you are.',
+                  icon: '/pwa-192x192.svg',
+                  badge: '/pwa-192x192.svg',
+                  tag: 'walk-complete',
+                  data: { url: '/#walk-completion' },
+                });
+              })
+              .catch(() => {
+                // Silent fallback; never claim delivery
+              });
+          }
+        }
+
         onWalkEnd(s, clipsCount);
       },
     });
@@ -636,7 +660,7 @@ export const ActiveWalkScreen: React.FC<ActiveWalkScreenProps> = ({
       <AnimatePresence>
         {showPause && (
           <PauseOverlay
-            elapsedSec={elapsedSec}
+            remainingSec={remainingSec}
             onResume={handleResume}
             onEndWalk={finishWalk}
           />

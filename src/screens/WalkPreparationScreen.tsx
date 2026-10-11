@@ -11,7 +11,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, AlertCircle, CheckCircle2, Clock } from 'lucide-react';
 import type { WalkIntention, QuestionPrompt } from '../core/types';
-import { MockQuestionGenerator } from '../core/ai/questions';
+import { ApiQuestionGenerator, MockQuestionGenerator } from '../core/ai/questions';
 
 // -------------------------------------------------------------------------
 // Hints — displayed for ~15 s each
@@ -59,7 +59,7 @@ export const WalkPreparationScreen: React.FC<WalkPreparationScreenProps> = ({
     setGenState('generating');
     setErrorMsg(null);
     try {
-      const gen = new MockQuestionGenerator();
+      const gen = new ApiQuestionGenerator();
       const qs = await gen.generateQuestions(intention, signal);
       if (!signal.aborted) {
         setQuestions(qs);

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chalte-Chalte — AI Processing States</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Space Grotesk, Instrument Serif, Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with custom configuration -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-highest": "#32353d",
+            "error": "#ffb4ab",
+            "on-secondary-container": "#b8b3e7",
+            "ink": "#F4F3EF",
+            "on-error-container": "#ffdad6",
+            "on-error": "#690005",
+            "outline-variant": "#3f4849",
+            "surface-bright": "#363942",
+            "secondary-fixed": "#e4dfff",
+            "surface-container": "#1c1f28",
+            "on-primary-container": "#29696b",
+            "on-primary-fixed-variant": "#024f51",
+            "on-tertiary-fixed-variant": "#4b4639",
+            "ink-muted-80": "#8E97A6",
+            "surface-tint": "#94d1d3",
+            "surface-container-high": "#272a32",
+            "on-primary-fixed": "#002021",
+            "primary-container": "#a8e6e8",
+            "on-tertiary": "#343024",
+            "on-surface-variant": "#bfc8c8",
+            "on-secondary": "#2e2b56",
+            "destructive-bg": "rgba(226, 125, 125, 0.12)",
+            "surface-glass-border": "rgba(255, 255, 255, 0.12)",
+            "secondary": "#c6c1f6",
+            "secondary-fixed-dim": "#c6c1f6",
+            "on-secondary-fixed": "#191540",
+            "on-tertiary-fixed": "#1f1b10",
+            "tertiary-fixed": "#eae2d0",
+            "tertiary-container": "#e3dac8",
+            "surface-variant": "#32353d",
+            "primary-fixed-dim": "#94d1d3",
+            "on-background": "#e0e2ee",
+            "outline": "#899292",
+            "tertiary": "#fff6e7",
+            "on-secondary-fixed-variant": "#45426e",
+            "primary": "#dbfeff",
+            "surface-glass-active": "rgba(35, 42, 56, 0.85)",
+            "inverse-primary": "#28676a",
+            "body-muted": "#A0A9B8",
+            "divider-soft": "rgba(255, 255, 255, 0.08)",
+            "error-container": "#93000a",
+            "on-primary": "#003738",
+            "canvas-secondary": "#1B202A",
+            "primary-fixed": "#afeef0",
+            "surface-dim": "#10131b",
+            "on-surface": "#e0e2ee",
+            "primary-focus": "#BCEFF0",
+            "ink-muted-48": "#5C6473",
+            "inverse-on-surface": "#2d3039",
+            "tertiary-fixed-dim": "#cec6b5",
+            "surface-container-lowest": "#0b0e16",
+            "secondary-container": "#474470",
+            "surface-glass": "rgba(27, 32, 42, 0.65)",
+            "surface": "#10131b",
+            "destructive": "#E27D7D",
+            "background": "#10131b",
+            "hairline": "rgba(255, 255, 255, 0.12)",
+            "inverse-surface": "#e0e2ee",
+            "surface-container-low": "#181b24",
+            "on-tertiary-container": "#655f51"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "1.75rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "sm": "12px",
+            "xxl": "40px",
+            "lg": "20px",
+            "margin": "1.25rem",
+            "xxs": "4px",
+            "gutter": "1rem",
+            "xs": "8px",
+            "space-xs": "0.5rem",
+            "xl": "28px",
+            "section": "48px",
+            "space-lg": "1.25rem",
+            "md": "16px"
+          },
+          "fontFamily": {
+            "body-strong": ["\"Inter, system-ui, sans-serif\""],
+            "body": ["\"Inter, system-ui, sans-serif\""],
+            "caption-strong": ["\"Inter, system-ui, sans-serif\""],
+            "question-serif": ["\"Instrument Serif, Georgia, serif\""],
+            "caption": ["\"Inter, system-ui, sans-serif\""],
+            "hero-display": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "lead": ["\"Inter, system-ui, sans-serif\""],
+            "display-lg": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "display-serif": ["\"Instrument Serif, Georgia, serif\""],
+            "button-large": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "overline": ["\"Space Grotesk, system-ui, sans-serif\""]
+          },
+          "fontSize": {
+            "body-strong": ["15px", { "lineHeight": "1.45", "letterSpacing": "-0.15px", "fontWeight": "600" }],
+            "body": ["15px", { "lineHeight": "1.5", "letterSpacing": "-0.15px", "fontWeight": "400" }],
+            "caption-strong": ["13px", { "lineHeight": "1.4", "fontWeight": "600" }],
+            "question-serif": ["26px", { "lineHeight": "1.38", "letterSpacing": "0.1px", "fontWeight": "400" }],
+            "caption": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+            "hero-display": ["32px", { "lineHeight": "1.15", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+            "lead": ["16px", { "lineHeight": "1.5", "letterSpacing": "-0.2px", "fontWeight": "400" }],
+            "display-lg": ["24px", { "lineHeight": "1.25", "letterSpacing": "-0.3px", "fontWeight": "600" }],
+            "display-serif": ["28px", { "lineHeight": "1.3", "fontWeight": "400" }],
+            "button-large": ["16px", { "lineHeight": "1.2", "letterSpacing": "0.1px", "fontWeight": "600" }],
+            "overline": ["11px", { "lineHeight": "1.2", "letterSpacing": "1.2px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+    }
+
+    /* Ambient pulse breathing animations */
+    @keyframes slowBreathe {
+      0%, 100% { transform: scale(1); opacity: 0.35; }
+      50% { transform: scale(1.08); opacity: 0.7; }
+    }
+    @keyframes rippleInner {
+      0% { transform: scale(0.92); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 0.4; }
+      100% { transform: scale(0.92); opacity: 0.8; }
+    }
+    @keyframes organicWave {
+      0%, 100% { height: 16px; }
+      50% { height: 48px; }
+    }
+    @keyframes paperSway1 {
+      0%, 100% { transform: rotate(-3deg) translateY(0); }
+      50% { transform: rotate(-1.5deg) translateY(-4px); }
+    }
+    @keyframes paperSway2 {
+      0%, 100% { transform: rotate(2.5deg) translateY(0); }
+      50% { transform: rotate(4deg) translateY(-6px); }
+    }
+    @keyframes paperSwayCenter {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes dotBlink {
+      0%, 80%, 100% { opacity: 0.2; }
+      40% { opacity: 1; }
+    }
+
+    .anim-breathe {
+      animation: slowBreathe 6s ease-in-out infinite;
+    }
+    .anim-ripple {
+      animation: rippleInner 4.5s ease-in-out infinite;
+    }
+    .anim-paper-1 {
+      animation: paperSway1 7s ease-in-out infinite;
+    }
+    .anim-paper-2 {
+      animation: paperSway2 8s ease-in-out infinite 0.5s;
+    }
+    .anim-paper-center {
+      animation: paperSwayCenter 6s ease-in-out infinite 1s;
+    }
+
+    /* Soundwave bars dynamic timings */
+    .wave-bar:nth-child(1) { animation: organicWave 2.8s ease-in-out infinite 0.1s; }
+    .wave-bar:nth-child(2) { animation: organicWave 2.2s ease-in-out infinite 0.3s; }
+    .wave-bar:nth-child(3) { animation: organicWave 3.1s ease-in-out infinite 0.5s; }
+    .wave-bar:nth-child(4) { animation: organicWave 1.9s ease-in-out infinite 0.2s; }
+    .wave-bar:nth-child(5) { animation: organicWave 2.7s ease-in-out infinite 0.7s; }
+    .wave-bar:nth-child(6) { animation: organicWave 2.4s ease-in-out infinite 0.4s; }
+    .wave-bar:nth-child(7) { animation: organicWave 3.0s ease-in-out infinite 0.6s; }
+
+    .pulse-dot:nth-child(1) { animation: dotBlink 1.4s infinite 0.0s; }
+    .pulse-dot:nth-child(2) { animation: dotBlink 1.4s infinite 0.2s; }
+    .pulse-dot:nth-child(3) { animation: dotBlink 1.4s infinite 0.4s; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-ink min-h-screen flex items-center justify-center p-0 sm:p-4 select-none font-body">
+<!-- Mobile Shell Container: Android Viewport (Max 430px) -->
+<div class="relative w-full max-w-[430px] h-screen max-h-[920px] bg-background overflow-hidden flex flex-col shadow-2xl sm:rounded-[36px] sm:border sm:border-surface-glass-border">
+<!-- Background subtle ambient lighting glow -->
+<div class="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-80 bg-primary-container/10 rounded-full blur-[96px]"></div>
+<div class="pointer-events-none absolute top-1/2 -left-20 w-64 h-64 bg-secondary/10 rounded-full blur-[80px]"></div>
+<!-- Android Status Bar Simulation -->
+<div class="w-full pt-3 px-6 pb-1 flex justify-between items-center text-ink-muted-80 font-overline text-overline tracking-wider z-30">
+<span>22:41</span>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[14px]">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[14px]">wifi</span>
+<span class="material-symbols-outlined text-[14px]">battery_std</span>
+</div>
+</div>
+<!-- Top Navigation Header (Focused Modal State: Close / Dismiss) -->
+<header class="relative z-20 flex items-center justify-between px-space-md py-space-sm h-14">
+<div class="flex items-center space-x-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+<span class="font-overline text-overline uppercase tracking-[0.2em] text-ink-muted-80">Night Walk · 3.8 km</span>
+</div>
+<!-- Minimalist Dismiss / Cancel Option -->
+<button class="group flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-surface-glass border border-surface-glass-border backdrop-blur-md hover:border-primary-container/40 active:scale-95 transition-all duration-200" onclick="handleDismiss()">
+<span class="font-caption text-caption text-ink-muted-80 group-hover:text-ink">Cancel</span>
+<span class="material-symbols-outlined text-[16px] text-ink-muted-80 group-hover:text-ink">close</span>
+</button>
+</header>
+<!-- State Switcher (Interactive demonstration of States A, B, and C) -->
+<section class="px-space-md py-1 z-20">
+<div class="p-1 rounded-full bg-canvas-secondary/80 border border-hairline flex items-center justify-between backdrop-blur-md">
+<button class="flex-1 py-1.5 px-2 rounded-full font-overline text-[10px] tracking-wider text-center transition-all duration-200 bg-primary-container text-on-primary-fixed font-bold shadow-sm" id="tab-stateA" onclick="switchState('stateA')">
+          Whisper (Active)
+        </button>
+<button class="flex-1 py-1.5 px-2 rounded-full font-overline text-[10px] tracking-wider text-center transition-all duration-200 text-ink-muted-80 hover:text-ink" id="tab-stateB" onclick="switchState('stateB')">
+          Journal Synthesis
+        </button>
+<button class="flex-1 py-1.5 px-2 rounded-full font-overline text-[10px] tracking-wider text-center transition-all duration-200 text-ink-muted-80 hover:text-destructive" id="tab-stateC" onclick="switchState('stateC')">
+          Retry / Fallback
+        </button>
+</div>
+</section>
+<!-- MAIN SCROLL CANVAS FOR ACTIVE STATES -->
+<main class="flex-1 overflow-y-auto px-margin py-2 flex flex-col justify-between z-10 relative">
+<!-- ============================================================== -->
+<!-- STATE A: Whisper Transcription (Active) -->
+<!-- ============================================================== -->
+<div class="flex flex-col flex-1 justify-between transition-opacity duration-300" id="view-stateA">
+<!-- Center Motif: Audio soundwave & breathing rings -->
+<div class="relative flex-1 flex flex-col items-center justify-center my-4 min-h-[260px]">
+<!-- Outer luminous concentric glass rings -->
+<div class="absolute w-64 h-64 rounded-full border border-primary-container/20 anim-breathe"></div>
+<div class="absolute w-52 h-52 rounded-full border border-secondary/25 anim-ripple"></div>
+<div class="absolute w-40 h-40 rounded-full bg-surface-glass backdrop-blur-md border border-hairline flex items-center justify-center"></div>
+<!-- Calm, organic soundwave visualizer -->
+<div class="relative z-10 flex items-center justify-center space-x-2">
+<span class="wave-bar w-1 rounded-full bg-primary/70"></span>
+<span class="wave-bar w-1.5 rounded-full bg-primary-container"></span>
+<span class="wave-bar w-1 rounded-full bg-secondary"></span>
+<span class="wave-bar w-2 rounded-full bg-primary"></span>
+<span class="wave-bar w-1 rounded-full bg-secondary"></span>
+<span class="wave-bar w-1.5 rounded-full bg-primary-container"></span>
+<span class="wave-bar w-1 rounded-full bg-primary/70"></span>
+</div>
+<!-- Pulsing calm rhythm indicator (honest indicator, no fake %) -->
+<div class="absolute bottom-2 flex items-center space-x-1.5">
+<span class="pulse-dot w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="pulse-dot w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="pulse-dot w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+</div>
+<!-- Typography & Contemplative Copy -->
+<div class="text-center px-2 mb-4">
+<h1 class="font-display-serif text-display-serif text-ink tracking-tight mb-2">
+            Listening to your reflections.
+          </h1>
+<p class="font-body text-body text-ink-muted-80 max-w-[320px] mx-auto leading-relaxed">
+            Turning your voice into words with Whisper. Running securely on-device.
+          </p>
+</div>
+<!-- Status Card & Reassurance Badge -->
+<div class="space-y-3 pb-2">
+<!-- Frosted status badge -->
+<div class="flex items-center justify-between px-space-md py-3 rounded-xl bg-surface-glass border border-surface-glass-border backdrop-blur-md">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary-container text-[20px]">mic</span>
+<div class="flex flex-col text-left">
+<span class="font-caption-strong text-caption-strong text-ink">Clip 1 of 2</span>
+<span class="font-caption text-[11px] text-ink-muted-80">Transcribing at 1x speed</span>
+</div>
+</div>
+<div class="flex items-center space-x-1 px-2.5 py-1 rounded-full bg-canvas-secondary border border-hairline">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-overline text-[10px] uppercase text-ink-muted-80 tracking-wide">Offline Safe</span>
+</div>
+</div>
+<!-- Contemplative Footer Notice -->
+<p class="text-center font-caption text-[12px] text-ink-muted-48 italic">
+            “To walk alone is to let silence organize the world.”
+          </p>
+</div>
+</div>
+<!-- ============================================================== -->
+<!-- STATE B: Journal Synthesis Processing (Hidden by default) -->
+<!-- ============================================================== -->
+<div class="hidden flex flex-col flex-1 justify-between transition-opacity duration-300" id="view-stateB">
+<!-- Center Motif: Ink settling on digital translucent pages -->
+<div class="relative flex-1 flex flex-col items-center justify-center my-4 min-h-[260px]">
+<!-- Soft glowing gradient aura behind sheets -->
+<div class="absolute w-48 h-48 rounded-full bg-secondary-container/30 blur-2xl anim-breathe"></div>
+<!-- Layered Digital Sheets (Glassmorphic Pages Coming Together) -->
+<div class="relative w-44 h-56 flex items-center justify-center">
+<!-- Background Sheet Left -->
+<div class="anim-paper-1 absolute w-36 h-48 rounded-xl bg-surface-glass border border-surface-glass-border backdrop-blur-md opacity-40 shadow-lg p-3">
+<div class="w-12 h-1 bg-white/10 rounded mb-2"></div>
+<div class="w-20 h-1 bg-white/10 rounded mb-1.5"></div>
+<div class="w-16 h-1 bg-white/10 rounded"></div>
+</div>
+<!-- Background Sheet Right -->
+<div class="anim-paper-2 absolute w-36 h-48 rounded-xl bg-surface-glass border border-surface-glass-border backdrop-blur-md opacity-60 shadow-lg p-3">
+<div class="w-16 h-1 bg-secondary/30 rounded mb-2"></div>
+<div class="w-24 h-1 bg-white/10 rounded mb-1.5"></div>
+<div class="w-10 h-1 bg-white/10 rounded"></div>
+</div>
+<!-- Foreground Active Sheet (Ink Settling Effect) -->
+<div class="anim-paper-center relative z-10 w-40 h-52 rounded-xl bg-surface-glass-active border border-primary-container/30 backdrop-blur-xl shadow-2xl p-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-3">
+<span class="font-overline text-[9px] uppercase tracking-wider text-secondary">Solitary Stride</span>
+<span class="material-symbols-outlined text-primary-container text-[14px]">auto_stories</span>
+</div>
+<div class="space-y-2">
+<div class="w-28 h-1.5 bg-ink/80 rounded"></div>
+<div class="w-24 h-1 bg-ink-muted-80/60 rounded"></div>
+<div class="w-32 h-1 bg-ink-muted-80/40 rounded"></div>
+<div class="w-20 h-1 bg-ink-muted-80/30 rounded"></div>
+</div>
+</div>
+<!-- Verbatim Quote Glimpse -->
+<div class="pt-2 border-t border-hairline">
+<span class="font-question-serif italic text-[13px] text-primary leading-tight block">
+                  “The night cool brought stillness back…”
+                </span>
+</div>
+</div>
+</div>
+<!-- Subdued rhythmic glow pulse below parchment -->
+<div class="mt-4 flex items-center space-x-2 text-ink-muted-80">
+<span class="font-caption text-[11px] tracking-wide">Synthesis in flow</span>
+<span class="inline-block w-1 h-1 rounded-full bg-secondary animate-ping"></span>
+</div>
+</div>
+<!-- Typography & Reassurance Copy -->
+<div class="text-center px-2 mb-4">
+<h1 class="font-display-serif text-display-serif text-ink tracking-tight mb-2">
+            Gathering your thoughts.
+          </h1>
+<p class="font-body text-body text-ink-muted-80 max-w-[320px] mx-auto leading-relaxed">
+            Organizing your reflections without losing your voice.
+          </p>
+</div>
+<!-- Reassurance Badges & Status -->
+<div class="space-y-3 pb-2">
+<div class="p-3.5 rounded-xl bg-surface-glass border border-surface-glass-border backdrop-blur-md flex flex-col space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-caption-strong text-caption-strong text-ink flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">psychology</span>
+                Thematic Architecture
+              </span>
+<span class="font-caption text-[11px] text-secondary">Preserving quotes</span>
+</div>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2.5 py-0.5 rounded-full bg-canvas-secondary border border-hairline font-caption text-[11px] text-ink-muted-80">
+                Solitude
+              </span>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container/50 border border-secondary/30 font-caption text-[11px] text-secondary">
+                Pacing &amp; Breath
+              </span>
+<span class="px-2.5 py-0.5 rounded-full bg-canvas-secondary border border-hairline font-caption text-[11px] text-ink-muted-80">
+                Midnight Epiphany
+              </span>
+</div>
+</div>
+<p class="text-center font-caption text-[12px] text-ink-muted-48 italic">
+            Your original recording stays intact on this device.
+          </p>
+</div>
+</div>
+<!-- ============================================================== -->
+<!-- STATE C: Error & Resilience Card (Hidden by default) -->
+<!-- ============================================================== -->
+<div class="hidden flex flex-col flex-1 justify-between transition-opacity duration-300" id="view-stateC">
+<!-- Center Motif: Soft Amber Resilience Visual -->
+<div class="relative flex-1 flex flex-col items-center justify-center my-4 min-h-[220px]">
+<!-- Warm Amber / Coral subtle frosted aura -->
+<div class="absolute w-44 h-44 rounded-full bg-destructive-bg blur-3xl"></div>
+<div class="relative z-10 w-20 h-20 rounded-2xl bg-surface-glass border border-destructive/30 backdrop-blur-md flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-destructive text-[36px]">cloud_off</span>
+</div>
+<!-- Soft Badge below icon -->
+<div class="mt-4 px-3 py-1 rounded-full bg-destructive-bg border border-destructive/20 flex items-center space-x-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-destructive"></span>
+<span class="font-caption text-[11px] text-ink">Whisper model interrupted</span>
+</div>
+</div>
+<!-- Narrative & Resilience Card -->
+<div class="space-y-4 my-auto">
+<div class="text-center px-2">
+<h1 class="font-display-serif text-display-serif text-ink tracking-tight mb-2">
+              A pause in the synthesis.
+            </h1>
+<p class="font-body text-body text-ink-muted-80 max-w-[320px] mx-auto leading-relaxed">
+              Transcription couldn't finish. Your audio is safely stored on your device.
+            </p>
+</div>
+<!-- Glass Resilience Notification Box -->
+<div class="p-4 rounded-xl bg-surface-glass border border-surface-glass-border backdrop-blur-md">
+<div class="flex items-start space-x-3">
+<span class="material-symbols-outlined text-ink-muted-80 text-[20px] mt-0.5">lock</span>
+<div class="flex-1">
+<h4 class="font-body-strong text-body-strong text-ink mb-0.5">Nothing was lost</h4>
+<p class="font-caption text-caption text-ink-muted-80 leading-normal">
+                  Your raw recording (14 mins · 2 clips) is preserved. You can re-run synthesis or export voice notes directly.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons (Strict Style Guidelines: Primary Cyan Pill + Glass Secondary) -->
+<div class="space-y-2.5 pt-4 pb-2">
+<!-- Primary Pill Button: Retry -->
+<button class="w-full h-12 rounded-full bg-primary-container text-on-primary-fixed hover:bg-primary-focus active:scale-95 transition-all duration-150 font-button-large text-button-large flex items-center justify-center space-x-2" onclick="switchState('stateA')">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Retry generation</span>
+</button>
+<!-- Glass Secondary Button: Edit Transcript Manually -->
+<button class="w-full h-12 rounded-full bg-surface-glass border border-surface-glass-border backdrop-blur-md text-ink hover:text-primary active:scale-95 transition-all duration-150 font-button-large text-button-large flex items-center justify-center space-x-2">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>Edit transcript manually</span>
+</button>
+<!-- Tertiary Text Link: Return to review -->
+<button class="w-full py-2 text-center font-caption text-caption text-ink-muted-80 hover:text-ink active:scale-95 transition-colors" onclick="handleDismiss()">
+            Return to review
+          </button>
+</div>
+</div>
+</main>
+<!-- Android Gesture Bar -->
+<div class="w-full py-2.5 flex justify-center items-center z-30">
+<div class="w-28 h-1 rounded-full bg-surface-container-highest"></div>
+</div>
+</div>
+<!-- Vanilla Interaction Logic -->
+<script>
+    function switchState(state) {
+      // Views
+      const viewA = document.getElementById('view-stateA');
+      const viewB = document.getElementById('view-stateB');
+      const viewC = document.getElementById('view-stateC');
+
+      // Buttons
+      const tabA = document.getElementById('tab-stateA');
+      const tabB = document.getElementById('tab-stateB');
+      const tabC = document.getElementById('tab-stateC');
+
+      // Hide all views
+      viewA.classList.add('hidden');
+      viewB.classList.add('hidden');
+      viewC.classList.add('hidden');
+
+      // Reset tabs style
+      [tabA, tabB, tabC].forEach(tab => {
+        tab.className = "flex-1 py-1.5 px-2 rounded-full font-overline text-[10px] tracking-wider text-center transition-all duration-200 text-ink-muted-80 hover:text-ink";
+      });
+
+      if (state === 'stateA') {
+        viewA.classList.remove('hidden');
+        tabA.className = "flex-1 py-1.5 px-2 rounded-full font-overline text-[10px] tracking-wider text-center transition-all duration-200 bg-primary-container text-on-primary-fixed font-bold shadow-sm";
+      } else if (state === 'stateB') {
+        viewB.classList.remove('hidden');
+        tabB.className = "flex-1 py-1.5 px-2 rounded-full font-overline text-[10px] tracking-wider text-center transition-all duration-200 bg-secondary text-on-secondary-fixed font-bold shadow-sm";
+      } else if (state === 'stateC') {
+        viewC.classList.remove('hidden');
+        tabC.className = "flex-1 py-1.5 px-2 rounded-full font-overline text-[10px] tracking-wider text-center transition-all duration-200 bg-destructive-bg text-destructive border border-destructive/30 font-bold shadow-sm";
+      }
+    }
+
+    function handleDismiss() {
+      if (confirm("Pause processing? Your audio recording will remain saved in drafts.")) {
+        switchState('stateC');
+      }
+    }
+  </script>
+</body></html>

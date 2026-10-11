@@ -34,11 +34,28 @@ export const IntentionSetupScreen: React.FC<IntentionSetupScreenProps> = ({
   const [isCustom, setIsCustom] = useState<boolean>(false);
   const [selectedMood, setSelectedMood] = useState<WalkMood>('curious');
   const [notes, setNotes] = useState<string>('');
-  const [language, setLanguage] = useState<WalkLanguage>('hi');
+  const [language, setLanguage] = useState<WalkLanguage>('en');
   const [duration, setDuration] = useState<number>(10);
+  const [showNotificationPrompt, setShowNotificationPrompt] = useState<boolean>(false);
 
+  // Load defaults from settings on mount per spec
+  React.useEffect(() => {
+    try {
+      const savedDuration = localStorage.getItem('chalte_default_duration');
+      if (savedDuration) {
+        const d = parseInt(savedDuration, 10);
+        if ([10, 20, 30].includes(d)) setDuration(d);
+      }
+      const savedLang = localStorage.getItem('chalte_default_language');
+      if (savedLang === 'en' || savedLang === 'hi') {
+        setLanguage(savedLang);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
-  const handleStart = () => {
+  const proceedStart = () => {
     const finalTopic = isCustom && customTopic.trim() ? customTopic.trim() : selectedTopic;
     onStartWalk({
       topic: finalTopic,
@@ -47,6 +64,36 @@ export const IntentionSetupScreen: React.FC<IntentionSetupScreenProps> = ({
       durationMinutes: duration,
       language: language,
     });
+  };
+
+  const handleStart = () => {
+    // Before first walk starts, show short explainer if permission is default and not prompted
+    const isNotifSupported = typeof window !== 'undefined' && 'Notification' in window;
+    const hasPrompted = localStorage.getItem('chalte_notif_prompted');
+    if (isNotifSupported && Notification.permission === 'default' && !hasPrompted) {
+      setShowNotificationPrompt(true);
+      return;
+    }
+    proceedStart();
+  };
+
+  const handleAllowNotifications = async () => {
+    localStorage.setItem('chalte_notif_prompted', 'true');
+    setShowNotificationPrompt(false);
+    try {
+      if ('Notification' in window) {
+        await Notification.requestPermission();
+      }
+    } catch {
+      // silent fallback
+    }
+    proceedStart();
+  };
+
+  const handleDenyNotifications = () => {
+    localStorage.setItem('chalte_notif_prompted', 'true');
+    setShowNotificationPrompt(false);
+    proceedStart();
   };
 
   const currentTopicDisplay = isCustom && customTopic ? customTopic : selectedTopic;
@@ -274,6 +321,52 @@ export const IntentionSetupScreen: React.FC<IntentionSetupScreenProps> = ({
           <Play className="w-4 h-4 fill-current" />
         </button>
       </div>
+
+      {/* Notification Permission Explainer Modal */}
+      {showNotificationPrompt && (
+        <div className="fixed inset-0 z-50 bg-[#10131B]/80 backdrop-blur-md flex items-end sm:items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-[360px] glass-panel rounded-2xl p-5 border border-white/10 space-y-4 text-left shadow-2xl"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-[#1B202A] border border-white/10 flex items-center justify-center text-[#A8E6E8]">
+                <span className="text-[18px]">🔔</span>
+              </div>
+              <div>
+                <span className="font-space text-[10px] uppercase tracking-wider text-[#8E97A6] font-semibold">
+                  Quiet reminder
+                </span>
+                <h3 className="font-inter font-semibold text-[15px] text-[#F4F3EF]">
+                  Notification permission alert
+                </h3>
+              </div>
+            </div>
+
+            <p className="font-inter text-[13px] text-[#8E97A6] leading-relaxed">
+              Allow quiet background reminders when your walk ends. We only notify you when your walk finishes while the app is hidden.
+            </p>
+
+            <div className="flex gap-2 pt-1">
+              <button
+                type="button"
+                onClick={handleDenyNotifications}
+                className="flex-1 py-2.5 px-4 rounded-full bg-white/5 border border-white/10 text-[#8E97A6] hover:text-[#F4F3EF] font-space text-[13px] active:scale-95 transition-all"
+              >
+                Deny
+              </button>
+              <button
+                type="button"
+                onClick={handleAllowNotifications}
+                className="flex-1 py-2.5 px-4 rounded-full bg-[#A8E6E8] hover:bg-[#BCEFF0] text-[#10131B] font-space font-semibold text-[13px] active:scale-95 transition-all shadow-[0_0_15px_rgba(168,230,232,0.2)]"
+              >
+                Allow
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

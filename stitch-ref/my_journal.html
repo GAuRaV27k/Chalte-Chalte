@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chalte-Chalte — My Journal</title>
+<!-- Google Fonts: Space Grotesk, Inter, Instrument Serif -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#b8b3e7",
+            "on-error-container": "#ffdad6",
+            "on-primary-fixed": "#002021",
+            "on-tertiary": "#343024",
+            "surface-glass-border": "rgba(255, 255, 255, 0.12)",
+            "body-muted": "#A0A9B8",
+            "ink": "#F4F3EF",
+            "inverse-primary": "#28676a",
+            "secondary-container": "#474470",
+            "hairline": "rgba(255, 255, 255, 0.12)",
+            "surface-container-low": "#181b24",
+            "secondary-fixed": "#e4dfff",
+            "on-surface": "#e0e2ee",
+            "outline-variant": "#3f4849",
+            "canvas-secondary": "#1B202A",
+            "surface-glass": "rgba(27, 32, 42, 0.65)",
+            "background": "#10131b",
+            "ink-muted-80": "#8E97A6",
+            "tertiary-fixed": "#eae2d0",
+            "on-primary-fixed-variant": "#024f51",
+            "on-tertiary-fixed-variant": "#4b4639",
+            "destructive": "#E27D7D",
+            "outline": "#899292",
+            "primary-focus": "#BCEFF0",
+            "inverse-on-surface": "#2d3039",
+            "primary-fixed": "#afeef0",
+            "surface-container": "#1c1f28",
+            "surface-dim": "#10131b",
+            "surface-tint": "#94d1d3",
+            "primary": "#dbfeff",
+            "surface-container-highest": "#32353d",
+            "on-error": "#690005",
+            "on-tertiary-container": "#655f51",
+            "on-surface-variant": "#bfc8c8",
+            "on-secondary-fixed-variant": "#45426e",
+            "tertiary-fixed-dim": "#cec6b5",
+            "surface": "#10131b",
+            "surface-bright": "#363942",
+            "divider-soft": "rgba(255, 255, 255, 0.08)",
+            "on-secondary-fixed": "#191540",
+            "on-primary-container": "#29696b",
+            "secondary-fixed-dim": "#c6c1f6",
+            "ink-muted-48": "#5C6473",
+            "surface-variant": "#32353d",
+            "error": "#ffb4ab",
+            "on-tertiary-fixed": "#1f1b10",
+            "surface-container-high": "#272a32",
+            "tertiary-container": "#e3dac8",
+            "on-primary": "#003738",
+            "surface-container-lowest": "#0b0e16",
+            "primary-container": "#a8e6e8",
+            "error-container": "#93000a",
+            "on-secondary": "#2e2b56",
+            "tertiary": "#fff6e7",
+            "surface-glass-active": "rgba(35, 42, 56, 0.85)",
+            "inverse-surface": "#e0e2ee",
+            "primary-fixed-dim": "#94d1d3",
+            "destructive-bg": "rgba(226, 125, 125, 0.12)",
+            "on-background": "#e0e2ee",
+            "secondary": "#c6c1f6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "xs": "8px",
+            "space-lg": "1.25rem",
+            "xl": "28px",
+            "lg": "20px",
+            "xxl": "40px",
+            "xxs": "4px",
+            "space-sm": "0.75rem",
+            "margin": "1.25rem",
+            "md": "16px",
+            "section": "48px",
+            "gutter": "1rem",
+            "sm": "12px",
+            "space-md": "1rem",
+            "space-xl": "1.75rem",
+            "space-xs": "0.5rem"
+          },
+          "fontFamily": {
+            "display-serif": ["\"Instrument Serif\", Georgia, serif"],
+            "hero-display": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "caption": ["\"Inter\", system-ui, sans-serif"],
+            "body": ["\"Inter\", system-ui, sans-serif"],
+            "display-lg": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "caption-strong": ["\"Inter\", system-ui, sans-serif"],
+            "question-serif": ["\"Instrument Serif\", Georgia, serif"],
+            "lead": ["\"Inter\", system-ui, sans-serif"],
+            "overline": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "body-strong": ["\"Inter\", system-ui, sans-serif"],
+            "button-large": ["\"Space Grotesk\", system-ui, sans-serif"]
+          },
+          "fontSize": {
+            "display-serif": ["28px", { "lineHeight": "1.3", "fontWeight": "400" }],
+            "hero-display": ["32px", { "lineHeight": "1.15", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+            "caption": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+            "body": ["15px", { "lineHeight": "1.5", "letterSpacing": "-0.15px", "fontWeight": "400" }],
+            "display-lg": ["24px", { "lineHeight": "1.25", "letterSpacing": "-0.3px", "fontWeight": "600" }],
+            "caption-strong": ["13px", { "lineHeight": "1.4", "fontWeight": "600" }],
+            "question-serif": ["26px", { "lineHeight": "1.38", "letterSpacing": "0.1px", "fontWeight": "400" }],
+            "lead": ["16px", { "lineHeight": "1.5", "letterSpacing": "-0.2px", "fontWeight": "400" }],
+            "overline": ["11px", { "lineHeight": "1.2", "letterSpacing": "1.2px", "fontWeight": "600" }],
+            "body-strong": ["15px", { "lineHeight": "1.45", "letterSpacing": "-0.15px", "fontWeight": "600" }],
+            "button-large": ["16px", { "lineHeight": "1.2", "letterSpacing": "0.1px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #10131B;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-ink font-body selection:bg-primary-container selection:text-background min-h-screen flex flex-col justify-start items-center antialiased overflow-x-hidden">
+<!-- Mobile Screen Container Simulation (Android layout) -->
+<div class="w-full max-w-md min-h-screen bg-background relative flex flex-col pb-24 shadow-2xl">
+<!-- Android Status Bar (Native) -->
+<header class="w-full px-space-md pt-2 pb-1 flex justify-between items-center text-ink-muted-80 font-caption text-caption z-30 select-none">
+<div class="flex items-center space-x-1.5">
+<span class="font-body-strong text-ink">07:28</span>
+<span class="text-xs text-ink-muted-48">AM</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-sm" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-sm" data-icon="battery_full">battery_full</span>
+</div>
+</header>
+<!-- Shared Component: TopAppBar -->
+<nav class="sticky top-0 z-40 bg-surface-glass backdrop-blur-md flex justify-between items-center w-full px-space-md py-space-sm h-16">
+<div class="flex items-center space-x-3">
+<button aria-label="Go to Home" class="w-10 h-10 -ml-1 rounded-full flex items-center justify-center text-ink hover:text-primary active:scale-95 transition-transform duration-150" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="arrow_back">arrow_back</span>
+</button>
+<div>
+<span class="text-display-lg font-display-lg text-ink tracking-tight block leading-tight">Chalte-Chalte</span>
+<span class="text-caption font-caption text-ink-muted-80 block text-xs">Walking Philosopher</span>
+</div>
+</div>
+<div class="flex items-center space-x-1">
+<button aria-label="Search Journal" class="w-10 h-10 rounded-full flex items-center justify-center text-ink hover:text-primary active:scale-95 transition-transform duration-150" type="button">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button aria-label="Settings" class="w-10 h-10 rounded-full flex items-center justify-center text-ink-muted-80 hover:text-primary active:scale-95 transition-transform duration-150" type="button">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</nav>
+<!-- Page Context Title & Philosophy Subtitle -->
+<section class="px-space-md pt-space-md pb-space-xs">
+<div class="flex items-baseline justify-between">
+<h1 class="text-display-lg font-display-lg text-ink font-bold tracking-tight">My Journal</h1>
+<span class="font-overline text-overline text-primary tracking-widest uppercase">3 Entries</span>
+</div>
+<p class="text-caption font-caption text-ink-muted-80 mt-1">A record of the thoughts you chose to keep</p>
+</section>
+<!-- State View Segmented Switcher (Journal List | Entry Detail | Empty State) -->
+<div class="px-space-md py-space-xs">
+<div class="bg-canvas-secondary p-1 rounded-full border border-hairline flex items-center justify-between text-caption font-caption-strong">
+<button class="flex-1 py-1.5 px-2 rounded-full text-center transition-all duration-200 bg-primary-container text-background font-medium shadow-sm" id="tab-list-btn" onclick="switchState('list')">
+          Journal List
+        </button>
+<button class="flex-1 py-1.5 px-2 rounded-full text-center transition-all duration-200 text-ink-muted-80 hover:text-ink" id="tab-detail-btn" onclick="switchState('detail')">
+          Entry Detail
+        </button>
+<button class="flex-1 py-1.5 px-2 rounded-full text-center transition-all duration-200 text-ink-muted-80 hover:text-ink" id="tab-empty-btn" onclick="switchState('empty')">
+          Empty State
+        </button>
+</div>
+</div>
+<!-- MAIN VIEW CONTAINER -->
+<main class="flex-1 px-space-md mt-space-xs">
+<!-- ================= SECTION A: JOURNAL LIST VIEW (ACTIVE STATE) ================= -->
+<section class="space-y-space-md block transition-opacity duration-300" id="view-list">
+<!-- Filter Chips Carousel -->
+<div class="flex items-center space-x-2 overflow-x-auto py-1 no-scrollbar">
+<button class="px-3.5 py-1 rounded-full text-caption-strong font-caption-strong bg-primary-container text-background shrink-0">
+            All
+          </button>
+<button class="px-3.5 py-1 rounded-full text-caption font-caption bg-surface-glass border border-hairline text-ink-muted-80 hover:text-ink shrink-0 active:scale-95 transition-all">
+            Career
+          </button>
+<button class="px-3.5 py-1 rounded-full text-caption font-caption bg-surface-glass border border-hairline text-ink-muted-80 hover:text-ink shrink-0 active:scale-95 transition-all">
+            Stillness
+          </button>
+<button class="px-3.5 py-1 rounded-full text-caption font-caption bg-surface-glass border border-hairline text-ink-muted-80 hover:text-ink shrink-0 active:scale-95 transition-all">
+            Solitude
+          </button>
+</div>
+<!-- Card 1 -->
+<article class="cursor-pointer bg-surface-glass backdrop-blur-md rounded-2xl p-space-lg border border-surface-glass-border hover:border-primary-container/40 transition-all duration-200 group relative" onclick="switchState('detail')">
+<div class="flex items-center justify-between mb-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-overline text-primary border border-primary-container/50 bg-primary-container/10">
+              Career &amp; Ambition
+            </span>
+<span class="text-caption font-caption text-ink-muted-80 flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="schedule">schedule</span>
+<span>24 min walk</span>
+</span>
+</div>
+<h2 class="font-display-serif text-display-serif text-ink group-hover:text-primary transition-colors leading-snug">
+            The Difference Between Ambition and Expectation
+          </h2>
+<p class="text-caption font-caption text-ink-muted-80 mt-1 mb-3">October 24, 2024 · Nehru Park</p>
+<p class="text-body font-body text-body-muted line-clamp-2">
+            Walking past the rustling trees at Nehru Park, I realized what felt like failure was just a needed detour. Stillness does not demand a silent city...
+          </p>
+<div class="mt-4 pt-3 border-t border-divider-soft flex items-center justify-between">
+<div class="flex items-center space-x-1.5 text-secondary text-caption-strong font-caption-strong">
+<span class="material-symbols-outlined text-base" data-icon="mic" data-weight="fill">mic</span>
+<span>2 audio clips</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-canvas-secondary border border-hairline flex items-center justify-center text-ink-muted-80 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="cursor-pointer bg-surface-glass backdrop-blur-md rounded-2xl p-space-lg border border-surface-glass-border hover:border-primary-container/40 transition-all duration-200 group relative" onclick="switchState('detail')">
+<div class="flex items-center justify-between mb-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-overline text-secondary border border-secondary/40 bg-secondary-container/20">
+              Solitude &amp; Meaning
+            </span>
+<span class="text-caption font-caption text-ink-muted-80 flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="schedule">schedule</span>
+<span>18 min walk</span>
+</span>
+</div>
+<h2 class="font-display-serif text-display-serif text-ink group-hover:text-primary transition-colors leading-snug">
+            The Architecture of Quiet Hours
+          </h2>
+<p class="text-caption font-caption text-ink-muted-80 mt-1 mb-3">October 21, 2024 · Lodhi Road</p>
+<p class="text-body font-body text-body-muted line-clamp-2">
+            In the early morning mist along Lodhi Road, the city felt like an empty gallery. The shadows of tombs held no ghosts, only silence that welcomed thought...
+          </p>
+<div class="mt-4 pt-3 border-t border-divider-soft flex items-center justify-between">
+<div class="flex items-center space-x-1.5 text-secondary text-caption-strong font-caption-strong">
+<span class="material-symbols-outlined text-base" data-icon="mic" data-weight="fill">mic</span>
+<span>1 audio clip</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-canvas-secondary border border-hairline flex items-center justify-center text-ink-muted-80 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="cursor-pointer bg-surface-glass backdrop-blur-md rounded-2xl p-space-lg border border-surface-glass-border hover:border-primary-container/40 transition-all duration-200 group relative" onclick="switchState('detail')">
+<div class="flex items-center justify-between mb-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-overline text-tertiary-fixed border border-tertiary-fixed/40 bg-tertiary-container/10">
+              Relationships
+            </span>
+<span class="text-caption font-caption text-ink-muted-80 flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs" data-icon="schedule">schedule</span>
+<span>30 min walk</span>
+</span>
+</div>
+<h2 class="font-display-serif text-display-serif text-ink group-hover:text-primary transition-colors leading-snug">
+            Unlearning the Urgency of Replying
+          </h2>
+<p class="text-caption font-caption text-ink-muted-80 mt-1 mb-3">October 16, 2024 · Ridge Forest</p>
+<p class="text-body font-body text-body-muted line-clamp-2">
+            We confuse instant reachability with emotional presence. When the phone rests in the deep pocket, the world restores its deliberate cadence...
+          </p>
+<div class="mt-4 pt-3 border-t border-divider-soft flex items-center justify-between">
+<div class="flex items-center space-x-1.5 text-secondary text-caption-strong font-caption-strong">
+<span class="material-symbols-outlined text-base" data-icon="mic" data-weight="fill">mic</span>
+<span>3 audio clips</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-canvas-secondary border border-hairline flex items-center justify-center text-ink-muted-80 group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</article>
+</section>
+<!-- ================= SECTION B: INTERACTIVE ENTRY DETAIL VIEW ================= -->
+<section class="hidden space-y-space-md transition-opacity duration-300" id="view-detail">
+<!-- Notebook Paper Glass Container -->
+<div class="bg-surface-glass backdrop-blur-md rounded-2xl p-space-lg border border-surface-glass-border relative overflow-hidden">
+<div class="flex items-center justify-between mb-3">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-overline text-primary border border-primary-container/50 bg-primary-container/10">
+              Career &amp; Ambition
+            </span>
+<span class="text-caption font-caption text-ink-muted-80">October 24, 2024</span>
+</div>
+<h2 class="font-display-serif text-display-serif text-ink mb-2">
+            The Difference Between Ambition and Expectation
+          </h2>
+<!-- Sub-headline Walk Details -->
+<div class="flex items-center space-x-3 text-caption font-caption text-ink-muted-80 pb-4 mb-4 border-b border-divider-soft">
+<span class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="directions_walk">directions_walk</span>
+<span>24 min walk</span>
+</span>
+<span>•</span>
+<span class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="location_on">location_on</span>
+<span>Nehru Park, Chanakyapuri</span>
+</span>
+</div>
+<!-- Section: My Reflections -->
+<div class="space-y-3">
+<h3 class="font-button-large text-button-large text-ink flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>My reflections</span>
+</h3>
+<p class="text-body font-body text-body-muted leading-relaxed">
+              Walking past the rustling trees at Nehru Park, I realized what felt like failure was just a needed detour. Stillness does not demand a silent city—it asks for an inner permission to pause judgment. Ambition pulls forward with intention; expectation merely burdens the present with rigid timelines.
+            </p>
+</div>
+<!-- Section: Philosophical Quote / Question to Carry Forward -->
+<div class="my-5 p-4 rounded-xl bg-canvas-secondary/90 border-l-2 border-primary-container border-hairline">
+<span class="font-overline text-overline text-ink-muted-80 uppercase tracking-widest block mb-1">A question to carry forward</span>
+<blockquote class="font-question-serif text-question-serif text-tertiary italic">
+              "What if the delay is not an obstacle, but the very territory meant to shape your discernment?"
+            </blockquote>
+</div>
+<!-- Section: Ideas Worth Revisiting (Chips) -->
+<div class="space-y-2 mt-4">
+<h4 class="font-caption-strong text-caption-strong text-ink-muted-80">Ideas worth revisiting</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-full text-xs font-overline bg-canvas-secondary border border-hairline text-ink">
+                #DetourVsFailure
+              </span>
+<span class="px-3 py-1 rounded-full text-xs font-overline bg-canvas-secondary border border-hairline text-ink">
+                #RhythmOfPatience
+              </span>
+<span class="px-3 py-1 rounded-full text-xs font-overline bg-canvas-secondary border border-hairline text-ink">
+                #NehruParkWalk
+              </span>
+</div>
+</div>
+<!-- Collapsible: Original Voice Clips & Transcripts -->
+<div class="mt-6 pt-5 border-t border-divider-soft">
+<details class="group/audio" open="">
+<summary class="flex items-center justify-between cursor-pointer list-none select-none text-ink font-body-strong">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-secondary" data-icon="graphic_eq">graphic_eq</span>
+<span>Original Voice Clips &amp; Transcripts (2)</span>
+</div>
+<span class="material-symbols-outlined text-ink-muted-80 group-open/audio:rotate-180 transition-transform text-sm" data-icon="expand_more">expand_more</span>
+</summary>
+<!-- Audio Player 1 -->
+<div class="mt-4 p-3 rounded-xl bg-canvas-secondary border border-hairline space-y-2">
+<div class="flex items-center justify-between text-caption font-caption text-ink-muted-80">
+<span class="font-body-strong text-ink text-xs">Clip 1: Near Pine Grove</span>
+<span>0:42 / 1:18</span>
+</div>
+<!-- Waveform Display Simulation -->
+<div class="flex items-center space-x-2">
+<button aria-label="Play voice note" class="w-8 h-8 rounded-full bg-primary-container text-background flex items-center justify-center shrink-0 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-base" data-icon="play_arrow" data-weight="fill">play_arrow</span>
+</button>
+<div class="flex-1 flex items-center space-x-1 h-6 px-1">
+<div class="w-1 bg-primary-container h-4 rounded-full"></div>
+<div class="w-1 bg-primary-container h-6 rounded-full"></div>
+<div class="w-1 bg-primary-container h-3 rounded-full"></div>
+<div class="w-1 bg-primary-container h-5 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-2 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-4 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-6 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-3 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-2 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-5 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-3 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-1 rounded-full"></div>
+</div>
+</div>
+<p class="text-caption font-caption text-ink-muted-80 italic text-xs pt-1 border-t border-divider-soft">
+                  Transcript: "...the wind is quite loud here, but I can finally hear what I was avoiding thinking about all week."
+                </p>
+</div>
+<!-- Audio Player 2 -->
+<div class="mt-2 p-3 rounded-xl bg-canvas-secondary border border-hairline space-y-2">
+<div class="flex items-center justify-between text-caption font-caption text-ink-muted-80">
+<span class="font-body-strong text-ink text-xs">Clip 2: Fountain Bench</span>
+<span>0:15 / 0:34</span>
+</div>
+<div class="flex items-center space-x-2">
+<button aria-label="Play voice note" class="w-8 h-8 rounded-full bg-canvas-secondary border border-hairline text-ink flex items-center justify-center shrink-0 active:scale-95 transition-transform hover:text-primary" type="button">
+<span class="material-symbols-outlined text-base" data-icon="play_arrow" data-weight="fill">play_arrow</span>
+</button>
+<div class="flex-1 flex items-center space-x-1 h-6 px-1">
+<div class="w-1 bg-primary-container/40 h-2 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-4 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-5 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-3 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-2 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-6 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-3 rounded-full"></div>
+<div class="w-1 bg-primary-container/40 h-2 rounded-full"></div>
+</div>
+</div>
+</div>
+</details>
+</div>
+<!-- Action Buttons Bar -->
+<div class="mt-6 pt-4 border-t border-divider-soft flex flex-col sm:flex-row gap-2">
+<div class="flex-1 flex gap-2">
+<button class="flex-1 min-h-[48px] px-4 py-2.5 rounded-full bg-surface-glass border border-hairline text-ink hover:text-primary font-button-large text-button-large flex items-center justify-center space-x-1.5 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+<span>Edit Journal</span>
+</button>
+<button class="flex-1 min-h-[48px] px-4 py-2.5 rounded-full bg-surface-glass border border-hairline text-ink hover:text-primary font-button-large text-button-large flex items-center justify-center space-x-1.5 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="ios_share">ios_share</span>
+<span>Export Text</span>
+</button>
+</div>
+<!-- Delete Action with Confirmation Prompt Trigger -->
+<button class="min-h-[48px] px-4 py-2.5 rounded-full bg-destructive-bg border border-destructive/40 text-destructive font-button-large text-button-large flex items-center justify-center space-x-1.5 hover:bg-destructive-bg/80 active:scale-95 transition-all" onclick="confirmDelete()" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+<span>Delete Entry</span>
+</button>
+</div>
+</div>
+</section>
+<!-- ================= SECTION C: PEACEFUL EMPTY STATE VIEW ================= -->
+<section class="hidden transition-opacity duration-300" id="view-empty">
+<div class="bg-surface-glass backdrop-blur-md rounded-2xl p-space-xl border border-surface-glass-border text-center flex flex-col items-center justify-center py-12">
+<!-- Floating Calm Compass / Horizon Emblem -->
+<div class="relative w-24 h-24 mb-6 flex items-center justify-center">
+<!-- Concentric celestial rings -->
+<div class="absolute inset-0 rounded-full border border-hairline animate-pulse opacity-40"></div>
+<div class="absolute inset-2 rounded-full border border-primary-container/20"></div>
+<div class="w-14 h-14 rounded-full bg-canvas-secondary border border-hairline flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-3xl" data-icon="explore" data-weight="fill">explore</span>
+</div>
+</div>
+<h3 class="font-display-serif text-display-serif text-ink mb-2">
+            Your story starts with a walk.
+          </h3>
+<p class="text-body font-body text-body-muted max-w-xs mb-8">
+            Your saved reflections will appear here as you explore your thoughts beneath the open sky.
+          </p>
+<button class="min-h-[48px] px-8 py-3 rounded-full bg-primary-container text-background font-button-large text-button-large hover:bg-primary-focus active:scale-95 transition-all flex items-center space-x-2 shadow-lg shadow-primary-container/10" onclick="alert('Beginning new mindful walk session...')" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="directions_walk">directions_walk</span>
+<span>Begin your first walk</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Shared Component: BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-space-xs h-16 bg-surface-glass backdrop-blur-md max-w-md left-1/2 -translate-x-1/2">
+<!-- Nav Destination 1: Home -->
+<a class="flex flex-col items-center justify-center text-ink-muted-80 hover:text-primary transition-colors duration-200 active:scale-95" href="#home">
+<span class="material-symbols-outlined text-2xl" data-icon="explore">explore</span>
+<span class="text-caption font-caption mt-0.5">Home</span>
+</a>
+<!-- Nav Destination 2: My Journal (ACTIVE MATCH) -->
+<a class="flex flex-col items-center justify-center text-primary font-caption-strong text-caption-strong hover:text-primary transition-colors duration-200 active:scale-95" href="#journal">
+<span class="material-symbols-outlined text-2xl" data-icon="menu_book" data-weight="fill">menu_book</span>
+<span class="mt-0.5">My Journal</span>
+</a>
+<!-- Nav Destination 3: Settings -->
+<a class="flex flex-col items-center justify-center text-ink-muted-80 hover:text-primary transition-colors duration-200 active:scale-95" href="#settings">
+<span class="material-symbols-outlined text-2xl" data-icon="settings">settings</span>
+<span class="text-caption font-caption mt-0.5">Settings</span>
+</a>
+</nav>
+<!-- Android Gesture Navigation Bar Pill -->
+<div class="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-ink-muted-48/40 rounded-full z-50 pointer-events-none"></div>
+</div>
+<!-- Inline Script for State Switching Micro-interactions -->
+<script>
+    function switchState(state) {
+      const viewList = document.getElementById('view-list');
+      const viewDetail = document.getElementById('view-detail');
+      const viewEmpty = document.getElementById('view-empty');
+
+      const btnList = document.getElementById('tab-list-btn');
+      const btnDetail = document.getElementById('tab-detail-btn');
+      const btnEmpty = document.getElementById('tab-empty-btn');
+
+      // Hide all views
+      viewList.classList.add('hidden');
+      viewDetail.classList.add('hidden');
+      viewEmpty.classList.add('hidden');
+
+      // Reset button styles
+      [btnList, btnDetail, btnEmpty].forEach(btn => {
+        btn.className = "flex-1 py-1.5 px-2 rounded-full text-center transition-all duration-200 text-ink-muted-80 hover:text-ink";
+      });
+
+      const activeClass = "flex-1 py-1.5 px-2 rounded-full text-center transition-all duration-200 bg-primary-container text-background font-medium shadow-sm";
+
+      if (state === 'list') {
+        viewList.classList.remove('hidden');
+        btnList.className = activeClass;
+      } else if (state === 'detail') {
+        viewDetail.classList.remove('hidden');
+        btnDetail.className = activeClass;
+      } else if (state === 'empty') {
+        viewEmpty.classList.remove('hidden');
+        btnEmpty.className = activeClass;
+      }
+    }
+
+    function confirmDelete() {
+      if (confirm('Are you sure you wish to delete this journal reflection? This cannot be undone.')) {
+        switchState('empty');
+      }
+    }
+  </script>
+</body></html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings — Chalte-Chalte</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Space Grotesk, Inter, Instrument Serif -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#b8b3e7",
+            "on-error-container": "#ffdad6",
+            "on-primary-fixed": "#002021",
+            "on-tertiary": "#343024",
+            "surface-glass-border": "rgba(255, 255, 255, 0.12)",
+            "body-muted": "#A0A9B8",
+            "ink": "#F4F3EF",
+            "inverse-primary": "#28676a",
+            "secondary-container": "#474470",
+            "hairline": "rgba(255, 255, 255, 0.12)",
+            "surface-container-low": "#181b24",
+            "secondary-fixed": "#e4dfff",
+            "on-surface": "#e0e2ee",
+            "outline-variant": "#3f4849",
+            "canvas-secondary": "#1B202A",
+            "surface-glass": "rgba(27, 32, 42, 0.65)",
+            "background": "#10131b",
+            "ink-muted-80": "#8E97A6",
+            "tertiary-fixed": "#eae2d0",
+            "on-primary-fixed-variant": "#024f51",
+            "on-tertiary-fixed-variant": "#4b4639",
+            "destructive": "#E27D7D",
+            "outline": "#899292",
+            "primary-focus": "#BCEFF0",
+            "inverse-on-surface": "#2d3039",
+            "primary-fixed": "#afeef0",
+            "surface-container": "#1c1f28",
+            "surface-dim": "#10131b",
+            "surface-tint": "#94d1d3",
+            "primary": "#dbfeff",
+            "surface-container-highest": "#32353d",
+            "on-error": "#690005",
+            "on-tertiary-container": "#655f51",
+            "on-surface-variant": "#bfc8c8",
+            "on-secondary-fixed-variant": "#45426e",
+            "tertiary-fixed-dim": "#cec6b5",
+            "surface": "#10131b",
+            "surface-bright": "#363942",
+            "divider-soft": "rgba(255, 255, 255, 0.08)",
+            "on-secondary-fixed": "#191540",
+            "on-primary-container": "#29696b",
+            "secondary-fixed-dim": "#c6c1f6",
+            "ink-muted-48": "#5C6473",
+            "surface-variant": "#32353d",
+            "error": "#ffb4ab",
+            "on-tertiary-fixed": "#1f1b10",
+            "surface-container-high": "#272a32",
+            "tertiary-container": "#e3dac8",
+            "on-primary": "#003738",
+            "surface-container-lowest": "#0b0e16",
+            "primary-container": "#a8e6e8",
+            "error-container": "#93000a",
+            "on-secondary": "#2e2b56",
+            "tertiary": "#fff6e7",
+            "surface-glass-active": "rgba(35, 42, 56, 0.85)",
+            "inverse-surface": "#e0e2ee",
+            "primary-fixed-dim": "#94d1d3",
+            "destructive-bg": "rgba(226, 125, 125, 0.12)",
+            "on-background": "#e0e2ee",
+            "secondary": "#c6c1f6"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "xs": "8px",
+            "space-lg": "1.25rem",
+            "xl": "28px",
+            "lg": "20px",
+            "xxl": "40px",
+            "xxs": "4px",
+            "space-sm": "0.75rem",
+            "margin": "1.25rem",
+            "md": "16px",
+            "section": "48px",
+            "gutter": "1rem",
+            "sm": "12px",
+            "space-md": "1rem",
+            "space-xl": "1.75rem",
+            "space-xs": "0.5rem"
+          },
+          "fontFamily": {
+            "display-serif": ["\"Instrument Serif\", Georgia, serif"],
+            "hero-display": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "caption": ["\"Inter\", system-ui, sans-serif"],
+            "body": ["\"Inter\", system-ui, sans-serif"],
+            "display-lg": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "caption-strong": ["\"Inter\", system-ui, sans-serif"],
+            "question-serif": ["\"Instrument Serif\", Georgia, serif"],
+            "lead": ["\"Inter\", system-ui, sans-serif"],
+            "overline": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "body-strong": ["\"Inter\", system-ui, sans-serif"],
+            "button-large": ["\"Space Grotesk\", system-ui, sans-serif"]
+          },
+          "fontSize": {
+            "display-serif": ["28px", { "lineHeight": "1.3", "fontWeight": "400" }],
+            "hero-display": ["32px", { "lineHeight": "1.15", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+            "caption": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+            "body": ["15px", { "lineHeight": "1.5", "letterSpacing": "-0.15px", "fontWeight": "400" }],
+            "display-lg": ["24px", { "lineHeight": "1.25", "letterSpacing": "-0.3px", "fontWeight": "600" }],
+            "caption-strong": ["13px", { "lineHeight": "1.4", "fontWeight": "600" }],
+            "question-serif": ["26px", { "lineHeight": "1.38", "letterSpacing": "0.1px", "fontWeight": "400" }],
+            "lead": ["16px", { "lineHeight": "1.5", "letterSpacing": "-0.2px", "fontWeight": "400" }],
+            "overline": ["11px", { "lineHeight": "1.2", "letterSpacing": "1.2px", "fontWeight": "600" }],
+            "body-strong": ["15px", { "lineHeight": "1.45", "letterSpacing": "-0.15px", "fontWeight": "600" }],
+            "button-large": ["16px", { "lineHeight": "1.2", "letterSpacing": "0.1px", "fontWeight": "600" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Custom subtle glass styling and slider aesthetics */
+    input[type=range] {
+      accent-color: #a8e6e8;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #a8e6e8;
+      box-shadow: 0 0 10px rgba(168, 230, 232, 0.4);
+      cursor: pointer;
+      -webkit-appearance: none;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      height: 4px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-ink min-h-screen font-body text-body selection:bg-primary-container selection:text-on-primary-container relative pb-28 antialiased overflow-x-hidden">
+<!-- Ambient Glow Elements for Philosophical Contemplation -->
+<div class="fixed top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary-container/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<div class="fixed bottom-24 right-0 w-80 h-80 bg-secondary/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+<!-- Android Native Status Bar -->
+<div class="w-full h-8 px-6 pt-1 flex justify-between items-center text-ink-muted-80 text-xs font-caption tracking-wider select-none z-50">
+<span class="font-body-strong text-ink font-semibold">21:42</span>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[15px]" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[15px]" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="battery_full">battery_full</span>
+</div>
+</div>
+<!-- Top Navigation Header (Semantic Shell conforming to JSON TopAppBar) -->
+<header class="sticky top-0 z-40 bg-surface-glass backdrop-blur-md px-space-md py-space-sm h-16 flex justify-between items-center border-b border-hairline transition-all">
+<div class="flex items-center space-x-3">
+<button aria-label="Go back" class="w-12 h-12 -ml-2 rounded-full flex items-center justify-center text-ink-muted-80 hover:text-primary active:scale-95 transition-transform duration-150" type="button">
+<span class="material-symbols-outlined text-2xl" data-icon="arrow_back">arrow_back</span>
+</button>
+<div>
+<h1 class="text-display-lg font-display-lg text-ink tracking-tight flex items-center gap-2">
+          Settings
+        </h1>
+<p class="text-caption font-caption text-ink-muted-80 leading-none">Preferences, storage &amp; privacy</p>
+</div>
+</div>
+<!-- Trailing Action -->
+<div class="w-12 h-12 rounded-full flex items-center justify-center text-ink-muted-80 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="tune">tune</span>
+</div>
+</header>
+<!-- Main Scrollable Canvas -->
+<main class="w-full max-w-xl mx-auto px-5 py-6 space-y-6">
+<!-- Subtle Philosophical Anchor Quote -->
+<div class="px-2 pt-1 pb-2">
+<p class="font-display-serif text-display-serif italic text-ink/90 leading-tight">
+        “Solitude gives space for thoughts to settle like clear water.”
+      </p>
+<span class="font-overline text-overline uppercase tracking-widest text-ink-muted-48 mt-1 block">Quiet Calibration</span>
+</div>
+<!-- 1. WALKING PREFERENCES CARD -->
+<section class="bg-surface-glass backdrop-blur-md rounded-2xl p-space-lg border border-hairline shadow-sm relative overflow-hidden">
+<div class="flex items-center space-x-2.5 mb-5">
+<span class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="directions_walk">directions_walk</span>
+</span>
+<h2 class="font-display-lg text-lg text-ink font-bold tracking-tight">Walking Preferences</h2>
+</div>
+<div class="space-y-5">
+<!-- Default Duration Radio Segmented -->
+<div class="space-y-2">
+<label class="block font-caption-strong text-caption-strong text-ink">Default Walk Duration</label>
+<div aria-label="Default walk duration" class="grid grid-cols-3 gap-2" role="radiogroup">
+<button aria-checked="false" class="py-2.5 px-2 rounded-xl border border-hairline bg-surface-container/60 hover:bg-surface-container text-ink-muted-80 flex flex-col items-center justify-center min-h-[52px] active:scale-95 transition-all text-center" role="radio" type="button">
+<span class="font-body-strong text-sm text-ink">10 min</span>
+<span class="text-[11px] font-caption text-ink-muted-48 leading-tight">Quick start</span>
+</button>
+<button aria-checked="true" class="py-2.5 px-2 rounded-xl border border-primary-container/50 bg-surface-glass-active text-ink flex flex-col items-center justify-center min-h-[52px] shadow-[inset_0_0_12px_rgba(168,230,232,0.15)] active:scale-95 transition-all text-center" role="radio" type="button">
+<span class="font-body-strong text-sm text-primary font-semibold">20 min</span>
+<span class="text-[11px] font-caption text-primary-fixed-dim leading-tight">Recommended</span>
+</button>
+<button aria-checked="false" class="py-2.5 px-2 rounded-xl border border-hairline bg-surface-container/60 hover:bg-surface-container text-ink-muted-80 flex flex-col items-center justify-center min-h-[52px] active:scale-95 transition-all text-center" role="radio" type="button">
+<span class="font-body-strong text-sm text-ink">30 min</span>
+<span class="text-[11px] font-caption text-ink-muted-48 leading-tight">Deep reflection</span>
+</button>
+</div>
+</div>
+<div class="h-px bg-divider-soft w-full"></div>
+<!-- Spoken Reflection Language -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="font-caption-strong text-caption-strong text-ink">Spoken Reflection Language</label>
+<span class="font-caption text-xs text-ink-muted-80">Local dialect</span>
+</div>
+<div class="grid grid-cols-2 p-1 bg-surface-container rounded-xl border border-hairline">
+<button class="py-2 px-3 rounded-lg bg-surface-glass-active text-primary font-body-strong text-caption-strong border border-primary-container/30 flex items-center justify-center gap-1.5 shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+              English
+            </button>
+<button class="py-2 px-3 rounded-lg text-ink-muted-80 hover:text-ink font-body text-caption-strong flex items-center justify-center transition-all" type="button">
+              Hinglish
+            </button>
+</div>
+</div>
+<div class="h-px bg-divider-soft w-full"></div>
+<!-- TTS Voice Selection -->
+<div class="space-y-2">
+<label class="block font-caption-strong text-caption-strong text-ink">Text-to-Speech Voice</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+<!-- Vani Option (Active) -->
+<div class="p-3 rounded-xl border border-primary-container/40 bg-surface-glass-active flex items-start space-x-3 cursor-pointer">
+<div class="w-4 h-4 rounded-full border-2 border-primary-container flex items-center justify-center mt-0.5">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-body-strong text-sm text-ink font-medium">Vani</span>
+<span class="material-symbols-outlined text-xs text-primary-container" data-icon="volume_up">volume_up</span>
+</div>
+<p class="font-caption text-xs text-ink-muted-80 mt-0.5">Calm, contemplative pace</p>
+</div>
+</div>
+<!-- Kabir Option -->
+<div class="p-3 rounded-xl border border-hairline bg-surface-container/40 hover:bg-surface-container/70 flex items-start space-x-3 cursor-pointer transition-colors">
+<div class="w-4 h-4 rounded-full border border-ink-muted-48 flex items-center justify-center mt-0.5"></div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-body-strong text-sm text-ink-muted-80 font-medium">Kabir</span>
+<span class="material-symbols-outlined text-xs text-ink-muted-48" data-icon="volume_mute">volume_mute</span>
+</div>
+<p class="font-caption text-xs text-ink-muted-48 mt-0.5">Warm, deep resonance</p>
+</div>
+</div>
+</div>
+</div>
+<div class="h-px bg-divider-soft w-full"></div>
+<!-- Voice Speaking Pace Slider -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm">
+<label class="font-caption-strong text-caption-strong text-ink" for="pace-slider">Speaking Pace</label>
+<span class="font-body-strong text-xs text-primary-container font-mono bg-surface-container px-2 py-0.5 rounded-full border border-hairline">
+              1.0x (Gentle unhurried)
+            </span>
+</div>
+<div class="pt-2 px-1">
+<input class="w-full cursor-pointer h-2 bg-surface-container-high rounded-lg appearance-none" id="pace-slider" max="1.2" min="0.8" step="0.1" type="range" value="1.0"/>
+<div class="flex justify-between text-[11px] font-caption text-ink-muted-48 mt-1.5 px-0.5">
+<span>0.8x Slow</span>
+<span>1.0x Steady</span>
+<span>1.2x Brisk</span>
+</div>
+</div>
+</div>
+<div class="h-px bg-divider-soft w-full"></div>
+<!-- Haptic Feedback Switch -->
+<div class="flex items-center justify-between py-1">
+<div class="pr-4">
+<label class="font-caption-strong text-caption-strong text-ink block cursor-pointer" for="haptic-toggle">Haptic Cues</label>
+<p class="font-caption text-xs text-ink-muted-80 mt-0.5">Subtle vibration when reflective questions cycle</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer min-h-[48px] min-w-[48px] justify-center">
+<input checked="" class="sr-only peer" id="haptic-toggle" type="checkbox"/>
+<div class="w-12 h-6 bg-surface-container-highest rounded-full peer peer-checked:bg-primary-container peer-focus:outline-none transition-colors after:content-[''] after:absolute after:top-[14px] after:left-[2px] after:bg-ink peer-checked:after:bg-background after:border-hairline after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-6"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- 2. PRIVACY & LOCAL STORAGE CARD -->
+<section class="bg-surface-glass backdrop-blur-md rounded-2xl p-space-lg border border-hairline shadow-sm space-y-5">
+<!-- Section Header -->
+<div class="flex items-center space-x-2.5">
+<span class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]" data-icon="shield">shield</span>
+</span>
+<h2 class="font-display-lg text-lg text-ink font-bold tracking-tight">Privacy &amp; Local Storage</h2>
+</div>
+<!-- Trust Badge / Banner -->
+<div class="rounded-xl p-3.5 bg-gradient-to-r from-canvas-secondary to-surface-container border border-primary-container/20 flex items-start space-x-3">
+<span class="material-symbols-outlined text-primary-container text-xl mt-0.5" data-icon="lock">lock</span>
+<div>
+<h3 class="font-body-strong text-caption-strong text-primary">Local-First Architecture · 100% On-Device</h3>
+<p class="font-caption text-xs text-ink-muted-80 mt-1 leading-relaxed">
+            All voice recordings, transcripts, and synthesized reflections are saved strictly in your device's local sandbox. Nothing is transmitted to external servers.
+          </p>
+</div>
+</div>
+<!-- Storage Breakdown -->
+<div class="p-3.5 rounded-xl bg-surface-container/60 border border-hairline space-y-3">
+<div class="flex justify-between items-baseline">
+<span class="font-caption-strong text-xs text-ink">Total Device Space Used</span>
+<span class="font-body-strong text-sm text-ink font-mono font-bold">14.8 MB</span>
+</div>
+<!-- Meter bar -->
+<div class="w-full h-2 rounded-full bg-surface-container-highest flex overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 75%;" title="Audio Recordings"></div>
+<div class="h-full bg-secondary" style="width: 14%;" title="Transcripts"></div>
+<div class="h-full bg-tertiary-fixed" style="width: 11%;" title="Journal Entries"></div>
+</div>
+<!-- Legend breakdown -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs font-caption text-ink-muted-80">
+<div class="flex items-center space-x-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>Audio: <strong class="text-ink font-medium">11.2 MB</strong></span>
+</div>
+<div class="flex items-center space-x-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Transcripts: <strong class="text-ink font-medium">2.1 MB</strong></span>
+</div>
+<div class="flex items-center space-x-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span>
+<span>Journals: <strong class="text-ink font-medium">1.5 MB</strong></span>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="space-y-3 pt-1">
+<button class="w-full min-h-[48px] px-4 py-2.5 rounded-full bg-surface-glass hover:bg-surface-glass-active border border-hairline text-ink font-button-large text-caption-strong flex items-center justify-between transition-colors active:scale-95" type="button">
+<span class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-lg text-ink-muted-80" data-icon="folder_managed">folder_managed</span>
+<span>Review &amp; delete individual sessions</span>
+</span>
+<span class="material-symbols-outlined text-base text-ink-muted-80" data-icon="chevron_right">chevron_right</span>
+</button>
+<!-- Destructive Action -->
+<div class="rounded-xl p-3 border border-destructive/20 bg-destructive-bg space-y-2">
+<button class="w-full min-h-[48px] px-4 py-2 rounded-full bg-destructive/10 hover:bg-destructive/20 border border-destructive/40 text-destructive font-button-large text-caption-strong flex items-center justify-center space-x-2 transition-all active:scale-95" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="delete_sweep">delete_sweep</span>
+<span>Delete all local data</span>
+</button>
+<p class="font-caption text-[11px] text-destructive/80 text-center px-2 leading-tight">
+            Irreversibly wipes all audio and journals from this device.
+          </p>
+</div>
+</div>
+</section>
+<!-- 3. PERMISSIONS STATUS CARD -->
+<section class="bg-surface-glass backdrop-blur-md rounded-2xl p-space-lg border border-hairline shadow-sm space-y-4">
+<div class="flex items-center space-x-2.5 mb-1">
+<span class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified_user">verified_user</span>
+</span>
+<h2 class="font-display-lg text-lg text-ink font-bold tracking-tight">Hardware &amp; OS Permissions</h2>
+</div>
+<div class="divide-y divide-divider-soft">
+<!-- Microphone -->
+<div class="py-3 flex items-start justify-between">
+<div class="flex items-start space-x-3 pr-2">
+<span class="material-symbols-outlined text-ink-muted-80 mt-0.5 text-xl" data-icon="mic">mic</span>
+<div>
+<p class="font-caption-strong text-sm text-ink">Microphone</p>
+<p class="font-caption text-xs text-ink-muted-80 mt-0.5">Required for spoken thoughts during walking intervals</p>
+</div>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-caption-strong bg-primary-container/15 text-primary border border-primary-container/30 shrink-0">
+            Granted
+          </span>
+</div>
+<!-- Notifications -->
+<div class="py-3 flex items-start justify-between">
+<div class="flex items-start space-x-3 pr-2">
+<span class="material-symbols-outlined text-ink-muted-80 mt-0.5 text-xl" data-icon="notifications">notifications</span>
+<div>
+<p class="font-caption-strong text-sm text-ink">Notifications</p>
+<p class="font-caption text-xs text-ink-muted-80 mt-0.5">Notifies when walk completes and questions ready</p>
+</div>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-caption-strong bg-primary-container/15 text-primary border border-primary-container/30 shrink-0">
+            Granted
+          </span>
+</div>
+<!-- Background Audio -->
+<div class="py-3 flex items-start justify-between">
+<div class="flex items-start space-x-3 pr-2">
+<span class="material-symbols-outlined text-ink-muted-80 mt-0.5 text-xl" data-icon="screen_lock_portrait">screen_lock_portrait</span>
+<div>
+<p class="font-caption-strong text-sm text-ink">Background Execution</p>
+<p class="font-caption text-xs text-ink-muted-80 mt-0.5">Plays hands-free when screen is locked</p>
+</div>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-caption-strong bg-secondary/15 text-secondary border border-secondary/30 shrink-0">
+            Optimized
+          </span>
+</div>
+</div>
+</section>
+<!-- 4. ABOUT & PHILOSOPHY CARD -->
+<section class="bg-surface-glass backdrop-blur-md rounded-2xl p-space-lg border border-hairline shadow-sm space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-overline text-[10px] tracking-widest text-primary-container uppercase">Solitary Companion</span>
+<h3 class="font-display-lg text-lg text-ink font-bold">Chalte-Chalte v1.2.0</h3>
+<p class="font-display-serif text-sm italic text-secondary">The Walking Philosopher</p>
+</div>
+<div class="w-10 h-10 rounded-xl bg-canvas-secondary border border-hairline flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-2xl" data-icon="self_improvement">self_improvement</span>
+</div>
+</div>
+<p class="font-caption text-xs text-ink-muted-80 leading-relaxed">
+        Built with open weights Whisper on-device speech model and local philosophical synthesis. Designed for solitude and clarity.
+      </p>
+<!-- Trust Badges -->
+<div class="flex flex-wrap gap-2 pt-1">
+<span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-surface-container text-ink-muted-80 text-[11px] font-caption border border-hairline">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="lock_open_right">lock_open_right</span>
+<span>Zero Analytics</span>
+</span>
+<span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-surface-container text-ink-muted-80 text-[11px] font-caption border border-hairline">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="block">block</span>
+<span>No Ads</span>
+</span>
+<span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-surface-container text-ink-muted-80 text-[11px] font-caption border border-hairline">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="signal_wifi_off">signal_wifi_off</span>
+<span>No Telemetry</span>
+</span>
+</div>
+<div class="pt-2 border-t border-divider-soft flex justify-between items-center text-xs">
+<a class="font-caption text-ink-muted-80 hover:text-primary transition-colors flex items-center gap-1 min-h-[44px]" href="#">
+<span>Open-source acknowledgments &amp; MIT licenses</span>
+<span class="material-symbols-outlined text-xs" data-icon="open_in_new">open_in_new</span>
+</a>
+</div>
+</section>
+<!-- Bottom Spacing for Android Gesture Bar Safe Zone -->
+<div class="h-8"></div>
+</main>
+<!-- DOCKED BOTTOM NAVIGATION (Exact mapping from Shared Components JSON with Settings marked active) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter py-space-xs h-16 bg-surface-glass backdrop-blur-md dark:bg-surface-glass border-t border-hairline">
+<!-- Destination 1: Home (Inactive) -->
+<a class="flex flex-col items-center justify-center text-ink-muted-80 dark:text-ink-muted-80 font-caption text-caption min-w-[64px] min-h-[48px] hover:text-primary dark:hover:text-primary transition-colors duration-200 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="explore">explore</span>
+<span class="mt-0.5">Home</span>
+</a>
+<!-- Destination 2: My Journal (Inactive) -->
+<a class="flex flex-col items-center justify-center text-ink-muted-80 dark:text-ink-muted-80 font-caption text-caption min-w-[64px] min-h-[48px] hover:text-primary dark:hover:text-primary transition-colors duration-200 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="menu_book">menu_book</span>
+<span class="mt-0.5">My Journal</span>
+</a>
+<!-- Destination 3: Settings (ACTIVE as per JSON and Contextual Lock) -->
+<a aria-current="page" class="flex flex-col items-center justify-center text-primary dark:text-primary font-caption-strong text-caption-strong min-w-[64px] min-h-[48px] active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-2xl" data-icon="settings" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="mt-0.5">Settings</span>
+</a>
+</nav>
+<!-- Android Home Indicator Pill -->
+<div class="fixed bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-50 pointer-events-none"></div>
+<!-- Micro-interactions Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Range slider dynamic display update
+      const slider = document.getElementById('pace-slider');
+      if (slider) {
+        slider.addEventListener('input', (e) => {
+          const val = parseFloat(e.target.value).toFixed(1);
+          let label = "Normal";
+          if (val < 1.0) label = "Deliberate";
+          if (val === "1.0") label = "Gentle unhurried";
+          if (val > 1.0) label = "Fluid";
+          const labelEl = slider.parentElement.previousElementSibling.querySelector('span');
+          if (labelEl) {
+            labelEl.textContent = `${val}x (${label})`;
+          }
+        });
+      }
+    });
+  </script>
+</body></html>

@@ -14,18 +14,18 @@ import { motion } from 'motion/react';
 import { Play, Square } from 'lucide-react';
 
 interface PauseOverlayProps {
-  elapsedSec: number;
+  remainingSec: number;
   onResume: () => void;
   onEndWalk: () => void;
 }
 
 export const PauseOverlay: React.FC<PauseOverlayProps> = ({
-  elapsedSec,
+  remainingSec,
   onResume,
   onEndWalk,
 }) => {
-  const mm = String(Math.floor(elapsedSec / 60)).padStart(2, '0');
-  const ss = String(elapsedSec % 60).padStart(2, '0');
+  const mm = String(Math.floor(remainingSec / 60)).padStart(2, '0');
+  const ss = String(remainingSec % 60).padStart(2, '0');
 
   return (
     <motion.div
@@ -43,7 +43,7 @@ export const PauseOverlay: React.FC<PauseOverlayProps> = ({
         {/* Paused time */}
         <div className="text-center">
           <p className="font-inter text-[11px] uppercase tracking-widest text-[#5C6473] font-semibold mb-1">
-            Paused at
+            Paused · Remaining
           </p>
           <p className="font-space text-[42px] font-bold text-[#F4F3EF] tabular-nums leading-none">
             {mm}:{ss}

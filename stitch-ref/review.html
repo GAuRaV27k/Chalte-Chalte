@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chalte-Chalte — Reflection Review</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-highest": "#32353d",
+            "error": "#ffb4ab",
+            "on-secondary-container": "#b8b3e7",
+            "ink": "#F4F3EF",
+            "on-error-container": "#ffdad6",
+            "on-error": "#690005",
+            "outline-variant": "#3f4849",
+            "surface-bright": "#363942",
+            "secondary-fixed": "#e4dfff",
+            "surface-container": "#1c1f28",
+            "on-primary-container": "#29696b",
+            "on-primary-fixed-variant": "#024f51",
+            "on-tertiary-fixed-variant": "#4b4639",
+            "ink-muted-80": "#8E97A6",
+            "surface-tint": "#94d1d3",
+            "surface-container-high": "#272a32",
+            "on-primary-fixed": "#002021",
+            "primary-container": "#a8e6e8",
+            "on-tertiary": "#343024",
+            "on-surface-variant": "#bfc8c8",
+            "on-secondary": "#2e2b56",
+            "destructive-bg": "rgba(226, 125, 125, 0.12)",
+            "surface-glass-border": "rgba(255, 255, 255, 0.12)",
+            "secondary": "#c6c1f6",
+            "secondary-fixed-dim": "#c6c1f6",
+            "on-secondary-fixed": "#191540",
+            "on-tertiary-fixed": "#1f1b10",
+            "tertiary-fixed": "#eae2d0",
+            "tertiary-container": "#e3dac8",
+            "surface-variant": "#32353d",
+            "primary-fixed-dim": "#94d1d3",
+            "on-background": "#e0e2ee",
+            "outline": "#899292",
+            "tertiary": "#fff6e7",
+            "on-secondary-fixed-variant": "#45426e",
+            "primary": "#dbfeff",
+            "surface-glass-active": "rgba(35, 42, 56, 0.85)",
+            "inverse-primary": "#28676a",
+            "body-muted": "#A0A9B8",
+            "divider-soft": "rgba(255, 255, 255, 0.08)",
+            "error-container": "#93000a",
+            "on-primary": "#003738",
+            "canvas-secondary": "#1B202A",
+            "primary-fixed": "#afeef0",
+            "surface-dim": "#10131b",
+            "on-surface": "#e0e2ee",
+            "primary-focus": "#BCEFF0",
+            "ink-muted-48": "#5C6473",
+            "inverse-on-surface": "#2d3039",
+            "tertiary-fixed-dim": "#cec6b5",
+            "surface-container-lowest": "#0b0e16",
+            "secondary-container": "#474470",
+            "surface-glass": "rgba(27, 32, 42, 0.65)",
+            "surface": "#10131b",
+            "destructive": "#E27D7D",
+            "background": "#10131b",
+            "hairline": "rgba(255, 255, 255, 0.12)",
+            "inverse-surface": "#e0e2ee",
+            "surface-container-low": "#181b24",
+            "on-tertiary-container": "#655f51"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "1.75rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "sm": "12px",
+            "xxl": "40px",
+            "lg": "20px",
+            "margin": "1.25rem",
+            "xxs": "4px",
+            "gutter": "1rem",
+            "xs": "8px",
+            "space-xs": "0.5rem",
+            "xl": "28px",
+            "section": "48px",
+            "space-lg": "1.25rem",
+            "md": "16px"
+          },
+          "fontFamily": {
+            "body-strong": ["\"Inter, system-ui, sans-serif\""],
+            "body": ["\"Inter, system-ui, sans-serif\""],
+            "caption-strong": ["\"Inter, system-ui, sans-serif\""],
+            "question-serif": ["\"Instrument Serif, Georgia, serif\""],
+            "caption": ["\"Inter, system-ui, sans-serif\""],
+            "hero-display": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "lead": ["\"Inter, system-ui, sans-serif\""],
+            "display-lg": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "display-serif": ["\"Instrument Serif, Georgia, serif\""],
+            "button-large": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "overline": ["\"Space Grotesk, system-ui, sans-serif\""]
+          },
+          "fontSize": {
+            "body-strong": ["15px", { "lineHeight": "1.45", "letterSpacing": "-0.15px", "fontWeight": "600" }],
+            "body": ["15px", { "lineHeight": "1.5", "letterSpacing": "-0.15px", "fontWeight": "400" }],
+            "caption-strong": ["13px", { "lineHeight": "1.4", "fontWeight": "600" }],
+            "question-serif": ["26px", { "lineHeight": "1.38", "letterSpacing": "0.1px", "fontWeight": "400" }],
+            "caption": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+            "hero-display": ["32px", { "lineHeight": "1.15", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+            "lead": ["16px", { "lineHeight": "1.5", "letterSpacing": "-0.2px", "fontWeight": "400" }],
+            "display-lg": ["24px", { "lineHeight": "1.25", "letterSpacing": "-0.3px", "fontWeight": "600" }],
+            "display-serif": ["28px", { "lineHeight": "1.3", "fontWeight": "400" }],
+            "button-large": ["16px", { "lineHeight": "1.2", "letterSpacing": "0.1px", "fontWeight": "600" }],
+            "overline": ["11px", { "lineHeight": "1.2", "letterSpacing": "1.2px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .custom-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.96); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+    .animate-pulse-soft {
+      animation: subtlePulse 2s ease-in-out infinite;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-ink font-body min-h-screen selection:bg-primary-container selection:text-on-primary-container flex justify-center items-start antialiased">
+<!-- Mobile Viewport Canvas Container -->
+<main class="w-full max-w-[420px] min-h-screen bg-surface-dim relative flex flex-col shadow-2xl overflow-x-hidden border-x border-hairline pb-28">
+<!-- Android Status Bar -->
+<header class="w-full h-8 px-space-md flex justify-between items-center text-ink-muted-80 font-caption text-caption select-none z-30 pt-1">
+<time class="font-body-strong text-caption-strong text-ink">20:34</time>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[16px] text-ink-muted-80" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[16px] text-ink-muted-80" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[18px] text-ink" data-icon="battery_full">battery_full</span>
+</div>
+</header>
+<!-- Top App Bar (Shared Components Anchor execution) -->
+<nav class="sticky top-0 z-40 bg-surface-glass backdrop-blur-md px-space-md py-space-sm h-16 flex justify-between items-center border-b border-hairline">
+<div class="flex items-center gap-space-xs">
+<button aria-label="Go back" class="p-2 -ml-2 rounded-full text-ink hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[24px]" data-icon="arrow_back">arrow_back</span>
+</button>
+<div>
+<span class="text-overline font-overline text-primary tracking-widest uppercase block text-[10px]">Step 7 · Synthesis</span>
+<h1 class="text-display-lg font-display-lg text-ink tracking-tight -mt-0.5">Your reflections</h1>
+</div>
+</div>
+<button aria-label="Settings" class="p-2 rounded-full text-ink-muted-80 hover:text-primary transition-colors duration-200 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="settings">settings</span>
+</button>
+</nav>
+<!-- Content Canvas -->
+<div class="px-space-md pt-space-md pb-6 flex flex-col gap-space-lg">
+<!-- Session Meta Header -->
+<section class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(168,230,232,0.8)]"></span>
+<span class="font-caption-strong text-caption-strong text-ink tracking-wide">Session · Oct 24, 2024 · 24 min walk</span>
+</div>
+<p class="font-caption text-caption text-ink-muted-80 pl-4">
+          2 voice notes recorded while walking nocturnal paths
+        </p>
+</section>
+<!-- Segmented State Switcher (Pill) -->
+<section aria-label="Reflection view mode" class="bg-canvas-secondary p-1 rounded-full border border-hairline flex items-center">
+<button class="flex-1 py-1.5 px-3 rounded-full text-center font-caption-strong text-caption-strong transition-all duration-200 bg-surface-glass-active text-primary shadow-sm border border-hairline flex items-center justify-center gap-1.5" id="tab-recorded" onclick="showTab('recorded')" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="mic">mic</span>
+<span>Recorded clips (2)</span>
+</button>
+<button class="flex-1 py-1.5 px-3 rounded-full text-center font-caption text-caption text-ink-muted-80 hover:text-ink transition-all duration-200 flex items-center justify-center gap-1.5" id="tab-silent" onclick="showTab('silent')" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="nature_people">nature_people</span>
+<span>Silent walk empty state</span>
+</button>
+</section>
+<!-- VIEW A: RECORDED CLIPS VIEW -->
+<div class="flex flex-col gap-space-lg" id="view-recorded">
+<!-- Clip 01 Card -->
+<article class="bg-surface-glass backdrop-blur-md border border-surface-glass-border rounded-xl p-space-lg flex flex-col gap-space-md relative overflow-hidden transition-all duration-300">
+<!-- Top Row: Title, Duration, Delete -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button aria-label="Play recording 01" class="w-10 h-10 rounded-full bg-primary-container text-surface flex items-center justify-center active:scale-95 transition-transform hover:bg-primary-focus" type="button">
+<span class="material-symbols-outlined text-[24px]" data-icon="play_arrow" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div>
+<h2 class="text-body-strong font-body-strong text-ink">Clip 01 · 08:24 PM</h2>
+<span class="text-caption font-caption text-ink-muted-80">Duration 00:42</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full text-[11px] font-caption-strong tracking-wide bg-secondary-container/50 text-secondary border border-secondary/20 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Transcript ready
+              </span>
+<button aria-label="Delete clip 1" class="p-1.5 text-ink-muted-48 hover:text-destructive active:scale-95 transition-colors" onclick="openModal()" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Audio Waveform Scrubber -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="h-9 w-full flex items-center gap-[3px] px-1 py-1 bg-surface-container-lowest/60 rounded-lg border border-hairline/60">
+<!-- Waveform bars -->
+<span class="w-1 h-3 rounded-full bg-primary/90"></span>
+<span class="w-1 h-5 rounded-full bg-primary/90"></span>
+<span class="w-1 h-7 rounded-full bg-primary/90"></span>
+<span class="w-1 h-4 rounded-full bg-primary/90"></span>
+<span class="w-1 h-6 rounded-full bg-primary/90"></span>
+<span class="w-1 h-8 rounded-full bg-primary/90"></span>
+<span class="w-1 h-5 rounded-full bg-primary/90"></span>
+<span class="w-1 h-3 rounded-full bg-primary/90"></span>
+<!-- Scrubber head marker -->
+<span class="w-1.5 h-8 rounded-full bg-primary-container shadow-[0_0_6px_#a8e6e8]"></span>
+<!-- Unplayed bars -->
+<span class="w-1 h-4 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-7 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-6 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-3 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-5 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-8 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-4 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-6 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-3 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-5 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-7 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-4 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-2 rounded-full bg-surface-variant"></span>
+</div>
+<div class="flex justify-between items-center text-[11px] font-caption text-ink-muted-80 px-1">
+<span>00:16</span>
+<span>00:42</span>
+</div>
+</div>
+<!-- Expandable Editable Transcript Box -->
+<div class="bg-canvas-secondary border border-hairline rounded-lg p-3 flex flex-col gap-2 relative">
+<div class="flex justify-between items-center border-b border-divider-soft pb-2">
+<span class="text-overline font-overline text-ink-muted-80 tracking-wider">TRANSCRIPT</span>
+<button class="inline-flex items-center gap-1 text-[12px] font-caption-strong text-primary hover:underline" type="button">
+<span class="material-symbols-outlined text-[14px]" data-icon="edit">edit</span>
+<span>Edit transcript</span>
+</button>
+</div>
+<textarea class="w-full bg-transparent text-ink font-body text-body resize-none border-none p-0 focus:ring-0 leading-relaxed text-[14px] outline-none" rows="3">I realized walking past the old park that what felt like failure was just a detour. I had been rushing toward an arbitrary benchmark instead of listening to my natural stride.</textarea>
+<div class="flex justify-between items-center pt-1 text-[11px] font-caption text-ink-muted-48">
+<span>Transcribed via Whisper</span>
+<span>184 chars</span>
+</div>
+</div>
+</article>
+<!-- Clip 02 Card -->
+<article class="bg-surface-glass backdrop-blur-md border border-surface-glass-border rounded-xl p-space-lg flex flex-col gap-space-md relative overflow-hidden transition-all duration-300">
+<!-- Top Row: Title, Duration, Status -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button aria-label="Play recording 02" class="w-10 h-10 rounded-full bg-surface-container-high border border-hairline text-ink-muted-80 flex items-center justify-center active:scale-95 transition-transform hover:text-ink" type="button">
+<span class="material-symbols-outlined text-[24px]" data-icon="play_arrow">play_arrow</span>
+</button>
+<div>
+<h2 class="text-body-strong font-body-strong text-ink">Clip 02 · 08:31 PM</h2>
+<span class="text-caption font-caption text-ink-muted-80">Duration 00:28</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full text-[11px] font-caption-strong tracking-wide bg-surface-container-high text-primary border border-primary/20 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse-soft"></span>
+                Transcribing...
+              </span>
+<button aria-label="Delete clip 2" class="p-1.5 text-ink-muted-48 hover:text-destructive active:scale-95 transition-colors" onclick="openModal()" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Audio Waveform Scrubber -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="h-9 w-full flex items-center gap-[3px] px-1 py-1 bg-surface-container-lowest/60 rounded-lg border border-hairline/60">
+<span class="w-1 h-3 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-6 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-8 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-4 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-7 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-5 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-3 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-6 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-4 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-8 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-5 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-3 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-4 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-6 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-2 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-5 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-7 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-3 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-4 rounded-full bg-surface-variant"></span>
+<span class="w-1 h-2 rounded-full bg-surface-variant"></span>
+</div>
+<div class="flex justify-between items-center text-[11px] font-caption text-ink-muted-80 px-1">
+<span>00:00</span>
+<span>00:28</span>
+</div>
+</div>
+<!-- Pending Transcript placeholder -->
+<div class="bg-canvas-secondary/60 border border-hairline border-dashed rounded-lg p-3 flex items-center justify-between cursor-pointer hover:border-primary/40 transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary-fixed-dim animate-spin" data-icon="sync">sync</span>
+<span class="text-caption font-caption text-ink-muted-80 italic">Extracting speech cues via Whisper engine...</span>
+</div>
+<button class="text-[12px] font-caption-strong text-primary whitespace-nowrap" type="button">
+              Tap to review
+            </button>
+</div>
+</article>
+<!-- Contemplative Philosophical Prompt Notice -->
+<aside class="p-space-md rounded-xl bg-surface-container-low border border-hairline flex gap-3 items-start">
+<span class="material-symbols-outlined text-[20px] text-secondary mt-0.5" data-icon="auto_awesome">auto_awesome</span>
+<div class="flex flex-col">
+<span class="font-caption-strong text-caption-strong text-secondary">Dialectical Synthesis</span>
+<p class="font-caption text-caption text-ink-muted-80 mt-0.5">
+              The philosopher AI will stitch your 2 audio fragments into a single structured walking meditation.
+            </p>
+</div>
+</aside>
+</div>
+<!-- VIEW B: SILENT WALK EMPTY STATE (Hidden by default, toggleable) -->
+<section class="hidden flex flex-col gap-space-lg" id="view-silent">
+<div class="bg-surface-glass backdrop-blur-md border border-surface-glass-border rounded-xl p-space-xl flex flex-col items-center text-center py-10 relative">
+<div class="w-16 h-16 rounded-full bg-surface-container-high border border-hairline flex items-center justify-center mb-space-md shadow-[0_0_24px_rgba(148,209,211,0.1)]">
+<span class="material-symbols-outlined text-[32px] text-primary" data-icon="air">air</span>
+</div>
+<h2 class="font-display-serif text-display-serif text-ink tracking-tight mb-2">
+            "A quiet walk is a reflection, too."
+          </h2>
+<p class="font-body text-body text-ink-muted-80 max-w-xs mb-space-xl leading-relaxed">
+            You walked in pure presence without recording voice notes. You can preserve this session’s mileage and cadence without creating a journal entry.
+          </p>
+<div class="w-full flex flex-col gap-3">
+<button class="w-full py-3.5 px-space-md rounded-full bg-primary-container text-surface font-button-large text-button-large font-bold active:scale-95 hover:bg-primary-focus transition-all flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="bookmark">bookmark</span>
+<span>Save walk only</span>
+</button>
+<button class="w-full py-3 px-space-md rounded-full bg-canvas-secondary border border-hairline text-ink font-caption-strong text-caption-strong hover:bg-surface-container-high transition-colors" onclick="showTab('recorded')" type="button">
+              Return to recordings
+            </button>
+</div>
+<!-- Walk stat summary strip -->
+<div class="grid grid-cols-3 gap-2 w-full pt-6 mt-6 border-t border-divider-soft text-center">
+<div>
+<span class="block text-[11px] font-overline text-ink-muted-48 uppercase">Distance</span>
+<span class="font-body-strong text-ink">1.82 km</span>
+</div>
+<div>
+<span class="block text-[11px] font-overline text-ink-muted-48 uppercase">Time</span>
+<span class="font-body-strong text-ink">24m 10s</span>
+</div>
+<div>
+<span class="block text-[11px] font-overline text-ink-muted-48 uppercase">Cadence</span>
+<span class="font-body-strong text-ink">108 spm</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Sticky Bottom Controls Bar -->
+<div class="fixed bottom-0 left-0 right-0 max-w-[420px] mx-auto z-40 bg-surface-dim/80 backdrop-blur-lg border-t border-hairline px-space-md py-3 flex flex-col gap-2.5">
+<!-- Whisper manual refresh trigger -->
+<button class="w-full py-2.5 px-4 rounded-full bg-canvas-secondary border border-hairline text-ink font-body-strong text-[14px] flex items-center justify-center gap-2 hover:bg-surface-container-high active:scale-98 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="graphic_eq">graphic_eq</span>
+<span>Transcribe with Whisper</span>
+</button>
+<!-- Primary Action: Generate Journal -->
+<button class="w-full py-3.5 px-space-md rounded-full bg-primary-container text-on-primary-fixed font-button-large text-button-large font-bold tracking-tight shadow-[0_4px_20px_rgba(168,230,232,0.25)] flex items-center justify-center gap-2 active:scale-95 hover:bg-primary-focus transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="sparkles" data-weight="fill" style="font-variation-settings: 'FILL' 1;">arrow_back_ios_new</span>
+<span>Generate my journal</span>
+</button>
+<!-- Android gesture navigation pill -->
+<div class="w-full flex justify-center pt-1">
+<div class="w-28 h-1 rounded-full bg-ink-muted-48/50"></div>
+</div>
+</div>
+<!-- Delete Confirmation Modal (subtle glass dialog) -->
+<div class="fixed inset-0 z-50 bg-surface-dim/75 backdrop-blur-sm flex items-center justify-center p-space-md hidden transition-opacity duration-200" id="delete-modal">
+<div class="w-full max-w-xs bg-canvas-secondary border border-hairline rounded-2xl p-space-lg shadow-2xl flex flex-col gap-space-md relative">
+<div class="w-10 h-10 rounded-full bg-destructive-bg border border-destructive/30 flex items-center justify-center text-destructive">
+<span class="material-symbols-outlined text-[22px]" data-icon="delete_forever">delete_forever</span>
+</div>
+<div>
+<h3 class="font-body-strong text-body-strong text-ink">Discard this recording?</h3>
+<p class="font-caption text-caption text-ink-muted-80 mt-1">
+            This voice note and its provisional transcript will be permanently removed. This cannot be undone.
+          </p>
+</div>
+<div class="flex items-center gap-2.5 pt-1">
+<button class="flex-1 py-2.5 rounded-full bg-surface-container-high text-ink font-caption-strong text-caption-strong hover:bg-surface-variant transition-colors border border-hairline" onclick="closeModal()" type="button">
+            Keep clip
+          </button>
+<button class="flex-1 py-2.5 rounded-full bg-destructive-bg border border-destructive/40 text-destructive font-caption-strong text-caption-strong hover:bg-destructive/20 transition-colors" onclick="closeModal()" type="button">
+            Delete
+          </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive Scripts -->
+<script>
+    function showTab(tab) {
+      const recTab = document.getElementById('tab-recorded');
+      const silTab = document.getElementById('tab-silent');
+      const recView = document.getElementById('view-recorded');
+      const silView = document.getElementById('view-silent');
+
+      if (tab === 'recorded') {
+        recTab.className = "flex-1 py-1.5 px-3 rounded-full text-center font-caption-strong text-caption-strong transition-all duration-200 bg-surface-glass-active text-primary shadow-sm border border-hairline flex items-center justify-center gap-1.5";
+        silTab.className = "flex-1 py-1.5 px-3 rounded-full text-center font-caption text-caption text-ink-muted-80 hover:text-ink transition-all duration-200 flex items-center justify-center gap-1.5";
+        recView.classList.remove('hidden');
+        silView.classList.add('hidden');
+      } else {
+        silTab.className = "flex-1 py-1.5 px-3 rounded-full text-center font-caption-strong text-caption-strong transition-all duration-200 bg-surface-glass-active text-primary shadow-sm border border-hairline flex items-center justify-center gap-1.5";
+        recTab.className = "flex-1 py-1.5 px-3 rounded-full text-center font-caption text-caption text-ink-muted-80 hover:text-ink transition-all duration-200 flex items-center justify-center gap-1.5";
+        recView.classList.add('hidden');
+        silView.classList.remove('hidden');
+      }
+    }
+
+    function openModal() {
+      document.getElementById('delete-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('delete-modal').classList.add('hidden');
+    }
+  </script>
+</body></html>

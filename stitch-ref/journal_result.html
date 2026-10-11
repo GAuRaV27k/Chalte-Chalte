@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chalte-Chalte — Journal Result</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-highest": "#32353d",
+            "error": "#ffb4ab",
+            "on-secondary-container": "#b8b3e7",
+            "ink": "#F4F3EF",
+            "on-error-container": "#ffdad6",
+            "on-error": "#690005",
+            "outline-variant": "#3f4849",
+            "surface-bright": "#363942",
+            "secondary-fixed": "#e4dfff",
+            "surface-container": "#1c1f28",
+            "on-primary-container": "#29696b",
+            "on-primary-fixed-variant": "#024f51",
+            "on-tertiary-fixed-variant": "#4b4639",
+            "ink-muted-80": "#8E97A6",
+            "surface-tint": "#94d1d3",
+            "surface-container-high": "#272a32",
+            "on-primary-fixed": "#002021",
+            "primary-container": "#a8e6e8",
+            "on-tertiary": "#343024",
+            "on-surface-variant": "#bfc8c8",
+            "on-secondary": "#2e2b56",
+            "destructive-bg": "rgba(226, 125, 125, 0.12)",
+            "surface-glass-border": "rgba(255, 255, 255, 0.12)",
+            "secondary": "#c6c1f6",
+            "secondary-fixed-dim": "#c6c1f6",
+            "on-secondary-fixed": "#191540",
+            "on-tertiary-fixed": "#1f1b10",
+            "tertiary-fixed": "#eae2d0",
+            "tertiary-container": "#e3dac8",
+            "surface-variant": "#32353d",
+            "primary-fixed-dim": "#94d1d3",
+            "on-background": "#e0e2ee",
+            "outline": "#899292",
+            "tertiary": "#fff6e7",
+            "on-secondary-fixed-variant": "#45426e",
+            "primary": "#dbfeff",
+            "surface-glass-active": "rgba(35, 42, 56, 0.85)",
+            "inverse-primary": "#28676a",
+            "body-muted": "#A0A9B8",
+            "divider-soft": "rgba(255, 255, 255, 0.08)",
+            "error-container": "#93000a",
+            "on-primary": "#003738",
+            "canvas-secondary": "#1B202A",
+            "primary-fixed": "#afeef0",
+            "surface-dim": "#10131b",
+            "on-surface": "#e0e2ee",
+            "primary-focus": "#BCEFF0",
+            "ink-muted-48": "#5C6473",
+            "inverse-on-surface": "#2d3039",
+            "tertiary-fixed-dim": "#cec6b5",
+            "surface-container-lowest": "#0b0e16",
+            "secondary-container": "#474470",
+            "surface-glass": "rgba(27, 32, 42, 0.65)",
+            "surface": "#10131b",
+            "destructive": "#E27D7D",
+            "background": "#10131b",
+            "hairline": "rgba(255, 255, 255, 0.12)",
+            "inverse-surface": "#e0e2ee",
+            "surface-container-low": "#181b24",
+            "on-tertiary-container": "#655f51"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "1.75rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "sm": "12px",
+            "xxl": "40px",
+            "lg": "20px",
+            "margin": "1.25rem",
+            "xxs": "4px",
+            "gutter": "1rem",
+            "xs": "8px",
+            "space-xs": "0.5rem",
+            "xl": "28px",
+            "section": "48px",
+            "space-lg": "1.25rem",
+            "md": "16px"
+          },
+          "fontFamily": {
+            "body-strong": ["\"Inter, system-ui, sans-serif\""],
+            "body": ["\"Inter, system-ui, sans-serif\""],
+            "caption-strong": ["\"Inter, system-ui, sans-serif\""],
+            "question-serif": ["\"Instrument Serif, Georgia, serif\""],
+            "caption": ["\"Inter, system-ui, sans-serif\""],
+            "hero-display": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "lead": ["\"Inter, system-ui, sans-serif\""],
+            "display-lg": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "display-serif": ["\"Instrument Serif, Georgia, serif\""],
+            "button-large": ["\"Space Grotesk, system-ui, sans-serif\""],
+            "overline": ["\"Space Grotesk, system-ui, sans-serif\""]
+          },
+          "fontSize": {
+            "body-strong": ["15px", { "lineHeight": "1.45", "letterSpacing": "-0.15px", "fontWeight": "600" }],
+            "body": ["15px", { "lineHeight": "1.5", "letterSpacing": "-0.15px", "fontWeight": "400" }],
+            "caption-strong": ["13px", { "lineHeight": "1.4", "fontWeight": "600" }],
+            "question-serif": ["26px", { "lineHeight": "1.38", "letterSpacing": "0.1px", "fontWeight": "400" }],
+            "caption": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+            "hero-display": ["32px", { "lineHeight": "1.15", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+            "lead": ["16px", { "lineHeight": "1.5", "letterSpacing": "-0.2px", "fontWeight": "400" }],
+            "display-lg": ["24px", { "lineHeight": "1.25", "letterSpacing": "-0.3px", "fontWeight": "600" }],
+            "display-serif": ["28px", { "lineHeight": "1.3", "fontWeight": "400" }],
+            "button-large": ["16px", { "lineHeight": "1.2", "letterSpacing": "0.1px", "fontWeight": "600" }],
+            "overline": ["11px", { "lineHeight": "1.2", "letterSpacing": "1.2px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom frosted parchment notebook overlay with optical luminance */
+    .notebook-paper-glow {
+      background: linear-gradient(175deg, rgba(32, 38, 48, 0.72) 0%, rgba(24, 28, 38, 0.82) 45%, rgba(20, 24, 34, 0.92) 100%),
+                  radial-gradient(ellipse at 15% 10%, rgba(234, 226, 208, 0.05) 0%, transparent 60%);
+      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), inset 0 0 24px 0 rgba(168, 230, 232, 0.02);
+    }
+    
+    /* Soft cyan accent glow for deliberate philosophical callouts */
+    .question-glow {
+      background: radial-gradient(circle at 10% 20%, rgba(168, 230, 232, 0.08) 0%, transparent 70%),
+                  rgba(27, 32, 42, 0.75);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-ink antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex justify-center items-start">
+<!-- Mobile Viewport Container (Android Smartphone Shell) -->
+<div class="w-full max-w-md min-h-screen bg-surface relative flex flex-col overflow-hidden pb-44 border-x border-hairline/40">
+<!-- Android Status Bar -->
+<div class="w-full px-5 pt-3 pb-1 flex justify-between items-center text-ink-muted-80 z-40 bg-surface/80 backdrop-blur-md">
+<span class="font-overline text-overline tracking-normal text-ink text-[13px] font-medium">18:42</span>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[15px] opacity-80" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[15px] opacity-80" data-icon="signal_cellular_4_bar">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[16px] opacity-90 text-primary" data-icon="battery_5_bar">battery_5_bar</span>
+</div>
+</div>
+<!-- Top App Bar (Task-focused context: Back to walking archive) -->
+<header class="sticky top-0 z-30 w-full px-space-md py-space-sm h-16 bg-surface-glass backdrop-blur-md flex justify-between items-center border-b border-hairline/60">
+<div class="flex items-center gap-space-xs">
+<button aria-label="Go back" class="w-10 h-10 rounded-full flex items-center justify-center text-ink hover:text-primary active:scale-95 transition-all duration-150" id="btnBack">
+<span class="material-symbols-outlined text-[22px]" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<span class="font-overline text-overline uppercase tracking-widest text-ink-muted-80 text-[10px]">YOUR WALK JOURNAL</span>
+<span class="font-caption-strong text-caption-strong text-ink">October 24, 2024</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="Edit journal" class="w-9 h-9 rounded-full flex items-center justify-center text-ink-muted-80 hover:text-primary active:scale-95 transition-colors" id="btnEditNote">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit_note">edit_note</span>
+</button>
+<button aria-label="More options" class="w-9 h-9 rounded-full flex items-center justify-center text-ink-muted-80 hover:text-primary active:scale-95 transition-colors" id="btnOverflow">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Success Toast (Saved locally confirmation) -->
+<div class="mx-space-md mt-3 mb-1 px-space-md py-2.5 rounded-xl bg-surface-container-high/90 border border-hairline/80 backdrop-blur-md flex items-center justify-between transition-all duration-300" id="saveToast">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-[18px]" data-icon="cloud_done" data-weight="fill">cloud_done</span>
+<span class="font-caption text-caption text-ink">Journal saved locally to device</span>
+</div>
+<button class="text-ink-muted-48 hover:text-ink" onclick="document.getElementById('saveToast').classList.add('hidden')">
+<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Main Content Area: The Intimate Digital Notebook Sheet -->
+<main class="px-space-md py-3 flex flex-col space-y-4">
+<!-- Notebook Sheet Surface -->
+<article class="notebook-paper-glow rounded-2xl border border-surface-glass-border p-space-lg relative overflow-hidden backdrop-blur-xl transition-shadow">
+<!-- Subtle Top Margin Accent Lines (Simulating bespoke lined parchment) -->
+<div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary-container/40 to-transparent"></div>
+<!-- Sheet Header & Title -->
+<header class="space-y-3 pb-4 border-b border-divider-soft">
+<!-- Metadata Pill Strip -->
+<div class="flex items-center flex-wrap gap-2 text-ink-muted-80">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-variant/40 border border-hairline/60 font-caption text-caption text-[11px] text-ink">
+<span class="material-symbols-outlined text-[13px] text-secondary" data-icon="wb_twilight">wb_twilight</span>
+              Twilight Walk
+            </span>
+<span class="text-ink-muted-48 text-xs">·</span>
+<span class="font-caption text-caption text-[12px] text-ink-muted-80">24 min</span>
+<span class="text-ink-muted-48 text-xs">·</span>
+<span class="font-caption text-caption text-[12px] text-ink-muted-80">Nehru Park</span>
+</div>
+<!-- Title in Expressive Instrument Serif -->
+<h1 class="font-display-serif text-display-serif text-ink tracking-tight leading-tight">
+            The Difference Between Ambition and Expectation
+          </h1>
+<!-- Audio synthesis indicator tag -->
+<div class="flex items-center gap-2 pt-1">
+<span class="material-symbols-outlined text-primary text-[15px]" data-icon="graphic_eq">graphic_eq</span>
+<span class="font-overline text-overline uppercase text-ink-muted-80 text-[10px] tracking-wider">
+              2 audio recordings synthesized
+            </span>
+</div>
+</header>
+<!-- Section 1: "MY REFLECTIONS" -->
+<section class="py-space-md space-y-2.5 border-b border-divider-soft">
+<div class="flex items-center gap-2">
+<span class="font-overline text-overline text-primary tracking-widest uppercase text-[11px]">MY REFLECTIONS</span>
+</div>
+<div class="font-body text-body text-ink/90 leading-relaxed space-y-3 pt-1">
+<p>
+              Walking past the rustling trees at Nehru Park, I felt the heavy grip of career anxiety ease just a little. For weeks, I had interpreted unexpected delays as outright failure.
+            </p>
+<p>
+              Yet standing by the pond, watching fallen leaves form unhurried patterns, it became evident that what felt like falling behind was simply a needed detour. Stillness does not demand a silent city; it asks only that I cease treating every fleeting sensation as an emergency.
+            </p>
+</div>
+</section>
+<!-- Section 2: "IDEAS WORTH REVISITING" -->
+<section class="py-space-md space-y-3 border-b border-divider-soft">
+<div class="flex items-center justify-between">
+<span class="font-overline text-overline text-primary tracking-widest uppercase text-[11px]">IDEAS WORTH REVISITING</span>
+<span class="font-caption text-caption text-ink-muted-48 text-[11px]">3 Key Thoughts</span>
+</div>
+<div class="flex flex-col space-y-2.5">
+<!-- Takeaway 1 -->
+<div class="p-3 rounded-xl bg-surface-glass/80 border border-hairline/70 hover:border-primary-container/40 transition-colors">
+<div class="flex items-start gap-2.5">
+<span class="flex-shrink-0 w-5 h-5 rounded-full bg-surface-variant flex items-center justify-center font-caption-strong text-caption text-primary text-[11px] mt-0.5">1</span>
+<div>
+<h4 class="font-body-strong text-body-strong text-ink text-[14px]">Detours preserve perspective</h4>
+<p class="font-body text-body text-ink-muted-80 text-[13px] leading-snug mt-0.5">
+                    A forced delay often prevents premature conclusions urgency creates.
+                  </p>
+</div>
+</div>
+</div>
+<!-- Takeaway 2 -->
+<div class="p-3 rounded-xl bg-surface-glass/80 border border-hairline/70 hover:border-primary-container/40 transition-colors">
+<div class="flex items-start gap-2.5">
+<span class="flex-shrink-0 w-5 h-5 rounded-full bg-surface-variant flex items-center justify-center font-caption-strong text-caption text-primary text-[11px] mt-0.5">2</span>
+<div>
+<h4 class="font-body-strong text-body-strong text-ink text-[14px]">Unreactive awareness</h4>
+<p class="font-body text-body text-ink-muted-80 text-[13px] leading-snug mt-0.5">
+                    Stillness is an active refusal to amplify noise, not an environmental prerequisite.
+                  </p>
+</div>
+</div>
+</div>
+<!-- Takeaway 3 -->
+<div class="p-3 rounded-xl bg-surface-glass/80 border border-hairline/70 hover:border-primary-container/40 transition-colors">
+<div class="flex items-start gap-2.5">
+<span class="flex-shrink-0 w-5 h-5 rounded-full bg-surface-variant flex items-center justify-center font-caption-strong text-caption text-primary text-[11px] mt-0.5">3</span>
+<div>
+<h4 class="font-body-strong text-body-strong text-ink text-[14px]">The ambition trap</h4>
+<p class="font-body text-body text-ink-muted-80 text-[13px] leading-snug mt-0.5">
+                    Conflating purpose with velocity blinds us to present reality.
+                  </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: "A QUESTION TO CARRY FORWARD" -->
+<section class="py-space-md space-y-2 border-b border-divider-soft">
+<span class="font-overline text-overline text-primary tracking-widest uppercase text-[11px]">A QUESTION TO CARRY FORWARD</span>
+<div class="question-glow p-4 rounded-xl border border-primary-container/30 relative">
+<span class="material-symbols-outlined text-secondary/40 text-[24px] absolute right-3 top-3" data-icon="format_quote">format_quote</span>
+<p class="font-question-serif text-question-serif text-tertiary-fixed italic leading-snug pr-4">
+              “Where does patience begin when urgency feels mandatory?”
+            </p>
+</div>
+</section>
+<!-- Section 4: "ONE SMALL NEXT STEP" -->
+<section class="py-space-md space-y-2.5">
+<span class="font-overline text-overline text-primary tracking-widest uppercase text-[11px]">ONE SMALL NEXT STEP</span>
+<div class="flex items-center gap-3 p-3.5 rounded-xl bg-canvas-secondary/80 border border-hairline/60">
+<div class="w-7 h-7 rounded-full bg-primary-container/20 border border-primary-container/50 flex items-center justify-center text-primary-container flex-shrink-0">
+<span class="material-symbols-outlined text-[17px]" data-icon="check" data-weight="fill">check</span>
+</div>
+<p class="font-body-strong text-body-strong text-ink text-[14px] leading-snug">
+              Leave 15 minutes unscheduled tomorrow morning to sit without a goal.
+            </p>
+</div>
+</section>
+<!-- Notebook Footer Metadata Stamp -->
+<footer class="pt-4 pb-1 border-t border-divider-soft flex items-center justify-between text-ink-muted-48 text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[13px]" data-icon="lock">lock</span>
+<span class="font-caption text-caption text-[11px]">Saved locally on device</span>
+</div>
+<span class="font-caption text-caption text-[11px]">AI-assisted reflection</span>
+</footer>
+</article>
+<!-- Bottom Secondary Utilities Panel -->
+<section class="pt-1 flex flex-col space-y-2">
+<div class="flex items-center justify-between px-1">
+<span class="font-caption-strong text-caption-strong text-ink-muted-80 text-[12px]">SESSION OPTIONS</span>
+<span class="font-caption text-caption text-ink-muted-48 text-[11px]">Voice memos saved (2)</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<!-- Action: Regenerate -->
+<button class="flex flex-col items-center justify-center gap-1 py-2.5 px-2 rounded-xl bg-surface-glass border border-hairline/70 hover:border-primary-container/40 active:scale-95 transition-all text-center" id="btnRegen">
+<span class="material-symbols-outlined text-ink-muted-80 text-[19px]" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-caption text-caption text-ink text-[11px]">Regenerate</span>
+</button>
+<!-- Action: Share/Export -->
+<button class="flex flex-col items-center justify-center gap-1 py-2.5 px-2 rounded-xl bg-surface-glass border border-hairline/70 hover:border-primary-container/40 active:scale-95 transition-all text-center" id="btnExport">
+<span class="material-symbols-outlined text-ink-muted-80 text-[19px]" data-icon="ios_share">ios_share</span>
+<span class="font-caption text-caption text-ink text-[11px]">Export text</span>
+</button>
+<!-- Action: Delete -->
+<button class="flex flex-col items-center justify-center gap-1 py-2.5 px-2 rounded-xl bg-destructive-bg border border-destructive/30 hover:border-destructive active:scale-95 transition-all text-center" id="btnDelete">
+<span class="material-symbols-outlined text-destructive text-[19px]" data-icon="delete_outline">delete_outline</span>
+<span class="font-caption text-caption text-destructive text-[11px]">Delete</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Overflow Menu Modal Dropdown (Hidden initially, accessible via more_vert) -->
+<div class="hidden absolute top-14 right-4 z-50 w-52 rounded-xl bg-surface-container-high/95 border border-hairline/80 backdrop-blur-xl shadow-2xl py-1.5 transition-all" id="overflowModal">
+<button class="w-full px-4 py-2 text-left flex items-center gap-2.5 font-caption text-caption text-ink hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-[17px] text-ink-muted-80" data-icon="audio_file">audio_file</span>
+        Listen to audio notes
+      </button>
+<button class="w-full px-4 py-2 text-left flex items-center gap-2.5 font-caption text-caption text-ink hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-[17px] text-ink-muted-80" data-icon="history_edu">history_edu</span>
+        Version history
+      </button>
+<div class="h-[1px] bg-divider-soft my-1"></div>
+<button class="w-full px-4 py-2 text-left flex items-center gap-2.5 font-caption text-caption text-destructive hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-[17px] text-destructive" data-icon="archive">archive</span>
+        Archive reflection
+      </button>
+</div>
+<!-- Interactive Actions & Fixed Bottom Bar -->
+<div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-surface/90 backdrop-blur-xl border-t border-hairline/60 px-space-md pt-3 pb-6 flex flex-col space-y-2.5">
+<!-- Primary and Inline Edit Actions -->
+<div class="flex items-center gap-2.5">
+<!-- Edit Journal Secondary Button -->
+<button class="flex-1 py-3 px-4 rounded-full bg-surface-glass border border-surface-glass-border font-button-large text-button-large text-ink hover:border-primary-container/60 active:scale-95 transition-all flex items-center justify-center gap-2" id="btnEditInline">
+<span class="material-symbols-outlined text-[18px] text-ink-muted-80" data-icon="ink_pen">ink_pen</span>
+<span>Edit Journal</span>
+</button>
+<!-- Save to Journal Primary CTA -->
+<button class="flex-[1.4] py-3 px-4 rounded-full bg-primary-container font-button-large text-button-large text-surface-dim font-bold hover:bg-primary-focus active:scale-95 transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary-container/10" id="btnSavePrimary">
+<span class="material-symbols-outlined text-[19px] text-surface-dim font-bold" data-icon="bookmark_add" data-weight="fill">bookmark_add</span>
+<span>Save to Journal</span>
+</button>
+</div>
+<!-- Android Standard Gesture Navigation Indicator -->
+<div class="w-full flex justify-center pt-1.5">
+<div class="w-32 h-1 bg-ink-muted-80/40 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Inline Micro-Interactions Script -->
+<script>
+    // Toggle overflow menu
+    const overflowBtn = document.getElementById('btnOverflow');
+    const overflowModal = document.getElementById('overflowModal');
+    if (overflowBtn && overflowModal) {
+      overflowBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        overflowModal.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', () => {
+        if (!overflowModal.classList.contains('hidden')) {
+          overflowModal.classList.add('hidden');
+        }
+      });
+    }
+
+    // Save CTA feedback
+    const btnSavePrimary = document.getElementById('btnSavePrimary');
+    const toast = document.getElementById('saveToast');
+    if (btnSavePrimary && toast) {
+      btnSavePrimary.addEventListener('click', () => {
+        toast.classList.remove('hidden');
+        btnSavePrimary.innerHTML = `
+          <span class="material-symbols-outlined text-[19px] text-surface-dim font-bold" data-icon="done">done</span>
+          <span>Saved</span>
+        `;
+        setTimeout(() => {
+          btnSavePrimary.innerHTML = `
+            <span class="material-symbols-outlined text-[19px] text-surface-dim font-bold" data-icon="bookmark_add" data-weight="fill">bookmark_add</span>
+            <span>Save to Journal</span>
+          `;
+        }, 2500);
+      });
+    }
+
+    // Edit button inline toast message
+    const btnEditInline = document.getElementById('btnEditInline');
+    const btnEditNote = document.getElementById('btnEditNote');
+    const triggerEditNotification = () => {
+      alert("Opening inline notebook editor...");
+    };
+    if (btnEditInline) btnEditInline.addEventListener('click', triggerEditNotification);
+    if (btnEditNote) btnEditNote.addEventListener('click', triggerEditNotification);
+  </script>
+</body></html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chalte-Chalte — Walk Completion</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-highest": "#32353d",
+            "error": "#ffb4ab",
+            "on-secondary-container": "#b8b3e7",
+            "ink": "#F4F3EF",
+            "on-error-container": "#ffdad6",
+            "on-error": "#690005",
+            "outline-variant": "#3f4849",
+            "surface-bright": "#363942",
+            "secondary-fixed": "#e4dfff",
+            "surface-container": "#1c1f28",
+            "on-primary-container": "#29696b",
+            "on-primary-fixed-variant": "#024f51",
+            "on-tertiary-fixed-variant": "#4b4639",
+            "ink-muted-80": "#8E97A6",
+            "surface-tint": "#94d1d3",
+            "surface-container-high": "#272a32",
+            "on-primary-fixed": "#002021",
+            "primary-container": "#a8e6e8",
+            "on-tertiary": "#343024",
+            "on-surface-variant": "#bfc8c8",
+            "on-secondary": "#2e2b56",
+            "destructive-bg": "rgba(226, 125, 125, 0.12)",
+            "surface-glass-border": "rgba(255, 255, 255, 0.12)",
+            "secondary": "#c6c1f6",
+            "secondary-fixed-dim": "#c6c1f6",
+            "on-secondary-fixed": "#191540",
+            "on-tertiary-fixed": "#1f1b10",
+            "tertiary-fixed": "#eae2d0",
+            "tertiary-container": "#e3dac8",
+            "surface-variant": "#32353d",
+            "primary-fixed-dim": "#94d1d3",
+            "on-background": "#e0e2ee",
+            "outline": "#899292",
+            "tertiary": "#fff6e7",
+            "on-secondary-fixed-variant": "#45426e",
+            "primary": "#dbfeff",
+            "surface-glass-active": "rgba(35, 42, 56, 0.85)",
+            "inverse-primary": "#28676a",
+            "body-muted": "#A0A9B8",
+            "divider-soft": "rgba(255, 255, 255, 0.08)",
+            "error-container": "#93000a",
+            "on-primary": "#003738",
+            "canvas-secondary": "#1B202A",
+            "primary-fixed": "#afeef0",
+            "surface-dim": "#10131b",
+            "on-surface": "#e0e2ee",
+            "primary-focus": "#BCEFF0",
+            "ink-muted-48": "#5C6473",
+            "inverse-on-surface": "#2d3039",
+            "tertiary-fixed-dim": "#cec6b5",
+            "surface-container-lowest": "#0b0e16",
+            "secondary-container": "#474470",
+            "surface-glass": "rgba(27, 32, 42, 0.65)",
+            "surface": "#10131b",
+            "destructive": "#E27D7D",
+            "background": "#10131b",
+            "hairline": "rgba(255, 255, 255, 0.12)",
+            "inverse-surface": "#e0e2ee",
+            "surface-container-low": "#181b24",
+            "on-tertiary-container": "#655f51"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "1.75rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "sm": "12px",
+            "xxl": "40px",
+            "lg": "20px",
+            "margin": "1.25rem",
+            "xxs": "4px",
+            "gutter": "1rem",
+            "xs": "8px",
+            "space-xs": "0.5rem",
+            "xl": "28px",
+            "section": "48px",
+            "space-lg": "1.25rem",
+            "md": "16px"
+          },
+          "fontFamily": {
+            "body-strong": ["\"Inter\", system-ui, sans-serif"],
+            "body": ["\"Inter\", system-ui, sans-serif"],
+            "caption-strong": ["\"Inter\", system-ui, sans-serif"],
+            "question-serif": ["\"Instrument Serif\", Georgia, serif"],
+            "caption": ["\"Inter\", system-ui, sans-serif"],
+            "hero-display": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "lead": ["\"Inter\", system-ui, sans-serif"],
+            "display-lg": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "display-serif": ["\"Instrument Serif\", Georgia, serif"],
+            "button-large": ["\"Space Grotesk\", system-ui, sans-serif"],
+            "overline": ["\"Space Grotesk\", system-ui, sans-serif"]
+          },
+          "fontSize": {
+            "body-strong": ["15px", { "lineHeight": "1.45", "letterSpacing": "-0.15px", "fontWeight": "600" }],
+            "body": ["15px", { "lineHeight": "1.5", "letterSpacing": "-0.15px", "fontWeight": "400" }],
+            "caption-strong": ["13px", { "lineHeight": "1.4", "fontWeight": "600" }],
+            "question-serif": ["26px", { "lineHeight": "1.38", "letterSpacing": "0.1px", "fontWeight": "400" }],
+            "caption": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+            "hero-display": ["32px", { "lineHeight": "1.15", "letterSpacing": "-0.5px", "fontWeight": "600" }],
+            "lead": ["16px", { "lineHeight": "1.5", "letterSpacing": "-0.2px", "fontWeight": "400" }],
+            "display-lg": ["24px", { "lineHeight": "1.25", "letterSpacing": "-0.3px", "fontWeight": "600" }],
+            "display-serif": ["28px", { "lineHeight": "1.3", "fontWeight": "400" }],
+            "button-large": ["16px", { "lineHeight": "1.2", "letterSpacing": "0.1px", "fontWeight": "600" }],
+            "overline": ["11px", { "lineHeight": "1.2", "letterSpacing": "1.2px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    
+    /* Gentle breathing animation */
+    @keyframes subtleBreathing {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.35;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 0.65;
+      }
+    }
+
+    @keyframes pulseOuter {
+      0%, 100% {
+        transform: scale(0.96);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(1.14);
+        opacity: 0.45;
+      }
+    }
+
+    .animate-breathing-core {
+      animation: subtleBreathing 7s ease-in-out infinite;
+    }
+
+    .animate-breathing-outer {
+      animation: pulseOuter 10s ease-in-out infinite;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#0b0e16] text-ink antialiased flex justify-center items-center min-h-screen p-0 sm:py-6 selection:bg-primary-container selection:text-surface-dim font-body">
+<!-- Mobile Frame Anchor (Android Simulation 412x915) -->
+<div class="relative w-full max-w-[420px] min-h-screen sm:min-h-[900px] sm:max-h-[920px] bg-background sm:rounded-[36px] overflow-hidden shadow-2xl flex flex-col justify-between border border-hairline/20">
+<!-- Atmospheric Ambient Midnight & Violet Gradients -->
+<div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[340px] h-[340px] bg-secondary-container/20 rounded-full blur-[96px]"></div>
+<div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[280px] h-[280px] bg-on-primary-container/15 rounded-full blur-[80px]"></div>
+<div class="absolute -bottom-20 right-0 w-[260px] h-[260px] bg-[#1A1830]/40 rounded-full blur-[70px]"></div>
+</div>
+<!-- Screen Content Stack -->
+<div class="relative z-10 flex flex-col h-full w-full justify-between flex-1">
+<!-- Top Android Status Bar (clock 7:15, notification preview area) -->
+<div>
+<div class="w-full flex justify-between items-center px-6 pt-3 pb-1 select-none text-ink-muted-80">
+<span class="font-body-strong text-caption text-ink tracking-tight">7:15</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">wifi</span>
+<span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]">battery_full</span>
+</div>
+</div>
+<!-- Android System Notification Preview Pill -->
+<div class="px-space-md mt-2">
+<div class="bg-surface-glass backdrop-blur-md rounded-2xl border border-hairline p-space-sm shadow-sm transition-all duration-300 hover:border-primary-container/30">
+<div class="flex items-start gap-3">
+<div class="w-7 h-7 rounded-full bg-surface-container-high border border-hairline flex items-center justify-center flex-shrink-0 text-primary-container">
+<span class="material-symbols-outlined text-[16px]" data-icon="notifications">notifications</span>
+</div>
+<div class="flex-1 min-w-0 pr-1">
+<div class="flex items-center justify-between">
+<span class="font-overline text-overline tracking-widest text-ink-muted-80 uppercase">SYSTEM · JUST NOW</span>
+<span class="material-symbols-outlined text-ink-muted-48 text-[16px] cursor-pointer hover:text-ink transition-colors" data-icon="expand_more">expand_more</span>
+</div>
+<p class="font-body text-caption text-ink mt-0.5 leading-snug">
+<span class="font-body-strong text-primary-fixed">Chalte-Chalte:</span> Your walk is complete. Your reflections are ready whenever you are.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Core Content: Philosophical Motif, Headings & Metrics -->
+<main class="px-space-lg pt-4 pb-2 flex flex-col items-center text-center">
+<!-- Slow Peaceful Concentric Breathing Motif -->
+<div class="relative w-28 h-28 my-1 flex items-center justify-center pointer-events-none select-none">
+<!-- Outer Pulsing Aura -->
+<div class="absolute inset-0 rounded-full border border-secondary/25 animate-breathing-outer bg-secondary-container/10"></div>
+<!-- Mid Glow Ring -->
+<div class="absolute inset-2 rounded-full border border-primary-container/30 animate-breathing-core bg-on-primary-container/10"></div>
+<!-- Center Solid / Soft Radiant Ring -->
+<div class="relative w-12 h-12 rounded-full bg-surface-glass backdrop-blur-md border border-primary-container/60 flex items-center justify-center shadow-[0_0_24px_rgba(168,230,232,0.25)]">
+<span class="material-symbols-outlined text-primary-container text-[20px]" data-icon="air" style="font-variation-settings: 'FILL' 1;">air</span>
+</div>
+</div>
+<!-- Typography & Contemplative Copy -->
+<div class="space-y-1 mb-5">
+<p class="font-overline text-overline text-primary-container tracking-[0.2em] uppercase">WALK COMPLETE</p>
+<h1 class="font-question-serif text-question-serif text-ink tracking-tight font-normal italic">
+            You made space for yourself.
+          </h1>
+<p class="font-body text-body text-body-muted max-w-xs mx-auto leading-relaxed">
+            Your walk is over. Your thoughts are yours to keep.
+          </p>
+</div>
+<!-- Summary Glass Card (Metrics Bento Grid) -->
+<div class="w-full bg-surface-glass backdrop-blur-md rounded-2xl border border-surface-glass-border p-space-md text-left shadow-[0_8px_32px_rgba(0,0,0,0.36)] relative overflow-hidden">
+<!-- Top Row: Route & Session Timestamp -->
+<div class="pb-3 border-b border-divider-soft flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-primary-container text-[18px] flex-shrink-0" data-icon="near_me">near_me</span>
+<div class="truncate">
+<span class="block font-body-strong text-caption-strong text-ink truncate">Nehru Park Outer Ring</span>
+<span class="block font-caption text-[11px] text-ink-muted-80">October 24 · 6:45 PM – 7:09 PM</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-overline text-secondary bg-secondary-container/30 border border-secondary/20 flex-shrink-0">
+              QUIET LOOP
+            </span>
+</div>
+<!-- Key Metrics Grid -->
+<div class="grid grid-cols-3 gap-2 pt-3.5">
+<!-- Metric 1: Duration -->
+<div class="p-2.5 rounded-xl bg-canvas-secondary/70 border border-hairline/60 flex flex-col justify-between">
+<div class="flex items-center gap-1 text-ink-muted-80 mb-1">
+<span class="material-symbols-outlined text-[15px] text-primary-container" data-icon="schedule">schedule</span>
+<span class="font-caption text-[11px] text-ink-muted-80">Duration</span>
+</div>
+<div>
+<span class="font-hero-display text-[20px] font-semibold text-ink leading-tight block">24<span class="text-[13px] font-normal text-ink-muted-80 ml-0.5">m</span></span>
+<span class="font-caption text-[10px] text-ink-muted-48">Mindful pace</span>
+</div>
+</div>
+<!-- Metric 2: Questions Played -->
+<div class="p-2.5 rounded-xl bg-canvas-secondary/70 border border-hairline/60 flex flex-col justify-between">
+<div class="flex items-center gap-1 text-ink-muted-80 mb-1">
+<span class="material-symbols-outlined text-[15px] text-secondary" data-icon="explore">explore</span>
+<span class="font-caption text-[11px] text-ink-muted-80">Inquiries</span>
+</div>
+<div>
+<span class="font-hero-display text-[20px] font-semibold text-ink leading-tight block">3<span class="text-[13px] font-normal text-ink-muted-80 ml-0.5">q</span></span>
+<span class="font-caption text-[10px] text-ink-muted-48">Unrushed</span>
+</div>
+</div>
+<!-- Metric 3: Voice Clips Recorded -->
+<div class="p-2.5 rounded-xl bg-canvas-secondary/70 border border-hairline/60 flex flex-col justify-between">
+<div class="flex items-center gap-1 text-ink-muted-80 mb-1">
+<span class="material-symbols-outlined text-[15px] text-primary-fixed" data-icon="mic">mic</span>
+<span class="font-caption text-[11px] text-ink-muted-80">Spoken</span>
+</div>
+<div>
+<span class="font-hero-display text-[20px] font-semibold text-ink leading-tight block">2<span class="text-[13px] font-normal text-ink-muted-80 ml-0.5">clips</span></span>
+<span class="font-caption text-[10px] text-ink-muted-48">Recorded</span>
+</div>
+</div>
+</div>
+<!-- Philosophical Anchor Line -->
+<div class="mt-3 pt-2.5 border-t border-divider-soft flex items-center gap-2">
+<span class="material-symbols-outlined text-ink-muted-80 text-[14px]" data-icon="quote">format_quote</span>
+<p class="font-question-serif italic text-caption text-ink-muted-80 truncate">
+              "Solvitur ambulando — it is solved by walking."
+            </p>
+</div>
+</div>
+</main>
+<!-- Bottom Interactive Actions Stack -->
+<footer class="px-space-lg pb-3 pt-2 w-full space-y-2.5">
+<!-- Primary Action: Review My Reflections -->
+<button class="w-full h-12 bg-primary-container text-on-primary-fixed font-button-large text-button-large rounded-full flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(168,230,232,0.25)] hover:bg-primary-focus active:scale-[0.98] transition-all duration-200" type="button">
+<span>Review my reflections</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Secondary Action: Save My Walk -->
+<button class="w-full h-12 bg-surface-glass backdrop-blur-md border border-hairline text-ink font-button-large text-button-large rounded-full flex items-center justify-center gap-2 hover:border-primary-container/40 active:scale-[0.98] transition-all duration-200" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary-fixed" data-icon="bookmark">bookmark</span>
+<span>Save my walk</span>
+</button>
+<!-- Tertiary Ghost Action: Discard Session with Confirmation State Trigger -->
+<div class="relative pt-1 text-center">
+<button class="min-h-[44px] px-4 py-2 font-caption text-caption text-ink-muted-48 hover:text-destructive active:scale-95 transition-colors duration-200 inline-flex items-center gap-1.5 focus:outline-none" id="discardBtn" onclick="toggleDiscardModal(true)" type="button">
+<span class="material-symbols-outlined text-[16px]" data-icon="delete_outline">delete_outline</span>
+<span>Discard session</span>
+</button>
+</div>
+<!-- Android Bottom Gesture Bar Indicator -->
+<div class="pt-2 pb-1 flex justify-center">
+<div class="w-32 h-1 rounded-full bg-white/20"></div>
+</div>
+</footer>
+</div>
+<!-- Confirmation Modal Dialog for "Discard Session" (Subtle & Non-intrusive) -->
+<div class="hidden absolute inset-0 z-50 bg-background/85 backdrop-blur-md p-space-lg flex flex-col justify-end transition-opacity duration-200" id="discardModal">
+<div class="bg-canvas-secondary border border-destructive/30 rounded-2xl p-space-md shadow-2xl mb-6">
+<div class="flex items-center gap-2 text-destructive mb-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="warning">warning</span>
+<h3 class="font-body-strong text-body-strong text-ink">Discard this walk?</h3>
+</div>
+<p class="font-body text-caption text-ink-muted-80 mb-4 leading-relaxed">
+          Your 24-minute walk metrics and 2 spoken thought clips will be permanently dissolved into thin air.
+        </p>
+<div class="flex items-center gap-2">
+<button class="flex-1 h-11 bg-surface-glass border border-hairline rounded-full font-button-large text-caption-strong text-ink hover:text-white transition-colors" onclick="toggleDiscardModal(false)" type="button">
+            Keep walk
+          </button>
+<button class="flex-1 h-11 bg-destructive-bg border border-destructive/50 text-destructive rounded-full font-button-large text-caption-strong hover:bg-destructive hover:text-surface-dim transition-colors" onclick="confirmDiscard()" type="button">
+            Discard
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Script for Mindful Micro-interactions -->
+<script>
+    function toggleDiscardModal(show) {
+      const modal = document.getElementById('discardModal');
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function confirmDiscard() {
+      const modal = document.getElementById('discardModal');
+      modal.innerHTML = `
+        <div class="bg-canvas-secondary border border-hairline rounded-2xl p-space-lg text-center shadow-2xl mb-12 animate-fade-in">
+          <span class="material-symbols-outlined text-[32px] text-ink-muted-80 mb-2" data-icon="done">done</span>
+          <p class="font-question-serif text-question-serif text-ink italic mb-1">Session released.</p>
+          <p class="font-body text-caption text-ink-muted-80 mb-4">Returning to silence...</p>
+        </div>
+      `;
+      setTimeout(() => {
+        window.location.reload();
+      }, 1800);
+    }
+  </script>
+</body></html>
