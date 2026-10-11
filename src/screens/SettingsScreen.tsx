@@ -664,16 +664,33 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClearAll }) =>
                   style={{ width: `${Math.min(100, Math.max(4, parseFloat(storageEstimate.usedMB) * 5))}%` }}
                 />
               </div>
-              <div className="flex justify-between items-center text-[11px] text-[#8E97A6] pt-1">
-                <span>Persistence: {isPersisted ? '✓ Granted' : 'Standard'}</span>
+              <div className="flex flex-col gap-1.5 text-[11px] text-[#8E97A6] pt-1">
+                <div className="flex justify-between items-center">
+                  <span>
+                    Persistence status:{' '}
+                    <strong className={isPersisted ? 'text-[#A8E6E8]' : 'text-[#F0E7D5]'}>
+                      {isPersisted === true ? '✓ Granted (Protected)' : isPersisted === false ? 'Standard (Not granted)' : 'Standard'}
+                    </strong>
+                  </span>
+                  {!isPersisted && (
+                    <button
+                      type="button"
+                      onClick={handleRequestPersist}
+                      className="text-[#A8E6E8] hover:underline font-space"
+                    >
+                      Request persistent
+                    </button>
+                  )}
+                </div>
                 {!isPersisted && (
-                  <button
-                    type="button"
-                    onClick={handleRequestPersist}
-                    className="text-[#A8E6E8] hover:underline"
-                  >
-                    Request persistent
-                  </button>
+                  <p className="text-[11px] text-[#E27D7D]/90 leading-tight">
+                    Notice: Without persistent storage approval, your device OS may evict local audio and journals under heavy storage pressure.
+                  </p>
+                )}
+                {isPersisted && (
+                  <p className="text-[11px] text-[#A8E6E8]/90 leading-tight">
+                    Persistent storage active. Your reflections and clips will not be automatically pruned by the browser.
+                  </p>
                 )}
               </div>
             </div>

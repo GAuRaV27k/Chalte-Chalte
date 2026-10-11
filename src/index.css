@@ -47,6 +47,12 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Accessible visible focus states */
+:focus-visible {
+  outline: 2px solid #A8E6E8 !important;
+  outline-offset: 2px !important;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -54,6 +60,8 @@ body {
   color: #F4F3EF;
   font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* Glassmorphism helpers */

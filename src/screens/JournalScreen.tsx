@@ -26,15 +26,6 @@ interface JournalScreenProps {
   onStartFirstWalk: () => void;
 }
 
-const TOPIC_CHIPS = [
-  'All',
-  'Career',
-  'Stillness',
-  'Solitude',
-  'Relationships',
-  'Creativity',
-  'Self-discovery',
-];
 
 export const JournalScreen: React.FC<JournalScreenProps> = ({
   journals,
@@ -45,6 +36,17 @@ export const JournalScreen: React.FC<JournalScreenProps> = ({
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('All');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // Topic chips derived dynamically from real topics of saved sessions
+  const dynamicTopicChips = useMemo(() => {
+    const topicSet = new Set<string>();
+    for (const j of journals) {
+      if (j.topic && j.topic.trim()) {
+        topicSet.add(j.topic.trim());
+      }
+    }
+    return ['All', ...Array.from(topicSet)];
+  }, [journals]);
 
   // Detail view state
   const [activeEntry, setActiveEntry] = useState<JournalEntry | null>(null);
@@ -112,13 +114,15 @@ export const JournalScreen: React.FC<JournalScreenProps> = ({
         }
       }
 
-      // Search match
+      // Search match: title, topic, journal text, and transcripts
       if (debouncedQuery) {
         const titleMatch = (entry.title || '').toLowerCase().includes(debouncedQuery);
         const topicMatch = (entry.topic || '').toLowerCase().includes(debouncedQuery);
         const reflectionMatch = (entry.myReflections || '').toLowerCase().includes(debouncedQuery);
+        const userReflMatch = (entry.userReflections || '').toLowerCase().includes(debouncedQuery);
         const coreMatch = (entry.coreInsight || '').toLowerCase().includes(debouncedQuery);
-        return titleMatch || topicMatch || reflectionMatch || coreMatch;
+        const questionsMatch = (entry.questionsReflected || []).some(q => q.toLowerCase().includes(debouncedQuery));
+        return titleMatch || topicMatch || reflectionMatch || userReflMatch || coreMatch || questionsMatch;
       }
 
       return true;
@@ -271,7 +275,7 @@ export const JournalScreen: React.FC<JournalScreenProps> = ({
 
       {/* Topic Filter Chips matching Stitch */}
       <div className="flex items-center gap-1.5 overflow-x-auto py-2.5 no-scrollbar shrink-0">
-        {TOPIC_CHIPS.map((chip) => {
+        {dynamicTopicChips.map((chip) => {
           const active = selectedTopic === chip;
           return (
             <button

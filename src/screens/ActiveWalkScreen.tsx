@@ -55,22 +55,44 @@ const WaveformBars: React.FC<{
       return;
     }
 
-    const animate = () => {
-      const rms = recorderRef.current?.getLevel() ?? 0;
-      setLevels(prev =>
-        prev.map((_, i) => {
-          const noise = (Math.random() - 0.5) * 0.08;
-          const bar = Math.min(1, Math.max(0.08, rms + noise + (i % 2 === 0 ? 0.05 : 0)));
-          return bar;
-        }),
-      );
-      rafRef.current = requestAnimationFrame(animate);
-    };
+      const animate = () => {
+        const rms = recorderRef.current?.getLevel() ?? 0;
+        setLevels(prev =>
+          prev.map((_, i) => {
+            const noise = (Math.random() - 0.5) * 0.08;
+            const bar = Math.min(1, Math.max(0.08, rms + noise + (i % 2 === 0 ? 0.05 : 0)));
+            return bar;
+          }),
+        );
+        if (!document.hidden && isRecording) {
+          rafRef.current = requestAnimationFrame(animate);
+        }
+      };
 
-    rafRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
+      const handleVisibilityChange = () => {
+        if (document.hidden) {
+          if (rafRef.current) {
+            cancelAnimationFrame(rafRef.current);
+            rafRef.current = null;
+          }
+        } else if (isRecording && !rafRef.current) {
+          rafRef.current = requestAnimationFrame(animate);
+        }
+      };
+
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
+      if (!document.hidden) {
+        rafRef.current = requestAnimationFrame(animate);
+      }
+
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+        if (rafRef.current) {
+          cancelAnimationFrame(rafRef.current);
+          rafRef.current = null;
+        }
+      };
   }, [isRecording, recorderRef]);
 
   return (
@@ -420,6 +442,17 @@ export const ActiveWalkScreen: React.FC<ActiveWalkScreenProps> = ({
 
   return (
     <div className="flex flex-col min-h-full bg-[#10131B] relative overflow-hidden">
+      {/* Throttled screen reader announcement (updates only every 60s or upon pause/question changes, NOT every second) */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {isPaused
+          ? `Walk is currently paused. ${Math.ceil(remainingSec / 60)} minutes remaining.`
+          : isSpeaking
+          ? `Speaking question ${questionIndex} of ${questions.length}: ${currentQuestion?.text}`
+          : remainingSec % 60 === 0
+          ? `${Math.ceil(remainingSec / 60)} minutes remaining in walk.`
+          : ''}
+      </div>
+
       {/* Session header */}
       <header className="flex items-center justify-between px-5 pt-5 pb-3 shrink-0">
         <div>

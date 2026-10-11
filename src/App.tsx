@@ -139,6 +139,17 @@ export function App() {
     };
     await saveSession(updated);
     setCompletedSession(updated);
+
+    // Call navigator.storage.persist() after first saved walk
+    if (typeof navigator !== 'undefined' && navigator.storage && navigator.storage.persist) {
+      try {
+        const persisted = await navigator.storage.persist();
+        localStorage.setItem('chalte_storage_persisted', String(persisted));
+      } catch {
+        // silent fallback
+      }
+    }
+
     await loadJournals();
     // Return to home
     handleGoHome();

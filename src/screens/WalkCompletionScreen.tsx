@@ -190,17 +190,15 @@ export const WalkCompletionScreen: React.FC<WalkCompletionScreenProps> = ({
           </span>
         </button>
 
-        {/* Secondary Action: Review My Reflections (when clips exist) */}
-        {clipsCount > 0 ? (
-          <button
-            type="button"
-            onClick={onReviewReflections}
-            className="w-full h-12 glass-panel border border-white/10 hover:border-[#A8E6E8]/40 text-[#F4F3EF] font-space font-semibold text-[15px] rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all"
-          >
-            <span>Review my reflections</span>
-            <ArrowRight className="w-4 h-4 text-[#A8E6E8]" />
-          </button>
-        ) : null}
+        {/* Secondary Action: Review My Reflections */}
+        <button
+          type="button"
+          onClick={onReviewReflections}
+          className="w-full h-12 glass-panel border border-white/10 hover:border-[#A8E6E8]/40 text-[#F4F3EF] font-space font-semibold text-[15px] rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all"
+        >
+          <span>Review my reflections</span>
+          <ArrowRight className="w-4 h-4 text-[#A8E6E8]" />
+        </button>
 
         {/* Error message with retry */}
         {saveError && (
