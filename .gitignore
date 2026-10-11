@@ -81,3 +81,9 @@ checkpoints/
 # Generated UI captures used during local design verification
 screen_*.png
 stitch_*.png
+
+# Local agent state and PNG files
+.agents/
+.codex/
+*.png
+#
